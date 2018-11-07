@@ -1,0 +1,88 @@
+/* Your app styles here */
+.md .navbar,
+.md .toolbar {
+    background: #6ac045;
+}
+
+.md .list {
+    margin: 0px;
+}
+
+.demo-card-header-pic .card-header {
+    height: 40vw;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+}
+
+.md .navbar:after {
+    background: none;
+}
+
+.md .item-input-focused .item-input-wrap:after,
+.md .input-focused:after {
+    background: #6ac045;
+}
+
+.md label.item-radio input[type="radio"]:checked~.icon-radio,
+.md label.item-radio input[type="radio"]:checked~* .icon-radio,
+.md .radio input[type="radio"]:checked~.icon-radio {
+    border-color: #6ac045;
+}
+
+.md label.item-radio input[type="radio"]:checked~.icon-radio:after,
+.md label.item-radio input[type="radio"]:checked~* .icon-radio:after,
+.md .radio input[type="radio"]:checked~.icon-radio:after {
+    background: #6ac045;
+}
+
+
+#movie-name-search {
+    margin-bottom: 0;
+}
+
+#search-btn-holder {
+    margin-top: 0;
+}
+
+#search-btn-holder button.color-green {
+    background: #6ac045;
+}
+
+.md .dialog-button {
+    color: #6ac045;
+}
+
+#quality1,
+#quality2,
+#quality3,
+#genre-content .tab {
+    padding-top: 0px !important;
+}
+
+.statusbar {
+    background: #6ac045c9 !important;
+}
+
+.advanccatlabel {
+    font-style: italic;
+    text-transform: capitalize;
+    display: inline;
+}
+
+.ripple-wave {
+    display: none !important;
+}
+
+#slide1 {
+    background-color: #f5af59;
+}
+
+#slide2 {
+    background-color: #74a2d1;
+}
+
+
+#slide3 {
+    background-color: red;
+}
