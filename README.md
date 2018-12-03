@@ -23,7 +23,7 @@ Browse different types of movie with details and download via torrent
 - Dark Mode
 
 ## Android Installer
-File: [Android](https://pages.github.com/).
+File: [Android](https://github.com/johndavemanuel/yts-movies/blob/master/YTSMovies-debug.3394139.1.apk)
 
 ## IOS 
 Coming Soon
