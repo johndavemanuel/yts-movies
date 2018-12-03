@@ -25,5 +25,5 @@ Browse different types of movie with details and download via torrent
 ## Android Installer
 File: [Android](https://github.com/johndavemanuel/yts-movies/blob/master/YTSMovies-debug.3394139.1.apk)
 
-## IOS 
+## iOS 
 Coming Soon
