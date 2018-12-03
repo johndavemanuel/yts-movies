@@ -1,7 +1,7 @@
 # YTS Movies
 Phonegap App for browsing and downloading movies (YTS API)
 
-Browse different types ofmovie and details and download via torrent 
+Browse different types of movie with details and download via torrent 
 
 ## Home
 - Latest Upload
@@ -22,8 +22,8 @@ Browse different types ofmovie and details and download via torrent
 ## Settings
 - Dark Mode
 
-## Android
+## Android Installer
 File: [Android](https://pages.github.com/).
 
-## IOS
-File: [iOS](https://pages.github.com/).
+## IOS 
+Coming Soon
