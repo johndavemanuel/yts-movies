@@ -21,4 +21,8 @@ Browse different types ofmovie and details and download via torrent
 ## Settings
 - Dark Mode
 
-APK File: [Android](https://pages.github.com/).
+## Android
+File: [Android](https://pages.github.com/).
+
+## IOS
+File: [iOS](https://pages.github.com/).
