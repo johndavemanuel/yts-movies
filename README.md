@@ -1,5 +1,6 @@
 # YTS Movies
 Phonegap App for browsing and downloading movies (YTS API)
+
 Browse different types ofmovie and details and download via torrent 
 
 ## Home
