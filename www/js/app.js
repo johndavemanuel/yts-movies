@@ -31,7 +31,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
     // app.dialog.alert('This mobile application is using YTS.AM API (Application Programming Interface) to work. If the API server is down or error, this app will not work properly.');
     latestMovies();
 
-     $$('#latest').on('tab:show', function() {
+    $$('#latest').on('tab:show', function() {
         latestMovies();
     });
 
@@ -167,7 +167,13 @@ $$(document).on('page:init', '.page[data-name="search"]', function(e) {
     $$('#search-movie-name').on('click', function(e) {
         var movieName = $$('#movie-name-search-input').val();
         if (movieName == "") {
-            return false;
+            var notificationWithButton = app.notification.create({
+                title: 'YTS Movies',
+                subtitle: 'Search field cannot be empty',
+                closeButton: true,
+                closeTimeout: 5000
+            });
+            notificationWithButton.open();
         } else {
             isSingleSearch = true;
             mainView.router.navigate('/search-results/?moviename=' + movieName + '');
@@ -193,7 +199,15 @@ var toggle = app.toggle.create({
     el: '.toggle',
     on: {
         change: function() {
-            $$('body').toggleClass('theme-dark');
+            var toggle = app.toggle.get('.toggle');
+
+            if (toggle.checked) {
+                $$('body').addClass('theme-dark');
+                localStorage.setItem('color-theme-dark', 'theme-dark');
+            } else {
+                $$('body').removeClass('theme-dark');
+                localStorage.removeItem('color-theme-dark');
+            }
         }
     }
 })
@@ -205,6 +219,102 @@ $$('#side-menu li > a').on('click', function(e) {
     })
     panel.close();
 });
+
+var themecolor_select = app.actions.create({
+    grid: true,
+    buttons: [
+        [{
+                text: 'Select Color',
+                label: true
+            },
+            {
+                text: 'Red',
+                icon: '<button class="button button-fill button-round button-raised color-red"></button>',
+                onClick: function() {
+                    $('body').removeClass();
+                    $$('body').addClass('color-theme-red');
+                    localStorage.setItem('color-theme', 'color-theme-red');
+                    localStorage.setItem('color-theme-form', 'color-red');
+                }
+            },
+            {
+                text: 'Green',
+                icon: '<button class="button button-fill button-round button-raised color-green"></button>',
+                onClick: function() {
+                    $('body').removeClass();
+                    $$('body').addClass('color-theme-green');
+                    localStorage.setItem('color-theme', 'color-theme-green');
+                    localStorage.setItem('color-theme-form', 'color-green');
+                }
+            },
+            {
+                text: 'Blue',
+                icon: '<button class="button button-fill button-round button-raised color-blue"></button>',
+                onClick: function() {
+                    $('body').removeClass();
+                    $$('body').addClass('color-theme-blue');
+                    localStorage.setItem('color-theme', 'color-theme-blue');
+                    localStorage.setItem('color-theme-form', 'color-blue');
+                }
+            },
+        ],
+        [{
+                text: 'Pink',
+                icon: '<button class="button button-fill button-round button-raised color-pink"></button>',
+                onClick: function() {
+                    $('body').removeClass();
+                    $$('body').addClass('color-theme-pink');
+                    localStorage.setItem('color-theme', 'color-theme-pink');
+                    localStorage.setItem('color-theme-form', 'color-pink');
+                }
+            },
+            {
+                text: 'Black',
+                icon: '<button class="button button-fill button-round button-raised color-black"></button>',
+                onClick: function() {
+                    $('body').removeClass();
+                    $$('body').addClass('color-theme-black');
+                    localStorage.setItem('color-theme', 'color-theme-black');
+                    localStorage.setItem('color-theme-form', 'color-black');
+                }
+            },
+            {
+                text: 'Orange',
+                icon: '<button class="button button-fill button-round button-raised color-orange"></button>',
+                onClick: function() {
+                    $('body').removeClass();
+                    $$('body').addClass('color-theme-orange');
+                    localStorage.setItem('color-theme', 'color-theme-orange');
+                    localStorage.setItem('color-theme-form', 'color-orange');
+                }
+            },
+        ]
+    ]
+});
+
+$$('#theme-color').on('click', function() {
+    themecolor_select.open();
+});
+
+
+var currentTheme = localStorage.getItem('color-theme');
+if (currentTheme == null) {
+    currentTheme = "color-theme-green";
+}
+$('body').removeClass();
+$$('body').addClass(currentTheme);
+
+var currentThemeDark = localStorage.getItem('color-theme-dark');
+if (currentThemeDark == null) {
+    currentThemeDark = "theme-light";
+    $$('#theme-dark-checkbox').prop('checked', false);
+} else {
+    $$('#theme-dark-checkbox').prop('checked', true);
+}
+$$('body').addClass(currentThemeDark);
+
+
+
 
 app.init();
 
@@ -444,8 +554,14 @@ function movieDetails(movieID) {
         $$('#movide-details-holder').append(movieDetailsHolder);
 
         // console.log(data.data.movie.cast);
+
+        var currentThemeForm = localStorage.getItem('color-theme-form');
+        if (currentThemeForm == null) {
+            currentThemeForm = "color-green";
+        }
+
         $.each(data.data.movie.cast, function(key, val) {
-            var movieCasts = '<div class="chip color-green">' +
+            var movieCasts = '<div class="chip ' + currentThemeForm + '">' +
                 ' <div class="chip-media"><img src="' + val.url_small_image + '"/></div>' +
                 '<div class="chip-label">' + val.name + '</div>';
             $$('#cast-holder').append(movieCasts);
@@ -453,7 +569,7 @@ function movieDetails(movieID) {
 
         // console.log(data.data.movie.genres);
         $.each(data.data.movie.genres, function(key, val) {
-            var moviegenres = '<div class="chip color-green">' +
+            var moviegenres = '<div class="chip ' + currentThemeForm + '">' +
                 '<div class="chip-label">' + val + '</div>';
             $$('#genre-holder').append(moviegenres);
         });
