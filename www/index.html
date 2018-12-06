@@ -144,13 +144,16 @@
                     </div>
                 </div>
                 <div class="tabs">
-                    <div class="page-content tab tab-active" id="latest">
-                        <div>
-                            <div class="list media-list">
-                                <ul id="latest-movies">
-                                </ul>
-                            </div>
+                    <div class="page-content infinite-scroll-content-latest-movies ptr-content tab tab-active" id="latest">
+                        <div class="ptr-preloader">
+                            <div class="preloader"></div>
+                            <div class="ptr-arrow"></div>
                         </div>
+                        <div class="list media-list" id="latest-movies-wrapper">
+                            <ul id="latest-movies">
+                            </ul>
+                        </div>
+                        <div class="preloader infinite-scroll-preloader"></div>
                     </div>
                     <div class="page-content tab" id="rated">
                         <div>
@@ -172,13 +175,46 @@
             </div>
         </div>
     </div>
-    <!-- <script src="cordova.js"></script> -->
+    <script src="cordova.js"></script>
     <script src="js/framework7.js" type="text/javascript"></script>
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <script src="js/routes.js" type="text/javascript"></script>
     <script src="js/bundle-scrollup.js" type="text/javascript"></script>
     <script src="js/bundle-welcome.js" type="text/javascript"></script>
     <script src="js/app.js" type="text/javascript"></script>
+    <script>
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function onDeviceReady() {
+
+        var currentThemeStatusbar = localStorage.getItem('color-theme');
+        var bgColorThemeStatusBar;
+
+        if (currentThemeStatusbar == "color-theme-orange") {
+            bgColorThemeStatusBar = "#c66900";
+        } else if (currentThemeStatusbar == "color-theme-black") {
+            bgColorThemeStatusBar = "#484848";
+        } else if (currentThemeStatusbar == "color-theme-pink") {
+            bgColorThemeStatusBar = "#b0003a";
+        } else if (currentThemeStatusbar == "color-theme-blue") {
+            bgColorThemeStatusBar = "#0069c0";
+        } else if (currentThemeStatusbar == "color-theme-green") {
+            bgColorThemeStatusBar = "#087f23";
+        } else if (currentThemeStatusbar == "color-theme-red") {
+            bgColorThemeStatusBar = "#ba000d";
+        } else {
+            bgColorThemeStatusBar = "#087f23";
+        }
+
+
+        StatusBar.overlaysWebView(true);
+        // StatusBar.styleLightContent();
+        StatusBar.styleDefault();
+        // StatusBar.styleBlackTranslucent();
+        // StatusBar.styleBlackOpaque();
+        StatusBar.backgroundColorByHexString(bgColorThemeStatusBar);
+    }
+    </script>
 </body>
 
 </html>

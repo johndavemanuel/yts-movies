@@ -24,9 +24,9 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <preference name="StatusBarOverlaysWebView" value="true" />
+    <!-- <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarBackgroundColor" value="#418823" />
-    <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="StatusBarStyle" value="lightcontent" /> -->
     <platform name="android">
         <icon src="res/icon/android/ldpi.png" density="ldpi" />
         <icon src="res/icon/android/mdpi.png" density="mdpi" />

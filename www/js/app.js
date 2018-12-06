@@ -2,20 +2,25 @@
 var $$ = Dom7;
 
 // Framework7 App main instance
+
 var app = new Framework7({
     root: '#app',
-    id: 'io.framework7.ytsmovies',
+    id: 'io.davemanuel.ytsmovies',
     name: 'YTS Movies',
     theme: 'auto',
     routes: routes,
     cache: false,
     cacheDuration: 0,
     init: false,
-    statusbar: {
-        androidBackgroundColor: '#6ac045c9'
-    },
+    // statusbar: {
+    //     androidBackgroundColor: '#418823'
+    // },
     materialRipple: false,
+    vi: {
+        placementId: 'pltWU1VaLaaSS34L1qN'
+    }
 });
+
 
 // Init/Create main view
 var mainView = app.views.create('.view-main', {
@@ -27,7 +32,75 @@ var isSingleSearch = false;
 var isAdvanceSearch = false;
 
 $$(document).on('page:init', '.page[data-name="home"]', function(e) {
-    // app.statusbar.show();
+    // ADS
+    var prepairedAd;
+    if (!app.vi.sdkReady) {
+        app.on('viSdkReady', function() {
+            prepairedAd = app.vi.createAd({
+                autoplay: false,
+            });
+        })
+    } else {
+        prepairedAd = app.vi.createAd({
+            autoplay: false,
+        });
+    }
+    // INIFINITE
+    var allowInfinite = true;
+    var lastItemIndex = $$('#latest-movies-wrapper ul li').length;
+    var maxItems = 2000;
+    var itemsPerLoad = 20;
+    var scrollInfiniteCounter = 2;
+
+    $$('.infinite-scroll-content-latest-movies').on('infinite', function() {
+        console.log(scrollInfiniteCounter);
+        if (!allowInfinite) return;
+        allowInfinite = false;
+        setTimeout(function() {
+            allowInfinite = true;
+
+            if (lastItemIndex >= maxItems) {
+                app.infiniteScroll.destroy('.infinite-scroll-content');
+                $$('.infinite-scroll-preloader').remove();
+                return;
+            }
+            $.ajax({
+                url: baseUrl + 'list_movies.json?page=' + scrollInfiniteCounter + '&limit=20',
+                type: "GET",
+            }).fail(function(data) {
+                console.log('error:' + data);
+                alertServerError();
+            }).done(function(data) {
+                $.each(data.data.movies, function(key, val) {
+                    var latestItemHolder = '<li>' +
+                        '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                        '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                        '<div class="item-inner">' +
+                        '<div class="item-title-row">' +
+                        '<div class="item-title">' + val.title_english + '</div>' +
+                        '</div>' +
+                        '<div class="item-subtitle">' + val.year + '</div>' +
+                        '<div class="item-text">' + val.description_full + '</div>' +
+                        '</div>' +
+                        '</a>' +
+                        '</li>';
+                    $$('#latest-movies').append(latestItemHolder);
+                });
+            });
+
+            lastItemIndex = $$('#latest-movies-wrapper ul li').length;
+            scrollInfiniteCounter++;
+        }, 1000);
+    });
+
+    // PULL TO REFRESH
+    $$('.ptr-content').on('ptr:refresh', function(e) {
+        $$('#latest-movies').html("");
+        latestMovies();
+        setTimeout(function() {
+            app.ptr.done();
+        }, 2000);
+    });
     // app.dialog.alert('This mobile application is using YTS.AM API (Application Programming Interface) to work. If the API server is down or error, this app will not work properly.');
     latestMovies();
 
@@ -37,6 +110,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
 
     $$('#rated').on('tab:show', function() {
         topRatedMovies();
+        prepairedAd.start();
     });
     $$('#download').on('tab:show', function() {
         topDownloadMovies();
@@ -54,7 +128,6 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
     $$('#quality3').on('tab:show', function() {
         threeD();
     });
-
 })
 
 
@@ -235,6 +308,7 @@ var themecolor_select = app.actions.create({
                     $$('body').addClass('color-theme-red');
                     localStorage.setItem('color-theme', 'color-theme-red');
                     localStorage.setItem('color-theme-form', 'color-red');
+                    StatusBar.backgroundColorByHexString("#ba000d");
                 }
             },
             {
@@ -245,6 +319,7 @@ var themecolor_select = app.actions.create({
                     $$('body').addClass('color-theme-green');
                     localStorage.setItem('color-theme', 'color-theme-green');
                     localStorage.setItem('color-theme-form', 'color-green');
+                    StatusBar.backgroundColorByHexString("#087f23");
                 }
             },
             {
@@ -255,6 +330,7 @@ var themecolor_select = app.actions.create({
                     $$('body').addClass('color-theme-blue');
                     localStorage.setItem('color-theme', 'color-theme-blue');
                     localStorage.setItem('color-theme-form', 'color-blue');
+                    StatusBar.backgroundColorByHexString("#0069c0");
                 }
             },
         ],
@@ -266,6 +342,7 @@ var themecolor_select = app.actions.create({
                     $$('body').addClass('color-theme-pink');
                     localStorage.setItem('color-theme', 'color-theme-pink');
                     localStorage.setItem('color-theme-form', 'color-pink');
+                    StatusBar.backgroundColorByHexString("#b0003a");
                 }
             },
             {
@@ -276,6 +353,7 @@ var themecolor_select = app.actions.create({
                     $$('body').addClass('color-theme-black');
                     localStorage.setItem('color-theme', 'color-theme-black');
                     localStorage.setItem('color-theme-form', 'color-black');
+                    StatusBar.backgroundColorByHexString("#484848");
                 }
             },
             {
@@ -286,6 +364,7 @@ var themecolor_select = app.actions.create({
                     $$('body').addClass('color-theme-orange');
                     localStorage.setItem('color-theme', 'color-theme-orange');
                     localStorage.setItem('color-theme-form', 'color-orange');
+                    StatusBar.backgroundColorByHexString("#c66900");
                 }
             },
         ]

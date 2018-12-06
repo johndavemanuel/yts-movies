@@ -138,6 +138,9 @@
             } else if (currentTheme == "color-theme-red") {
                 bgColorTheme = "#f44336";
                 fontColorTheme = "#fff";
+            } else {
+                bgColorTheme = "#4caf50";
+                fontColorTheme = "#fff";
             }
 
             var options = {
@@ -205,17 +208,20 @@
 
             var app = new Framework7({
                 root: '#app',
-                id: 'io.framework7.ytsmovies',
+                id: 'io.davemanuel.ytsmovies',
                 name: 'YTS Movies',
                 theme: 'auto',
                 materialRipple: false,
-                statusbar: {
-                    androidBackgroundColor: '#6ac045c9'
-                },
+                // statusbar: {
+                //     androidBackgroundColor: '#6ac045c9'
+                // },
                 welcomescreen: {
                     slides: welcomescreen_slides,
                     options: options,
                 },
+                vi: {
+                    placementId: 'pltWU1VaLaaSS34L1qN'
+                }
             });
 
             //  var mainView = app.views.create('.view-main', {
