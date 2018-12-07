@@ -297,7 +297,7 @@ var themecolor_select = app.actions.create({
     grid: true,
     buttons: [
         [{
-                text: 'Select Color',
+                text: 'Select Theme Color',
                 label: true
             },
             {

@@ -83,6 +83,10 @@
     width: auto !important;
 }
 
+#other-settings ul:before {
+    background-color: transparent !important;
+}
+
 
 /*COLOR THEME RED*/
 .color-theme-red #search-btn-holder button.color-green,
@@ -98,7 +102,7 @@
     background: #f44336 !important;
 }
 
-.color-theme-red  .notification-title {
+.color-theme-red .notification-title {
     color: #f44336 !important;
 }
 
@@ -116,7 +120,7 @@
     background: #2196f3 !important;
 }
 
-.color-theme-blue  .notification-title {
+.color-theme-blue .notification-title {
     color: #2196f3 !important;
 }
 
@@ -134,7 +138,7 @@
     background: #e91e63 !important;
 }
 
-.color-theme-pink  .notification-title {
+.color-theme-pink .notification-title {
     color: #e91e63 !important;
 }
 
@@ -152,7 +156,7 @@
     background: #4caf50 !important;
 }
 
-.color-theme-green  .notification-title {
+.color-theme-green .notification-title {
     color: #4caf50 !important;
 }
 
@@ -170,7 +174,7 @@
     background: #000000 !important;
 }
 
-.color-theme-black  .notification-title {
+.color-theme-black .notification-title {
     color: #000000 !important;
 }
 
@@ -189,6 +193,6 @@
     background: #ff9800 !important;
 }
 
-.color-theme-orange  .notification-title {
+.color-theme-orange .notification-title {
     color: #ff9800 !important;
 }
