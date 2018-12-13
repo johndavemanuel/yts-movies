@@ -32,6 +32,8 @@ var prepairedAd;
 
 
 $$(document).on('page:init', '.page[data-name="home"]', function(e) {
+     app.infiniteScroll.create(".infinite-scroll-content-latest-movies");
+     app.ptr.create(".ptr-content-latest-movies");
     // ADS
     if (!app.vi.sdkReady) {
         app.on('viSdkReady', function() {
@@ -54,7 +56,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
     var scrollInfiniteCounter = 2;
 
     $$('.infinite-scroll-content-latest-movies').on('infinite', function() {
-        console.log(scrollInfiniteCounter);
+        console.log("Infinite Scroll Latest");
         if (!allowInfinite) return;
         allowInfinite = false;
         setTimeout(function() {
@@ -100,10 +102,57 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
 
         latestMovies();
 
-        
+        // INIFINITE
+        var allowInfinite = true;
+        var lastItemIndex = $$('#latest-movies-wrapper ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-latest-movies').on('infinite', function() {
+            console.log("Infinite Scroll Latest");
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-latest-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var latestItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#latest-movies').append(latestItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#latest-movies-wrapper ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
+
         // PULL TO REFRESH
         $$('.ptr-content-latest-movies').on('ptr:refresh', function(e) {
-            alert("PTR Latest");
+            console.log("PTR Latest");
             $$('#latest-movies').html("");
             latestMovies();
             setTimeout(function() {
@@ -124,7 +173,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
         var scrollInfiniteCounter = 2;
 
         $$('.infinite-scroll-content-rated-movies').on('infinite', function() {
-            alert("Infinite Scroll Rated");
+            console.log("Infinite Scroll Rated");
             if (!allowInfinite) return;
             allowInfinite = false;
             setTimeout(function() {
@@ -166,7 +215,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
 
         // PTR RATED
         $$('.ptr-content-rated-movies').on('ptr:refresh', function(e) {
-            alert("PTR Rated");
+            console.log("PTR Rated");
             $$('#rated-movies').html("");
             topRatedMovies();
             setTimeout(function() {
@@ -187,7 +236,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
         var scrollInfiniteCounter = 2;
 
         $$('.infinite-scroll-content-download-movies').on('infinite', function() {
-            alert("Infinite Scroll Download");
+            console.log("Infinite Scroll Download");
             if (!allowInfinite) return;
             allowInfinite = false;
             setTimeout(function() {
@@ -229,7 +278,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
 
         // PULL TO REFRESH
         $$('.ptr-content-download-movies').on('ptr:refresh', function(e) {
-            alert("download PTR");
+            console.log("download PTR");
             $$('#download-movies').html("");
             topDownloadMovies();
             setTimeout(function() {
