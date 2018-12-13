@@ -55,4 +55,7 @@
     <preference name="PaginationMode" value="unpaginated" />
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarStyle" value="lightcontent" />
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+    </feature>
 </widget>

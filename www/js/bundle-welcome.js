@@ -182,13 +182,13 @@
                     id: 'slide2',
                     title: 'Download Movies',
                     picture: '<div style="line-height: 170px;" class="tutorialicon"><i  style="font-size: 150px;" class="material-icons">cloud_download</i></div>',
-                    text: 'You can download your favorite movies on the go!<br><br>Swipe to continue →'
+                    text: 'You can download your favourite movies on the go!<br><br>Swipe to continue →'
                 },
                 {
                     id: 'slide3',
                     title: 'Enjoy',
                     picture: '<div style="line-height: 170px;" class="tutorialicon"><i  style="font-size: 150px;" class="material-icons">favorite</i></div>',
-                    text: "<p>Thanks for reading! Enjoy the app</p> <br><br> <a class='close-welcomescreen col button-fill color-white' href='#'>Let's Go</a>"
+                    text: "<p>Enjoy the app</p> <br><br> <a class='close-welcomescreen col button-fill color-white' href='#'>Start browsing and downloading →</a>"
                 }
             ];
 
@@ -210,11 +210,8 @@
                 root: '#app',
                 id: 'io.davemanuel.ytsmovies',
                 name: 'YTS Movies',
-                theme: 'auto',
+                theme: 'md',
                 materialRipple: false,
-                // statusbar: {
-                //     androidBackgroundColor: '#6ac045c9'
-                // },
                 welcomescreen: {
                     slides: welcomescreen_slides,
                     options: options,

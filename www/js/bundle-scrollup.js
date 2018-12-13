@@ -120,7 +120,7 @@
             root: '#app',
             name: 'YTS Movies',
             id: 'io.davemanuel.ytsmovies',
-            theme: 'auto',
+            theme: 'md',
             upscroller: {
                 text: 'Scroll Up',
                 ignorePages: ['about', 'credits'],

@@ -115,13 +115,41 @@
 
 
         document.addEventListener("DOMContentLoaded", function(event) {
+
+            var currentTheme = localStorage.getItem('color-theme');
+            var bgColorTheme;
+            var fontColorTheme;
+
+            if (currentTheme == "color-theme-orange") {
+                bgColorTheme = "#ff9800";
+                fontColorTheme = "#fff";
+            } else if (currentTheme == "color-theme-black") {
+                bgColorTheme = "#000000";
+                fontColorTheme = "#fff";
+            } else if (currentTheme == "color-theme-pink") {
+                bgColorTheme = "#e91e63";
+                fontColorTheme = "#fff";
+            } else if (currentTheme == "color-theme-blue") {
+                bgColorTheme = "#2196f3";
+                fontColorTheme = "#fff";
+            } else if (currentTheme == "color-theme-green") {
+                bgColorTheme = "#4caf50";
+                fontColorTheme = "#fff";
+            } else if (currentTheme == "color-theme-red") {
+                bgColorTheme = "#f44336";
+                fontColorTheme = "#fff";
+            } else {
+                bgColorTheme = "#4caf50";
+                fontColorTheme = "#fff";
+            }
+
             var options = {
-                'bgcolor': '#6ac045',
-                'fontcolor': '#fff',
+                'bgcolor': bgColorTheme,
+                'fontcolor': fontColorTheme,
 
                 // Parallax example – Remove comments to test it out:
 
-                parallax: true, 
+                parallax: true,
                 // parallaxBackgroundImage: 'http://lorempixell.com/900/600/nightlife/2/', // parallax default background image
                 parallaxBackground: '-23%', // parallax default background effect
                 /* parallaxSlideElements: {
@@ -154,13 +182,13 @@
                     id: 'slide2',
                     title: 'Download Movies',
                     picture: '<div style="line-height: 170px;" class="tutorialicon"><i  style="font-size: 150px;" class="material-icons">cloud_download</i></div>',
-                    text: 'You can download your favorite movies on the go!<br><br>Swipe to continue →'
+                    text: 'You can download your favourite movies on the go!<br><br>Swipe to continue →'
                 },
                 {
                     id: 'slide3',
                     title: 'Enjoy',
                     picture: '<div style="line-height: 170px;" class="tutorialicon"><i  style="font-size: 150px;" class="material-icons">favorite</i></div>',
-                    text: "<p>Thanks for reading! Enjoy the app</p> <br><br> <a class='close-welcomescreen col button-fill color-white' href='#'>Let's Go</a>"
+                    text: "<p>Enjoy the app</p> <br><br> <a class='close-welcomescreen col button-fill color-white' href='#'>Start browsing and downloading →</a>"
                 }
             ];
 
@@ -178,19 +206,19 @@
             //     },
             // });
 
-              var app = new Framework7({
+            var app = new Framework7({
                 root: '#app',
-                id: 'io.framework7.ytsmovies',
+                id: 'io.davemanuel.ytsmovies',
                 name: 'YTS Movies',
-                theme: 'auto',
+                theme: 'md',
                 materialRipple: false,
-                statusbar: {
-                    androidBackgroundColor: '#6ac045c9'
-                },
                 welcomescreen: {
-                  slides: welcomescreen_slides,
-                  options: options,
+                    slides: welcomescreen_slides,
+                    options: options,
                 },
+                vi: {
+                    placementId: 'pltWU1VaLaaSS34L1qN'
+                }
             });
 
             //  var mainView = app.views.create('.view-main', {
@@ -211,6 +239,59 @@
 
             Dom7(document).on('click', '.tutorial-previous-slide', function(e) {
                 app.welcomescreen.previous();
+            });
+
+            Dom7(document).on('click', '#welcome-screen', function(e) {
+                var currentTheme = localStorage.getItem('color-theme');
+                var bgColorTheme;
+                var fontColorTheme;
+
+                if (currentTheme == "color-theme-orange") {
+                    bgColorTheme = "#ff9800";
+                    fontColorTheme = "#fff";
+                } else if (currentTheme == "color-theme-black") {
+                    bgColorTheme = "#000000";
+                    fontColorTheme = "#fff";
+                } else if (currentTheme == "color-theme-pink") {
+                    bgColorTheme = "#e91e63";
+                    fontColorTheme = "#fff";
+                } else if (currentTheme == "color-theme-blue") {
+                    bgColorTheme = "#2196f3";
+                    fontColorTheme = "#fff";
+                } else if (currentTheme == "color-theme-green") {
+                    bgColorTheme = "#4caf50";
+                    fontColorTheme = "#fff";
+                } else if (currentTheme == "color-theme-red") {
+                    bgColorTheme = "#f44336";
+                    fontColorTheme = "#fff";
+                } else {
+                    bgColorTheme = "#4caf50";
+                    fontColorTheme = "#fff";
+                }
+
+                var options = {
+                    'bgcolor': bgColorTheme,
+                    'fontcolor': fontColorTheme,
+
+                    // Parallax example – Remove comments to test it out:
+
+                    parallax: true,
+                    // parallaxBackgroundImage: 'http://lorempixell.com/900/600/nightlife/2/', // parallax default background image
+                    parallaxBackground: '-23%', // parallax default background effect
+                    /* parallaxSlideElements: {
+                          title: -100, 
+                          subtitle: -300, 
+                          text: -500
+                      }, */
+
+                    'onOpened': function() {
+                        console.log("welcome screen opened");
+                    },
+                    'onClosed': function() {
+                        console.log("welcome screen closed");
+                    }
+                };
+                app.welcomescreen.open();
             });
 
         });

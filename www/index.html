@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html class="with-statusbar">
 
-<head>
-    <meta charset="utf-8">
-    <!--
+    <head>
+        <meta charset="utf-8">
+        <!--
          Customize this policy to fit your own app's needs. For more guidance, see:
              https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
          Some notes:
@@ -12,216 +12,221 @@
              * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                  * Enable inline JS: add 'unsafe-inline' to default-src
          -->
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="theme-color" content="#2196f3">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
-    <title>YTS Movies</title>
-    <link rel="stylesheet" href="css/framework7.css">
-    <link rel="stylesheet" href="css/icons.css">
-    <link rel="stylesheet" href="css/app.css">
-    <!-- <link rel="stylesheet" href="css/f7.welcomescreen.css"> -->
-</head>
+        <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="theme-color" content="#2196f3">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <title>YTS Movies</title>
+        <link rel="stylesheet" href="css/framework7.css">
+        <link rel="stylesheet" href="css/icons.css">
+        <link rel="stylesheet" href="css/app.css">
+        <!-- <link rel="stylesheet" href="css/f7.welcomescreen.css"> -->
+    </head>
 
-<body>
-    <div id="app">
-        <div class="statusbar"></div>
-        <div class="panel panel-left panel-cover theme-light">
-            <div class="view">
-                <div class="page">
-                    <div class="navbar">
-                        <div class="navbar-inner">
-                            <div class="title">YTS Movies</div>
+    <body>
+        <div id="app">
+            <div class="statusbar"></div>
+            <div class="panel panel-left panel-cover theme-light">
+                <div class="view">
+                    <div class="page">
+                        <div class="navbar">
+                            <div class="navbar-inner">
+                                <div class="title">YTS Movies</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="page-content">
-                        <div class="list" id="side-menu">
-                            <div class="block-title">Movies</div>
-                            <ul>
-                                <li>
-                                    <a href="/" class="item-link item-content">
-                                 <div class="item-inner">
-                                    <div class="item-title">Home</div>
-                                 </div>
-                              </a>
-                                </li>
-                                <li>
-                                    <!-- <a href="/upcoming/" class="item-link item-content">
+                        <div class="page-content">
+                            <div class="list" id="side-menu">
+                                <div class="block-title">Movies</div>
+                                <ul>
+                                    <li>
+                                        <a href="/" class="item-link item-content">
+                                            <div class="item-inner">
+                                                <div class="item-title">Home</div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <!-- <a href="/upcoming/" class="item-link item-content">
                                  <div class="item-inner">
                                     <div class="item-title">Upcoming</div>
                                  </div>
                               </a> -->
-                                </li>
-                                <li>
-                                    <a href="/quality/" class="item-link item-content">
-                                 <div class="item-inner">
-                                    <div class="item-title">Quality</div>
-                                 </div>
-                              </a>
-                                </li>
-                                <li>
-                                    <a href="/genre/" class="item-link item-content">
-                                 <div class="item-inner">
-                                    <div class="item-title">Genre</div>
-                                 </div>
-                              </a>
-                                </li>
-                            </ul>
-                            <div class="block-title">Settings</div>
-                            <div class="list simple-list">
-                                <ul>
-                                    <li>
-                                        <span>Night Mode</span>
-                                        <label class="toggle toggle-init color-green">
-                                            <input type="checkbox" id="theme-dark-checkbox">
-                                            <span class="toggle-icon"></span>
-                                        </label>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="list" id="other-settings">
-                                <ul>
-                                    <li>
-                                        <a id="theme-color" href="#" class="item-link item-content">
-                                 <div class="item-inner">
-                                    <div class="item-title">Theme Color</div>
-                                 </div>
-                              </a>
                                     </li>
                                     <li>
-                                        <a id="welcome-screen" href="#" class="item-link item-content">
-                                 <div class="item-inner">
-                                    <div class="item-title">Welcome Screen</div>
-                                 </div>
-                              </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="block-title">App</div>
-                            <div class="list">
-                                <ul>
-                                    <li>
-                                        <a href="/credits/" class="item-link item-content">
-                                 <div class="item-inner">
-                                    <div class="item-title">Credits</div>
-                                 </div>
-                              </a>
+                                        <a href="/quality/" class="item-link item-content">
+                                            <div class="item-inner">
+                                                <div class="item-title">Quality</div>
+                                            </div>
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="/feedback/" class="item-link item-content">
-                                 <div class="item-inner">
-                                    <div class="item-title">Give Feedback</div>
-                                 </div>
-                              </a>
+                                        <a href="/genre/" class="item-link item-content">
+                                            <div class="item-inner">
+                                                <div class="item-title">Genre</div>
+                                            </div>
+                                        </a>
                                     </li>
                                 </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="view view-main ios-edges">
-            <div class="page" data-name="home">
-                <div class="navbar">
-                    <div class="navbar-inner">
-                        <div class="left">
-                            <a href="#" class="link icon-only panel-open" data-panel="left">
-                        <i class="icon f7-icons ios-only">menu</i>
-                        <i class="icon material-icons md-only">menu</i>
-                        </a>
-                        </div>
-                        <div class="title sliding">YTS Movies</div>
-                        <div class="right">
-                            <a href="/search/" class="link icon-only">
-                        <i class="icon f7-icons ios-only">search</i>
-                        <i class="icon material-icons md-only">search</i>
-                        </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="toolbar tabbar tabbar-scrollable">
-                    <div class="toolbar-inner">
-                        <a href="#latest" class="tab-link tab-link-active">Latest Uploads</a>
-                        <a href="#rated" class="tab-link">Top Rated</a>
-                        <a href="#download" class="tab-link">Popular Downloads</a>
-                    </div>
-                </div>
-                <div class="tabs">
-                    <div class="page-content infinite-scroll-content-latest-movies ptr-content tab tab-active" id="latest">
-                        <div class="ptr-preloader">
-                            <div class="preloader"></div>
-                            <div class="ptr-arrow"></div>
-                        </div>
-                        <div class="list media-list" id="latest-movies-wrapper">
-                            <ul id="latest-movies">
-                            </ul>
-                        </div>
-                        <div class="preloader infinite-scroll-preloader"></div>
-                    </div>
-                    <div class="page-content tab" id="rated">
-                        <div>
-                            <div class="list media-list">
-                                <ul id="rated-movies">
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="page-content tab" id="download">
-                        <div>
-                            <div class="list media-list">
-                                <ul id="download-movies">
-                                </ul>
+                                <div class="block-title">Settings</div>
+                                <div class="list simple-list">
+                                    <ul>
+                                        <li>
+                                            <span>Night Mode</span>
+                                            <label class="toggle toggle-init color-green">
+                                                <input type="checkbox" id="theme-dark-checkbox">
+                                                <span class="toggle-icon"></span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="list" id="other-settings">
+                                    <ul>
+                                        <li>
+                                            <a id="theme-color" href="#" class="item-link item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title">Theme Color</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <!-- <li>
+                                            <a id="welcome-screen" href="#" class="item-link item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title">Welcome Screen</div>
+                                                </div>
+                                            </a>
+                                        </li> -->
+                                    </ul>
+                                </div>
+                                <div class="block-title">App</div>
+                                <div class="list">
+                                    <ul>
+                                        <li>
+                                            <a href="/credits/" class="item-link item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title">Credits</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/feedback/" class="item-link item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title">Give Feedback</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="view view-main ios-edges">
+                <div class="page" data-name="home">
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <div class="left">
+                                <a href="#" class="link icon-only panel-open" data-panel="left">
+                                    <i class="icon f7-icons ios-only">menu</i>
+                                    <i class="icon material-icons md-only">menu</i>
+                                </a>
+                            </div>
+                            <div class="title sliding">YTS Movies</div>
+                            <div class="right">
+                                <a href="/search/" class="link icon-only">
+                                    <i class="icon f7-icons ios-only">search</i>
+                                    <i class="icon material-icons md-only">search</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="toolbar tabbar tabbar-scrollable">
+                        <div class="toolbar-inner">
+                            <a href="#latest" class="tab-link tab-link-active">Latest Uploads</a>
+                            <a href="#rated" class="tab-link">Top Rated</a>
+                            <a href="#download" class="tab-link">Popular Downloads</a>
+                        </div>
+                    </div>
+                    <div class="tabs">
+                        <div class="page-content infinite-scroll-content-latest-movies ptr-content-latest-movies tab tab-active" id="latest">
+                            <div class="ptr-preloader">
+                                <div class="preloader"></div>
+                                <div class="ptr-arrow"></div>
+                            </div>
+                            <div class="list media-list" id="latest-movies-wrapper">
+                                <ul id="latest-movies">
+                                </ul>
+                            </div>
+                            <div class="preloader infinite-scroll-preloader"></div>
+                        </div>
+                        <div class="page-content infinite-scroll-content-rated-movies  ptr-content-rated-movies tab" id="rated">
+                            <div class="ptr-preloader">
+                                <div class="preloader"></div>
+                                <div class="ptr-arrow"></div>
+                            </div>
+                            <div>
+                                <div class="list media-list" id="rated-movies-wrapper">
+                                    <ul id="rated-movies">
+                                    </ul>
+                                </div>
+                            </div>
+                             <div class="preloader infinite-scroll-preloader"></div>
+                        </div>
+                        <div class="page-content infinite-scroll-content-download-movies ptr-content-download-movies tab" id="download">
+                            <div class="ptr-preloader">
+                                <div class="preloader"></div>
+                                <div class="ptr-arrow"></div>
+                            </div>
+                            <div>
+                                <div class="list media-list" id="download-movies-wrapper">
+                                    <ul id="download-movies">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="preloader infinite-scroll-preloader"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- <script src="cordova.js"></script> -->
-    <script src="js/framework7.js" type="text/javascript"></script>
-    <script src="js/jquery.min.js" type="text/javascript"></script>
-    <script src="js/routes.js" type="text/javascript"></script>
-    <script src="js/bundle-scrollup.js" type="text/javascript"></script>
-    <script src="js/bundle-welcome.js" type="text/javascript"></script>
-    <script src="js/app.js" type="text/javascript"></script>
-    <script>
-    document.addEventListener("deviceready", onDeviceReady, false);
+        <!-- <script src="cordova.js"></script> -->
+        <script src="js/framework7.js" type="text/javascript"></script>
+        <script src="js/jquery.min.js" type="text/javascript"></script>
+        <script src="js/routes.js" type="text/javascript"></script>
+        <script src="js/bundle-scrollup.js" type="text/javascript"></script>
+        <script src="js/bundle-welcome.js" type="text/javascript"></script>
+        <script src="js/app.js" type="text/javascript"></script>
+        <script>
+        document.addEventListener("deviceready", onDeviceReady, false);
 
-    function onDeviceReady() {
+        function onDeviceReady() {
+            // window.open = cordova.InAppBrowser.open;
+            var currentThemeStatusbar = localStorage.getItem('color-theme');
+            var bgColorThemeStatusBar;
 
-        var currentThemeStatusbar = localStorage.getItem('color-theme');
-        var bgColorThemeStatusBar;
-
-        if (currentThemeStatusbar == "color-theme-orange") {
-            bgColorThemeStatusBar = "#c66900";
-        } else if (currentThemeStatusbar == "color-theme-black") {
-            bgColorThemeStatusBar = "#484848";
-        } else if (currentThemeStatusbar == "color-theme-pink") {
-            bgColorThemeStatusBar = "#b0003a";
-        } else if (currentThemeStatusbar == "color-theme-blue") {
-            bgColorThemeStatusBar = "#0069c0";
-        } else if (currentThemeStatusbar == "color-theme-green") {
-            bgColorThemeStatusBar = "#087f23";
-        } else if (currentThemeStatusbar == "color-theme-red") {
-            bgColorThemeStatusBar = "#ba000d";
-        } else {
-            bgColorThemeStatusBar = "#087f23";
+            if (currentThemeStatusbar == "color-theme-orange") {
+                bgColorThemeStatusBar = "#c66900";
+            } else if (currentThemeStatusbar == "color-theme-black") {
+                bgColorThemeStatusBar = "#484848";
+            } else if (currentThemeStatusbar == "color-theme-pink") {
+                bgColorThemeStatusBar = "#b0003a";
+            } else if (currentThemeStatusbar == "color-theme-blue") {
+                bgColorThemeStatusBar = "#0069c0";
+            } else if (currentThemeStatusbar == "color-theme-green") {
+                bgColorThemeStatusBar = "#087f23";
+            } else if (currentThemeStatusbar == "color-theme-red") {
+                bgColorThemeStatusBar = "#ba000d";
+            } else {
+                bgColorThemeStatusBar = "#087f23";
+            }
+            StatusBar.overlaysWebView(false);
+            StatusBar.backgroundColorByHexString(bgColorThemeStatusBar);
+            StatusBar.styleLightContent();
         }
-
-
-        StatusBar.overlaysWebView(true);
-        StatusBar.backgroundColorByHexString(bgColorThemeStatusBar);
-        // StatusBar.styleLightContent();
-        StatusBar.styleDefault();
-        // StatusBar.styleBlackTranslucent();
-        // StatusBar.styleBlackOpaque();
-    }
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>

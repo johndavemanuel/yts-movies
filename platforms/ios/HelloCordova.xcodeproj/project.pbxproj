@@ -17,6 +17,7 @@
 		3047A5141AB8059700498E2A /* build.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3047A5111AB8059700498E2A /* build.xcconfig */; };
 		6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */; };
 		A1C5F822797D48C29EB45576 /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = AEDB5A83FA8C4E48BB84E6BD /* CDVStatusBar.m */; };
+		992D5A9793F04B358CAB9CB5 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4E72557CD6469F8A2A9596 /* CDVInAppBrowser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,8 @@
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		AEDB5A83FA8C4E48BB84E6BD /* CDVStatusBar.m */ = {isa = PBXFileReference; name = "CDVStatusBar.m"; path = "cordova-plugin-statusbar/CDVStatusBar.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		A324837B8CCB41DDBAAF4D2B /* CDVStatusBar.h */ = {isa = PBXFileReference; name = "CDVStatusBar.h"; path = "cordova-plugin-statusbar/CDVStatusBar.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		9E4E72557CD6469F8A2A9596 /* CDVInAppBrowser.m */ = {isa = PBXFileReference; name = "CDVInAppBrowser.m"; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		CAE1A677CEA84ED78E7FDF1D /* CDVInAppBrowser.h */ = {isa = PBXFileReference; name = "CDVInAppBrowser.h"; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +167,8 @@
 			children = (
 				AEDB5A83FA8C4E48BB84E6BD /* CDVStatusBar.m */,
 				A324837B8CCB41DDBAAF4D2B /* CDVStatusBar.h */,
+				9E4E72557CD6469F8A2A9596 /* CDVInAppBrowser.m */,
+				CAE1A677CEA84ED78E7FDF1D /* CDVInAppBrowser.h */,
 			);
 			name = Plugins;
 			path = "HelloCordova/Plugins";
@@ -277,6 +282,7 @@
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				A1C5F822797D48C29EB45576 /* CDVStatusBar.m in Sources */,
+				992D5A9793F04B358CAB9CB5 /* CDVInAppBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
