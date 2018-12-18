@@ -32,8 +32,9 @@ var prepairedAd;
 
 
 $$(document).on('page:init', '.page[data-name="home"]', function(e) {
-     app.infiniteScroll.create(".infinite-scroll-content-latest-movies");
-     app.ptr.create(".ptr-content-latest-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-latest-movies");
+    app.ptr.create(".ptr-content-latest-movies");
+
     // ADS
     if (!app.vi.sdkReady) {
         app.on('viSdkReady', function() {
@@ -48,7 +49,8 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
     }
 
     latestMovies();
-    // INIFINITE
+
+    // INIFINITE SCROLL LATEST
     var allowInfinite = true;
     var lastItemIndex = $$('#latest-movies-wrapper ul li').length;
     var maxItems = 2000;
@@ -96,13 +98,26 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
         }, 1000);
     });
 
+    // PULL TO REFRESH LATEST
+    $$('.ptr-content-latest-movies').on('ptr:refresh', function(e) {
+        console.log("PTR Latest");
+        $$('#latest-movies').html("");
+        latestMovies();
+        setTimeout(function() {
+            app.ptr.done();
+        }, 2000);
+    });
+
+
+    // TABS HOME
+
     $$('#latest').on('tab:show', function() {
         app.infiniteScroll.create(".infinite-scroll-content-latest-movies");
         app.ptr.create(".ptr-content-latest-movies");
 
         latestMovies();
 
-        // INIFINITE
+        // INIFINITE SCROLL LATEST
         var allowInfinite = true;
         var lastItemIndex = $$('#latest-movies-wrapper ul li').length;
         var maxItems = 2000;
@@ -150,7 +165,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
             }, 1000);
         });
 
-        // PULL TO REFRESH
+        // PULL TO REFRESH LATEST
         $$('.ptr-content-latest-movies').on('ptr:refresh', function(e) {
             console.log("PTR Latest");
             $$('#latest-movies').html("");
@@ -165,7 +180,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
         app.infiniteScroll.create(".infinite-scroll-content-rated-movies");
         app.ptr.create(".ptr-content-rated-movies");
         topRatedMovies();
-        // INIFINITE RATED
+        // INIFINITE SCROLL RATED
         var allowInfinite = true;
         var lastItemIndex = $$('#rated-movies-wrapper ul li').length;
         var maxItems = 2000;
@@ -213,7 +228,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
             }, 1000);
         });
 
-        // PTR RATED
+        // PULL TO REFRESH RATED
         $$('.ptr-content-rated-movies').on('ptr:refresh', function(e) {
             console.log("PTR Rated");
             $$('#rated-movies').html("");
@@ -228,7 +243,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
         app.infiniteScroll.create(".infinite-scroll-content-download-movies");
         app.ptr.create(".ptr-content-download-movies");
         topDownloadMovies();
-        // INIFINITE DOWNLOAD
+        // INIFINITE SCROLL DOWNLOAD
         var allowInfinite = true;
         var lastItemIndex = $$('#download-movies-wrapper ul li').length;
         var maxItems = 2000;
@@ -276,7 +291,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
             }, 1000);
         });
 
-        // PULL TO REFRESH
+        // PULL TO REFRESH DOWNLOAD
         $$('.ptr-content-download-movies').on('ptr:refresh', function(e) {
             console.log("download PTR");
             $$('#download-movies').html("");
@@ -290,14 +305,23 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
 
 $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
     sevenTwentyP();
+    app.infiniteScroll.create(".infinite-scroll-content-quality1-movies");
+    app.ptr.create(".ptr-content-quality1-movies");
+
     $$('#quality1').on('tab:show', function() {
         sevenTwentyP();
+        app.infiniteScroll.create(".infinite-scroll-content-quality1-movies");
+        app.ptr.create(".ptr-content-quality1-movies");
     });
     $$('#quality2').on('tab:show', function() {
         tenEightyP();
+        app.infiniteScroll.create(".infinite-scroll-content-quality2-movies");
+        app.ptr.create(".ptr-content-quality2-movies");
     });
     $$('#quality3').on('tab:show', function() {
         threeD();
+        app.infiniteScroll.create(".infinite-scroll-content-quality3-movies");
+        app.ptr.create(".ptr-content-quality3-movies");
     });
 })
 
@@ -394,13 +418,11 @@ $$(document).on('page:init', '.page[data-name="search-results"]', function(e, pa
         var movieRatingSearch = (page.route.query.movieRating);
         var movieSortbySearch = (page.route.query.movieSortby);
 
-        // app.dialog.alert(movieQualitySearch + movieGenreSearch + movieRatingSearch + movieSortbySearch);
         isAdvanceSearch = false;
         var advanceCat = '<p>' + 'Quality: ' + '<span class="advanccatlabel">' + movieQualitySearch + '</span>' + '<p>';
         advanceCat += '<p>' + 'Genre: ' + '<span class="advanccatlabel">' + movieGenreSearch + '</span>' + '<p>';
         advanceCat += '<p>' + 'Rating: ' + '<span class="advanccatlabel">' + movieRatingSearch + '</span>' + '<p>';
         advanceCat += '<p>' + 'Sort By: ' + '<span class="advanccatlabel">' + movieSortbySearch + '</span>' + '<p>';
-
 
         $('#searh-result-category').append(advanceCat);
         searchAdvanced(movieQualitySearch, movieGenreSearch, movieRatingSearch, movieSortbySearch);
@@ -422,7 +444,6 @@ $$(document).on('page:init', '.page[data-name="search"]', function(e) {
             isSingleSearch = true;
             mainView.router.navigate('/search-results/?moviename=' + movieName + '');
         }
-        // app.dialog.alert(movieName);
     });
 
     $$('#search-movie-advance').on('click', function(e) {
@@ -433,6 +454,42 @@ $$(document).on('page:init', '.page[data-name="search"]', function(e) {
         var movieSortby = $$('#sortby').val();
         mainView.router.navigate('/search-results/?movieQuality=' + movieQuality + '&movieGenre=' + movieGenre + '&movieRating=' + movieRating + '&movieSortby=' + movieSortby + '');
     });
+})
+
+
+$$(document).on('page:init', '.page[data-name="credits"]', function(e, page) {
+    var currentTheme = localStorage.getItem('color-theme');
+    var bgColorTheme;
+
+    if (currentTheme == "color-theme-orange") {
+        bgColorTheme = "#c66900";
+    } else if (currentTheme == "color-theme-black") {
+        bgColorTheme = "#484848";
+    } else if (currentTheme == "color-theme-pink") {
+        bgColorTheme = "#b0003a";
+    } else if (currentTheme == "color-theme-blue") {
+        bgColorTheme = "#0069c0";
+    } else if (currentTheme == "color-theme-green") {
+        bgColorTheme = "#087f23";
+    } else if (currentTheme == "color-theme-red") {
+        bgColorTheme = "#ba000d";
+    } else {
+        bgColorTheme = "#087f23";
+    }
+    $$('.f7-link-web').on('click', function() {
+        var f7 = cordova.InAppBrowser.open('https://framework7.io/', '_blank', 'location=yes,toolbarcolor='+bgColorTheme+'');
+        f7.addEventListener('exit', loadExitCallBack);
+    });
+
+    $$('.yts-link-web').on('click', function() {
+        var yts = cordova.InAppBrowser.open('https://yts.am/api', '_blank', 'location=yes,toolbarcolor='+bgColorTheme+'');
+         yts.addEventListener('exit', loadExitCallBack);
+    });
+
+    function loadExitCallBack(params) {
+        mainView.router.navigate('/');
+    }
+
 
 })
 
@@ -459,14 +516,6 @@ $$('#side-menu li > a').on('click', function(e) {
     })
     panel.close();
 });
-
-function isDarkTheme() {
-    var isDarkThemeEnabled = localStorage.getItem('color-theme-dark');
-    if (isDarkThemeEnabled == "theme-dark") {
-        $$('body').addClass('theme-dark');
-    }
-}
-
 
 var themecolor_select = app.actions.create({
     grid: true,
@@ -587,6 +636,13 @@ function alertServerError() {
     app.dialog.alert('Cannot connect to server. Please try again later.');
 }
 
+function isDarkTheme() {
+    var isDarkThemeEnabled = localStorage.getItem('color-theme-dark');
+    if (isDarkThemeEnabled == "theme-dark") {
+        $$('body').addClass('theme-dark');
+    }
+}
+
 // INDEX
 function latestMovies() {
     $.ajax({
@@ -668,7 +724,7 @@ function topDownloadMovies() {
     });
 }
 
-// QUALIRY
+// QUALIYY
 function sevenTwentyP() {
     $.ajax({
         url: baseUrl + 'list_movies.json?quality=720p',
@@ -750,7 +806,7 @@ function threeD() {
     });
 }
 
-
+// MOVIE
 function movieSuggestions(id) {
     $.ajax({
         url: baseUrl + 'movie_suggestions.json?movie_id=' + id + '',
@@ -854,7 +910,7 @@ function movieDetails(movieID) {
     });
 }
 
-
+// SEARCH
 function searchSingle(movieNameSearch) {
     $.ajax({
         url: baseUrl + 'list_movies.json?query_term=' + movieNameSearch + '',
@@ -921,7 +977,6 @@ function searchAdvanced(movieQualitySearch, movieGenreSearch, movieRatingSearch,
 
     });
 }
-
 
 
 // GENRE
@@ -1465,7 +1520,6 @@ function genreScifi() {
     });
 }
 
-
 function genreThriller() {
     $.ajax({
         url: baseUrl + 'list_movies.json?genre=thriller',
@@ -1492,7 +1546,6 @@ function genreThriller() {
         });
     });
 }
-
 
 function genreWestern() {
     $.ajax({

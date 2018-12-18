@@ -173,7 +173,7 @@
                                     </ul>
                                 </div>
                             </div>
-                             <div class="preloader infinite-scroll-preloader"></div>
+                            <div class="preloader infinite-scroll-preloader"></div>
                         </div>
                         <div class="page-content infinite-scroll-content-download-movies ptr-content-download-movies tab" id="download">
                             <div class="ptr-preloader">
@@ -203,7 +203,6 @@
         document.addEventListener("deviceready", onDeviceReady, false);
 
         function onDeviceReady() {
-            // window.open = cordova.InAppBrowser.open;
             var currentThemeStatusbar = localStorage.getItem('color-theme');
             var bgColorThemeStatusBar;
 
@@ -224,7 +223,7 @@
             }
             StatusBar.overlaysWebView(false);
             StatusBar.backgroundColorByHexString(bgColorThemeStatusBar);
-            StatusBar.styleLightContent();
+            // StatusBar.styleLightContent();
         }
         </script>
     </body>
