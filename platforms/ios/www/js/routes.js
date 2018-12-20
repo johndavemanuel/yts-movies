@@ -15,8 +15,8 @@ routes = [{
     url: './pages/search-results.html',
   },
   {
-    path: '/upcoming/',
-    url: './pages/upcoming.html',
+    path: '/feedback/',
+    url: './pages/feedback.html',
   },
   {
     path: '/quality/',

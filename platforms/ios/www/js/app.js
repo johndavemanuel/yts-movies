@@ -2,20 +2,22 @@
 var $$ = Dom7;
 
 // Framework7 App main instance
+
 var app = new Framework7({
     root: '#app',
-    id: 'io.framework7.ytsmovies',
+    id: 'io.davemanuel.ytsmovies',
     name: 'YTS Movies',
-    theme: 'auto',
+    theme: 'md',
     routes: routes,
     cache: false,
     cacheDuration: 0,
     init: false,
-    statusbar: {
-        androidBackgroundColor: '#6ac045c9'
-    },
     materialRipple: false,
+    vi: {
+        placementId: 'pltWU1VaLaaSS34L1qN'
+    }
 });
+
 
 // Init/Create main view
 var mainView = app.views.create('.view-main', {
@@ -25,36 +27,418 @@ var mainView = app.views.create('.view-main', {
 var baseUrl = 'https://yts.am/api/v2/';
 var isSingleSearch = false;
 var isAdvanceSearch = false;
+var prepairedAd;
+
+
 
 $$(document).on('page:init', '.page[data-name="home"]', function(e) {
-    // app.statusbar.show();
-    // app.dialog.alert('This mobile application is using YTS.AM API (Application Programming Interface) to work. If the API server is down or error, this app will not work properly.');
+    app.infiniteScroll.create(".infinite-scroll-content-latest-movies");
+    app.ptr.create(".ptr-content-latest-movies");
+
+    // ADS
+    if (!app.vi.sdkReady) {
+        app.on('viSdkReady', function() {
+            prepairedAd = app.vi.createAd({
+                autoplay: false,
+            });
+        })
+    } else {
+        prepairedAd = app.vi.createAd({
+            autoplay: false,
+        });
+    }
+
     latestMovies();
 
-     $$('#latest').on('tab:show', function() {
+    // INIFINITE SCROLL LATEST
+    var allowInfinite = true;
+    var lastItemIndex = $$('#latest-movies-wrapper ul li').length;
+    var maxItems = 2000;
+    var itemsPerLoad = 20;
+    var scrollInfiniteCounter = 2;
+
+    $$('.infinite-scroll-content-latest-movies').on('infinite', function() {
+        console.log("Infinite Scroll Latest");
+        if (!allowInfinite) return;
+        allowInfinite = false;
+        setTimeout(function() {
+            allowInfinite = true;
+
+            if (lastItemIndex >= maxItems) {
+                app.infiniteScroll.destroy('.infinite-scroll-content-latest-movies');
+                $$('.infinite-scroll-preloader').remove();
+                return;
+            }
+            $.ajax({
+                url: baseUrl + 'list_movies.json?page=' + scrollInfiniteCounter + '&limit=20',
+                type: "GET",
+            }).fail(function(data) {
+                console.log('error:' + data);
+                alertServerError();
+            }).done(function(data) {
+                $.each(data.data.movies, function(key, val) {
+                    var latestItemHolder = '<li>' +
+                        '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                        '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                        '<div class="item-inner">' +
+                        '<div class="item-title-row">' +
+                        '<div class="item-title">' + val.title_english + '</div>' +
+                        '</div>' +
+                        '<div class="item-subtitle">' + val.year + '</div>' +
+                        '<div class="item-text">' + val.description_full + '</div>' +
+                        '</div>' +
+                        '</a>' +
+                        '</li>';
+                    $$('#latest-movies').append(latestItemHolder);
+                });
+            });
+
+            lastItemIndex = $$('#latest-movies-wrapper ul li').length;
+            scrollInfiniteCounter++;
+        }, 1000);
+    });
+
+    // PULL TO REFRESH LATEST
+    $$('.ptr-content-latest-movies').on('ptr:refresh', function(e) {
+        console.log("PTR Latest");
+        $$('#latest-movies').html("");
         latestMovies();
+        setTimeout(function() {
+            app.ptr.done();
+        }, 2000);
+    });
+
+    // TABS HOME
+    $$('#latest').on('tab:show', function() {
+        app.infiniteScroll.create(".infinite-scroll-content-latest-movies");
+        app.ptr.create(".ptr-content-latest-movies");
+
+        latestMovies();
+
+        // INIFINITE SCROLL LATEST
+        var allowInfinite = true;
+        var lastItemIndex = $$('#latest-movies-wrapper ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-latest-movies').on('infinite', function() {
+            console.log("Infinite Scroll Latest");
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-latest-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var latestItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#latest-movies').append(latestItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#latest-movies-wrapper ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
+
+        // PULL TO REFRESH LATEST
+        $$('.ptr-content-latest-movies').on('ptr:refresh', function(e) {
+            console.log("PTR Latest");
+            $$('#latest-movies').html("");
+            latestMovies();
+            setTimeout(function() {
+                app.ptr.done();
+            }, 2000);
+        });
     });
 
     $$('#rated').on('tab:show', function() {
+        app.infiniteScroll.create(".infinite-scroll-content-rated-movies");
+        app.ptr.create(".ptr-content-rated-movies");
         topRatedMovies();
+        // INIFINITE SCROLL RATED
+        var allowInfinite = true;
+        var lastItemIndex = $$('#rated-movies-wrapper ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-rated-movies').on('infinite', function() {
+            console.log("Infinite Scroll Rated");
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-rated-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json??minimum_rating=9&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var ratedItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#rated-movies').append(ratedItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#rated-movies-wrapper ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
+
+        // PULL TO REFRESH RATED
+        $$('.ptr-content-rated-movies').on('ptr:refresh', function(e) {
+            console.log("PTR Rated");
+            $$('#rated-movies').html("");
+            topRatedMovies();
+            setTimeout(function() {
+                app.ptr.done();
+            }, 2000);
+        });
     });
+
     $$('#download').on('tab:show', function() {
+        app.infiniteScroll.create(".infinite-scroll-content-download-movies");
+        app.ptr.create(".ptr-content-download-movies");
         topDownloadMovies();
+        // INIFINITE SCROLL DOWNLOAD
+        var allowInfinite = true;
+        var lastItemIndex = $$('#download-movies-wrapper ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-download-movies').on('infinite', function() {
+            console.log("Infinite Scroll Download");
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-download-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json??sort_by=download_count&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var downloadItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#download-movies').append(downloadItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#download-movies-wrapper ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
+
+        // PULL TO REFRESH DOWNLOAD
+        $$('.ptr-content-download-movies').on('ptr:refresh', function(e) {
+            console.log("download PTR");
+            $$('#download-movies').html("");
+            topDownloadMovies();
+            setTimeout(function() {
+                app.ptr.done();
+            }, 2000);
+        });
     });
 })
 
 $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
+    app.infiniteScroll.create(".infinite-scroll-content-quality1-movies");
+    app.ptr.create(".ptr-content-quality1-movies");
+
+
     sevenTwentyP();
-    $$('#quality1').on('tab:show', function() {
-        sevenTwentyP();
-    });
-    $$('#quality2').on('tab:show', function() {
-        tenEightyP();
-    });
-    $$('#quality3').on('tab:show', function() {
-        threeD();
+    // INIFINITE SCROLL QUALITY 1
+    var allowInfinite = true;
+    var lastItemIndex = $$('#quality1-movies ul li').length;
+    var maxItems = 2000;
+    var itemsPerLoad = 20;
+    var scrollInfiniteCounter = 2;
+
+    $$('.infinite-scroll-content-quality1-movies').on('infinite', function() {
+        console.log("Infinite Scroll Quality 1");
+        if (!allowInfinite) return;
+        allowInfinite = false;
+        setTimeout(function() {
+            allowInfinite = true;
+
+            if (lastItemIndex >= maxItems) {
+                app.infiniteScroll.destroy('.infinite-scroll-content-quality1-movies');
+                $$('.infinite-scroll-preloader').remove();
+                return;
+            }
+            $.ajax({
+                url: baseUrl + 'list_movies.json?quality=720p&page=' + scrollInfiniteCounter + '&limit=20',
+                type: "GET",
+            }).fail(function(data) {
+                console.log('error:' + data);
+                alertServerError();
+            }).done(function(data) {
+                $.each(data.data.movies, function(key, val) {
+                    var qualityOneItemHolder = '<li>' +
+                        '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                        '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                        '<div class="item-inner">' +
+                        '<div class="item-title-row">' +
+                        '<div class="item-title">' + val.title_english + '</div>' +
+                        '</div>' +
+                        '<div class="item-subtitle">' + val.year + '</div>' +
+                        '<div class="item-text">' + val.description_full + '</div>' +
+                        '</div>' +
+                        '</a>' +
+                        '</li>';
+                    $$('#quality1-movies').append(qualityOneItemHolder);
+                });
+            });
+
+            lastItemIndex = $$('#quality1-movies ul li').length;
+            scrollInfiniteCounter++;
+        }, 1000);
     });
 
+    // PULL TO REFRESH QUALITY 1
+    $$('.ptr-content-quality1-movies').on('ptr:refresh', function(e) {
+        console.log("PTR Quality 1");
+        $$('#quality1-movies').html("");
+        sevenTwentyP();
+        setTimeout(function() {
+            app.ptr.done();
+        }, 2000);
+    });
+
+    $$('#quality1').on('tab:show', function() {
+        sevenTwentyP();
+        // INIFINITE SCROLL QUALITY 1
+        var allowInfinite = true;
+        var lastItemIndex = $$('#quality1-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-quality1-movies').on('infinite', function() {
+            console.log("Infinite Scroll Quality 1");
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-quality1-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?quality=720p&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var qualityOneItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#quality1-movies').append(qualityOneItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#quality1-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
+
+        // PULL TO REFRESH QUALITY 1
+        $$('.ptr-content-quality1-movies').on('ptr:refresh', function(e) {
+            console.log("PTR Quality 1");
+            $$('#quality1-movies').html("");
+            sevenTwentyP();
+            setTimeout(function() {
+                app.ptr.done();
+            }, 2000);
+        });
+    });
+
+    $$('#quality2').on('tab:show', function() {
+        app.infiniteScroll.create(".infinite-scroll-content-quality2-movies");
+        app.ptr.create(".ptr-content-quality2-movies");
+        tenEightyP();
+
+
+    });
+
+    $$('#quality3').on('tab:show', function() {
+        app.infiniteScroll.create(".infinite-scroll-content-quality3-movies");
+        app.ptr.create(".ptr-content-quality3-movies");
+        threeD();
+    });
 })
 
 
@@ -150,13 +534,11 @@ $$(document).on('page:init', '.page[data-name="search-results"]', function(e, pa
         var movieRatingSearch = (page.route.query.movieRating);
         var movieSortbySearch = (page.route.query.movieSortby);
 
-        // app.dialog.alert(movieQualitySearch + movieGenreSearch + movieRatingSearch + movieSortbySearch);
         isAdvanceSearch = false;
         var advanceCat = '<p>' + 'Quality: ' + '<span class="advanccatlabel">' + movieQualitySearch + '</span>' + '<p>';
         advanceCat += '<p>' + 'Genre: ' + '<span class="advanccatlabel">' + movieGenreSearch + '</span>' + '<p>';
         advanceCat += '<p>' + 'Rating: ' + '<span class="advanccatlabel">' + movieRatingSearch + '</span>' + '<p>';
         advanceCat += '<p>' + 'Sort By: ' + '<span class="advanccatlabel">' + movieSortbySearch + '</span>' + '<p>';
-
 
         $('#searh-result-category').append(advanceCat);
         searchAdvanced(movieQualitySearch, movieGenreSearch, movieRatingSearch, movieSortbySearch);
@@ -167,12 +549,17 @@ $$(document).on('page:init', '.page[data-name="search"]', function(e) {
     $$('#search-movie-name').on('click', function(e) {
         var movieName = $$('#movie-name-search-input').val();
         if (movieName == "") {
-            return false;
+            var notificationWithButton = app.notification.create({
+                title: 'YTS Movies',
+                subtitle: 'Search field cannot be empty.',
+                closeButton: true,
+                closeTimeout: 5000
+            });
+            notificationWithButton.open();
         } else {
             isSingleSearch = true;
             mainView.router.navigate('/search-results/?moviename=' + movieName + '');
         }
-        // app.dialog.alert(movieName);
     });
 
     $$('#search-movie-advance').on('click', function(e) {
@@ -181,23 +568,61 @@ $$(document).on('page:init', '.page[data-name="search"]', function(e) {
         var movieGenre = $$('#genre').val();
         var movieRating = $$('#rating').val();
         var movieSortby = $$('#sortby').val();
-        // app.dialog.alert(movieQuality + movieGenre + movieRating + movieSortby);
         mainView.router.navigate('/search-results/?movieQuality=' + movieQuality + '&movieGenre=' + movieGenre + '&movieRating=' + movieRating + '&movieSortby=' + movieSortby + '');
     });
+})
 
 
+$$(document).on('page:init', '.page[data-name="credits"]', function(e, page) {
+    var currentTheme = localStorage.getItem('color-theme');
+    var bgColorTheme;
 
+    if (currentTheme == "color-theme-orange") {
+        bgColorTheme = "#c66900";
+    } else if (currentTheme == "color-theme-black") {
+        bgColorTheme = "#484848";
+    } else if (currentTheme == "color-theme-pink") {
+        bgColorTheme = "#b0003a";
+    } else if (currentTheme == "color-theme-blue") {
+        bgColorTheme = "#0069c0";
+    } else if (currentTheme == "color-theme-green") {
+        bgColorTheme = "#087f23";
+    } else if (currentTheme == "color-theme-red") {
+        bgColorTheme = "#ba000d";
+    } else {
+        bgColorTheme = "#087f23";
+    }
+    $$('.f7-link-web').on('click', function() {
+        var f7 = cordova.InAppBrowser.open('https://framework7.io/', '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + '');
+        f7.addEventListener('exit', loadExitCallBack);
+    });
+
+    $$('.yts-link-web').on('click', function() {
+        var yts = cordova.InAppBrowser.open('https://yts.am/api', '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + '');
+        yts.addEventListener('exit', loadExitCallBack);
+    });
+
+    function loadExitCallBack(params) {
+        mainView.router.navigate('/');
+    }
 })
 
 var toggle = app.toggle.create({
     el: '.toggle',
     on: {
         change: function() {
-            $$('body').toggleClass('theme-dark');
+            var toggle = app.toggle.get('.toggle');
+
+            if (toggle.checked) {
+                $$('body').addClass('theme-dark');
+                localStorage.setItem('color-theme-dark', 'theme-dark');
+            } else {
+                $$('body').removeClass('theme-dark');
+                localStorage.removeItem('color-theme-dark');
+            }
         }
     }
 })
-
 
 $$('#side-menu li > a').on('click', function(e) {
     var panel = app.panel.create({
@@ -206,10 +631,130 @@ $$('#side-menu li > a').on('click', function(e) {
     panel.close();
 });
 
+var themecolor_select = app.actions.create({
+    grid: true,
+    buttons: [
+        [{
+                text: 'Select Theme Color',
+                label: true
+            },
+            {
+                text: 'Red',
+                icon: '<button class="button button-fill button-round button-raised color-red"></button>',
+                onClick: function() {
+                    $('body').removeClass();
+                    $$('body').addClass('color-theme-red');
+                    localStorage.setItem('color-theme', 'color-theme-red');
+                    localStorage.setItem('color-theme-form', 'color-red');
+                    isDarkTheme();
+                    StatusBar.backgroundColorByHexString("#ba000d");
+                    StatusBar.styleLightContent();
+                }
+            },
+            {
+                text: 'Green',
+                icon: '<button class="button button-fill button-round button-raised color-green"></button>',
+                onClick: function() {
+                    $('body').removeClass();
+                    $$('body').addClass('color-theme-green');
+                    localStorage.setItem('color-theme', 'color-theme-green');
+                    localStorage.setItem('color-theme-form', 'color-green');
+                    isDarkTheme();
+                    StatusBar.backgroundColorByHexString("#087f23");
+                    StatusBar.styleLightContent();
+                }
+            },
+            {
+                text: 'Blue',
+                icon: '<button class="button button-fill button-round button-raised color-blue"></button>',
+                onClick: function() {
+                    $('body').removeClass();
+                    $$('body').addClass('color-theme-blue');
+                    localStorage.setItem('color-theme', 'color-theme-blue');
+                    localStorage.setItem('color-theme-form', 'color-blue');
+                    isDarkTheme();
+                    StatusBar.backgroundColorByHexString("#0069c0");
+                    StatusBar.styleLightContent();
+                }
+            },
+        ],
+        [{
+                text: 'Pink',
+                icon: '<button class="button button-fill button-round button-raised color-pink"></button>',
+                onClick: function() {
+                    $('body').removeClass();
+                    $$('body').addClass('color-theme-pink');
+                    localStorage.setItem('color-theme', 'color-theme-pink');
+                    localStorage.setItem('color-theme-form', 'color-pink');
+                    isDarkTheme();
+                    StatusBar.backgroundColorByHexString("#b0003a");
+                    StatusBar.styleLightContent();
+                }
+            },
+            {
+                text: 'Yellow',
+                icon: '<button class="button button-fill button-round button-raised color-yellow"></button>',
+                onClick: function() {
+                    $('body').removeClass();
+                    $$('body').addClass('color-theme-yellow');
+                    localStorage.setItem('color-theme', 'color-theme-yellow');
+                    localStorage.setItem('color-theme-form', 'color-yellow');
+                    isDarkTheme();
+                    StatusBar.backgroundColorByHexString("#ffeb3b");
+                    StatusBar.styleLightContent();
+                }
+            },
+            {
+                text: 'Orange',
+                icon: '<button class="button button-fill button-round button-raised color-orange"></button>',
+                onClick: function() {
+                    $('body').removeClass();
+                    $$('body').addClass('color-theme-orange');
+                    localStorage.setItem('color-theme', 'color-theme-orange');
+                    localStorage.setItem('color-theme-form', 'color-orange');
+                    isDarkTheme();
+                    StatusBar.backgroundColorByHexString("#c66900");
+                    StatusBar.styleLightContent();
+                }
+            },
+        ]
+    ]
+});
+
+$$('#theme-color').on('click', function() {
+    themecolor_select.open();
+});
+
+
+var currentTheme = localStorage.getItem('color-theme');
+if (currentTheme == null) {
+    currentTheme = "color-theme-green";
+}
+$('body').removeClass();
+$$('body').addClass(currentTheme);
+
+var currentThemeDark = localStorage.getItem('color-theme-dark');
+if (currentThemeDark == null) {
+    currentThemeDark = "theme-light";
+    $$('#theme-dark-checkbox').prop('checked', false);
+} else {
+    $$('#theme-dark-checkbox').prop('checked', true);
+}
+
+$$('body').addClass(currentThemeDark);
+
+
 app.init();
 
 function alertServerError() {
-    // app.dialog.alert('Cannot connect to server. Please try again.');
+    app.dialog.alert('Cannot connect to server. Please try again later.');
+}
+
+function isDarkTheme() {
+    var isDarkThemeEnabled = localStorage.getItem('color-theme-dark');
+    if (isDarkThemeEnabled == "theme-dark") {
+        $$('body').addClass('theme-dark');
+    }
 }
 
 // INDEX
@@ -221,7 +766,6 @@ function latestMovies() {
         console.log('error:' + data);
         alertServerError();
     }).done(function(data) {
-        // console.log(data.data);
         $.each(data.data.movies, function(key, val) {
             var latestItemHolder = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
@@ -294,7 +838,7 @@ function topDownloadMovies() {
     });
 }
 
-// QUALIRY
+// QUALIYY
 function sevenTwentyP() {
     $.ajax({
         url: baseUrl + 'list_movies.json?quality=720p',
@@ -321,6 +865,12 @@ function sevenTwentyP() {
         });
     });
 }
+
+
+function sevenTwentyPISPTR() {
+
+}
+
 
 function tenEightyP() {
     $.ajax({
@@ -376,7 +926,7 @@ function threeD() {
     });
 }
 
-
+// MOVIE
 function movieSuggestions(id) {
     $.ajax({
         url: baseUrl + 'movie_suggestions.json?movie_id=' + id + '',
@@ -444,8 +994,14 @@ function movieDetails(movieID) {
         $$('#movide-details-holder').append(movieDetailsHolder);
 
         // console.log(data.data.movie.cast);
+
+        var currentThemeForm = localStorage.getItem('color-theme-form');
+        if (currentThemeForm == null) {
+            currentThemeForm = "color-green";
+        }
+
         $.each(data.data.movie.cast, function(key, val) {
-            var movieCasts = '<div class="chip color-green">' +
+            var movieCasts = '<div class="chip ' + currentThemeForm + '">' +
                 ' <div class="chip-media"><img src="' + val.url_small_image + '"/></div>' +
                 '<div class="chip-label">' + val.name + '</div>';
             $$('#cast-holder').append(movieCasts);
@@ -453,7 +1009,7 @@ function movieDetails(movieID) {
 
         // console.log(data.data.movie.genres);
         $.each(data.data.movie.genres, function(key, val) {
-            var moviegenres = '<div class="chip color-green">' +
+            var moviegenres = '<div class="chip ' + currentThemeForm + '">' +
                 '<div class="chip-label">' + val + '</div>';
             $$('#genre-holder').append(moviegenres);
         });
@@ -474,7 +1030,7 @@ function movieDetails(movieID) {
     });
 }
 
-
+// SEARCH
 function searchSingle(movieNameSearch) {
     $.ajax({
         url: baseUrl + 'list_movies.json?query_term=' + movieNameSearch + '',
@@ -541,7 +1097,6 @@ function searchAdvanced(movieQualitySearch, movieGenreSearch, movieRatingSearch,
 
     });
 }
-
 
 
 // GENRE
@@ -1085,7 +1640,6 @@ function genreScifi() {
     });
 }
 
-
 function genreThriller() {
     $.ajax({
         url: baseUrl + 'list_movies.json?genre=thriller',
@@ -1112,7 +1666,6 @@ function genreThriller() {
         });
     });
 }
-
 
 function genreWestern() {
     $.ajax({

@@ -19,7 +19,7 @@
         <meta name="theme-color" content="#2196f3">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
-        <title>YTS Movies</title>
+        <title>YTS Movies App</title>
         <link rel="stylesheet" href="css/framework7.css">
         <link rel="stylesheet" href="css/icons.css">
         <link rel="stylesheet" href="css/app.css">
@@ -162,7 +162,7 @@
                             </div>
                             <div class="preloader infinite-scroll-preloader"></div>
                         </div>
-                        <div class="page-content infinite-scroll-content-rated-movies ptr-content-rated-movies tab" id="rated">
+                        <div class="page-content infinite-scroll-content-rated-movies  ptr-content-rated-movies tab" id="rated">
                             <div class="ptr-preloader">
                                 <div class="preloader"></div>
                                 <div class="ptr-arrow"></div>
@@ -173,7 +173,7 @@
                                     </ul>
                                 </div>
                             </div>
-                             <div class="preloader infinite-scroll-preloader"></div>
+                            <div class="preloader infinite-scroll-preloader"></div>
                         </div>
                         <div class="page-content infinite-scroll-content-download-movies ptr-content-download-movies tab" id="download">
                             <div class="ptr-preloader">
@@ -203,7 +203,6 @@
         document.addEventListener("deviceready", onDeviceReady, false);
 
         function onDeviceReady() {
-            // window.open = cordova.InAppBrowser.open;
             var currentThemeStatusbar = localStorage.getItem('color-theme');
             var bgColorThemeStatusBar;
 

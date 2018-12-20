@@ -108,9 +108,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
         }, 2000);
     });
 
-
     // TABS HOME
-
     $$('#latest').on('tab:show', function() {
         app.infiniteScroll.create(".infinite-scroll-content-latest-movies");
         app.ptr.create(".ptr-content-latest-movies");
@@ -304,24 +302,142 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
 })
 
 $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
-    sevenTwentyP();
     app.infiniteScroll.create(".infinite-scroll-content-quality1-movies");
     app.ptr.create(".ptr-content-quality1-movies");
 
-    $$('#quality1').on('tab:show', function() {
+
+    sevenTwentyP();
+    // INIFINITE SCROLL QUALITY 1
+    var allowInfinite = true;
+    var lastItemIndex = $$('#quality1-movies ul li').length;
+    var maxItems = 2000;
+    var itemsPerLoad = 20;
+    var scrollInfiniteCounter = 2;
+
+    $$('.infinite-scroll-content-quality1-movies').on('infinite', function() {
+        console.log("Infinite Scroll Quality 1");
+        if (!allowInfinite) return;
+        allowInfinite = false;
+        setTimeout(function() {
+            allowInfinite = true;
+
+            if (lastItemIndex >= maxItems) {
+                app.infiniteScroll.destroy('.infinite-scroll-content-quality1-movies');
+                $$('.infinite-scroll-preloader').remove();
+                return;
+            }
+            $.ajax({
+                url: baseUrl + 'list_movies.json?quality=720p&page=' + scrollInfiniteCounter + '&limit=20',
+                type: "GET",
+            }).fail(function(data) {
+                console.log('error:' + data);
+                alertServerError();
+            }).done(function(data) {
+                $.each(data.data.movies, function(key, val) {
+                    var qualityOneItemHolder = '<li>' +
+                        '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                        '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                        '<div class="item-inner">' +
+                        '<div class="item-title-row">' +
+                        '<div class="item-title">' + val.title_english + '</div>' +
+                        '</div>' +
+                        '<div class="item-subtitle">' + val.year + '</div>' +
+                        '<div class="item-text">' + val.description_full + '</div>' +
+                        '</div>' +
+                        '</a>' +
+                        '</li>';
+                    $$('#quality1-movies').append(qualityOneItemHolder);
+                });
+            });
+
+            lastItemIndex = $$('#quality1-movies ul li').length;
+            scrollInfiniteCounter++;
+        }, 1000);
+    });
+
+    // PULL TO REFRESH QUALITY 1
+    $$('.ptr-content-quality1-movies').on('ptr:refresh', function(e) {
+        console.log("PTR Quality 1");
+        $$('#quality1-movies').html("");
         sevenTwentyP();
+        setTimeout(function() {
+            app.ptr.done();
+        }, 2000);
+    });
+
+    $$('#quality1').on('tab:show', function() {
         app.infiniteScroll.create(".infinite-scroll-content-quality1-movies");
         app.ptr.create(".ptr-content-quality1-movies");
+        sevenTwentyP();
+        // INIFINITE SCROLL QUALITY 1
+        var allowInfinite = true;
+        var lastItemIndex = $$('#quality1-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-quality1-movies').on('infinite', function() {
+            console.log("Infinite Scroll Quality 1");
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-quality1-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?quality=720p&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var qualityOneItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#quality1-movies').append(qualityOneItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#quality1-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
+
+        // PULL TO REFRESH QUALITY 1
+        $$('.ptr-content-quality1-movies').on('ptr:refresh', function(e) {
+            console.log("PTR Quality 1");
+            $$('#quality1-movies').html("");
+            sevenTwentyP();
+            setTimeout(function() {
+                app.ptr.done();
+            }, 2000);
+        });
     });
+
     $$('#quality2').on('tab:show', function() {
-        tenEightyP();
         app.infiniteScroll.create(".infinite-scroll-content-quality2-movies");
         app.ptr.create(".ptr-content-quality2-movies");
+        tenEightyP();
     });
+
     $$('#quality3').on('tab:show', function() {
-        threeD();
         app.infiniteScroll.create(".infinite-scroll-content-quality3-movies");
         app.ptr.create(".ptr-content-quality3-movies");
+        threeD();
     });
 })
 
@@ -477,20 +593,18 @@ $$(document).on('page:init', '.page[data-name="credits"]', function(e, page) {
         bgColorTheme = "#087f23";
     }
     $$('.f7-link-web').on('click', function() {
-        var f7 = cordova.InAppBrowser.open('https://framework7.io/', '_blank', 'location=yes,toolbarcolor='+bgColorTheme+'');
+        var f7 = cordova.InAppBrowser.open('https://framework7.io/', '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + '');
         f7.addEventListener('exit', loadExitCallBack);
     });
 
     $$('.yts-link-web').on('click', function() {
-        var yts = cordova.InAppBrowser.open('https://yts.am/api', '_blank', 'location=yes,toolbarcolor='+bgColorTheme+'');
-         yts.addEventListener('exit', loadExitCallBack);
+        var yts = cordova.InAppBrowser.open('https://yts.am/api', '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + '');
+        yts.addEventListener('exit', loadExitCallBack);
     });
 
     function loadExitCallBack(params) {
         mainView.router.navigate('/');
     }
-
-
 })
 
 var toggle = app.toggle.create({
@@ -751,6 +865,12 @@ function sevenTwentyP() {
         });
     });
 }
+
+
+function sevenTwentyPISPTR() {
+
+}
+
 
 function tenEightyP() {
     $.ajax({
