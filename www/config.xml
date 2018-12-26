@@ -28,7 +28,7 @@
     </platform>
     <platform name="android">
         <preference name="Orientation" value="portrait" />
-        <preference name="Orientation" value="landscape" />
+        <!-- <preference name="Orientation" value="landscape" /> -->
         <preference name="AndroidLaunchMode" value="singleTop" />
         <preference name="AutoHideSplashScreen" value="true" />
         <preference name="FadeSplashScreen" value="true" />

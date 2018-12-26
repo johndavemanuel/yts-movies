@@ -192,7 +192,7 @@
                 if (currentTheme == "color-theme-orange") {
                     bgColorTheme = "#ff9800";
                     fontColorTheme = "#fff";
-                } else if (currentTheme == "color-theme-black") {
+                } else if (currentTheme == "color-theme-gray") {
                     bgColorTheme = "#000000";
                     fontColorTheme = "#fff";
                 } else if (currentTheme == "color-theme-pink") {
