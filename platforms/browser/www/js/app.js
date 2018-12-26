@@ -366,6 +366,8 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
     });
 
     $$('#quality1').on('tab:show', function() {
+        app.infiniteScroll.create(".infinite-scroll-content-quality1-movies");
+        app.ptr.create(".ptr-content-quality1-movies");
         sevenTwentyP();
         // INIFINITE SCROLL QUALITY 1
         var allowInfinite = true;
@@ -430,8 +432,6 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
         app.infiniteScroll.create(".infinite-scroll-content-quality2-movies");
         app.ptr.create(".ptr-content-quality2-movies");
         tenEightyP();
-
-
     });
 
     $$('#quality3').on('tab:show', function() {
@@ -593,12 +593,12 @@ $$(document).on('page:init', '.page[data-name="credits"]', function(e, page) {
         bgColorTheme = "#087f23";
     }
     $$('.f7-link-web').on('click', function() {
-        var f7 = cordova.InAppBrowser.open('https://framework7.io/', '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + '');
+        var f7 = cordova.InAppBrowser.open('https://framework7.io/', '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + ',navigationbuttoncolor=#FFFFFF,closebuttoncolor=#FFFFFF');
         f7.addEventListener('exit', loadExitCallBack);
     });
 
     $$('.yts-link-web').on('click', function() {
-        var yts = cordova.InAppBrowser.open('https://yts.am/api', '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + '');
+        var yts = cordova.InAppBrowser.open('https://yts.am/api', '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + ',navigationbuttoncolor=#FFFFFF,closebuttoncolor=#FFFFFF');
         yts.addEventListener('exit', loadExitCallBack);
     });
 
@@ -692,15 +692,15 @@ var themecolor_select = app.actions.create({
                 }
             },
             {
-                text: 'Yellow',
-                icon: '<button class="button button-fill button-round button-raised color-yellow"></button>',
+                text: 'Gray',
+                icon: '<button class="button button-fill button-round button-raised color-gray"></button>',
                 onClick: function() {
                     $('body').removeClass();
-                    $$('body').addClass('color-theme-yellow');
-                    localStorage.setItem('color-theme', 'color-theme-yellow');
-                    localStorage.setItem('color-theme-form', 'color-yellow');
+                    $$('body').addClass('color-theme-gray');
+                    localStorage.setItem('color-theme', 'color-theme-gray');
+                    localStorage.setItem('color-theme-form', 'color-gray');
                     isDarkTheme();
-                    StatusBar.backgroundColorByHexString("#ffeb3b");
+                    StatusBar.backgroundColorByHexString("#707070");
                     StatusBar.styleLightContent();
                 }
             },

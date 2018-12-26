@@ -123,8 +123,8 @@
             if (currentTheme == "color-theme-orange") {
                 bgColorTheme = "#ff9800";
                 fontColorTheme = "#fff";
-            } else if (currentTheme == "color-theme-black") {
-                bgColorTheme = "#000000";
+            } else if (currentTheme == "color-theme-gray") {
+                bgColorTheme = "#9e9e9e";
                 fontColorTheme = "#fff";
             } else if (currentTheme == "color-theme-pink") {
                 bgColorTheme = "#e91e63";
@@ -146,17 +146,9 @@
             var options = {
                 'bgcolor': bgColorTheme,
                 'fontcolor': fontColorTheme,
-
-                // Parallax example – Remove comments to test it out:
-
                 parallax: true,
-                // parallaxBackgroundImage: 'http://lorempixell.com/900/600/nightlife/2/', // parallax default background image
-                parallaxBackground: '-23%', // parallax default background effect
-                /* parallaxSlideElements: {
-                      title: -100, 
-                      subtitle: -300, 
-                      text: -500
-                  }, */
+                parallaxBackground: '-23%',
+
 
                 'onOpened': function() {
                     console.log("welcome screen opened");
@@ -192,19 +184,41 @@
                 }
             ];
 
+            Dom7(document).on('click', '#welcome-screen', function(e) {
+                var currentTheme = localStorage.getItem('color-theme');
+                var bgColorTheme;
+                var fontColorTheme;
+
+                if (currentTheme == "color-theme-orange") {
+                    bgColorTheme = "#ff9800";
+                    fontColorTheme = "#fff";
+                } else if (currentTheme == "color-theme-black") {
+                    bgColorTheme = "#000000";
+                    fontColorTheme = "#fff";
+                } else if (currentTheme == "color-theme-pink") {
+                    bgColorTheme = "#e91e63";
+                    fontColorTheme = "#fff";
+                } else if (currentTheme == "color-theme-blue") {
+                    bgColorTheme = "#2196f3";
+                    fontColorTheme = "#fff";
+                } else if (currentTheme == "color-theme-green") {
+                    bgColorTheme = "#4caf50";
+                    fontColorTheme = "#fff";
+                } else if (currentTheme == "color-theme-red") {
+                    bgColorTheme = "#f44336";
+                    fontColorTheme = "#fff";
+                } else {
+                    bgColorTheme = "#4caf50";
+                    fontColorTheme = "#fff";
+                }
+
+                app.welcomescreen.open();
+                $$(".welcomescreen-container").css("background-color", bgColorTheme);
+                $$(".welcomescreen-container").css("color", fontColorTheme);
+            });
+
             // Tell F7 to use the plugin
             Framework7.use(__WEBPACK_IMPORTED_MODULE_0_f7_welcomescreen___default.a);
-
-            // // Initialize Framework7 + plugin
-            // var app = new Framework7({
-            //     root: '#app',
-            //     name: 'welcomescreen-demo',
-            //     id: 'de.timoernst.f7.welcomescreen',
-            //     welcomescreen: {
-            //         slides: welcomescreen_slides,
-            //         options: options,
-            //     },
-            // });
 
             var app = new Framework7({
                 root: '#app',
@@ -239,59 +253,6 @@
 
             Dom7(document).on('click', '.tutorial-previous-slide', function(e) {
                 app.welcomescreen.previous();
-            });
-
-            Dom7(document).on('click', '#welcome-screen', function(e) {
-                var currentTheme = localStorage.getItem('color-theme');
-                var bgColorTheme;
-                var fontColorTheme;
-
-                if (currentTheme == "color-theme-orange") {
-                    bgColorTheme = "#ff9800";
-                    fontColorTheme = "#fff";
-                } else if (currentTheme == "color-theme-black") {
-                    bgColorTheme = "#000000";
-                    fontColorTheme = "#fff";
-                } else if (currentTheme == "color-theme-pink") {
-                    bgColorTheme = "#e91e63";
-                    fontColorTheme = "#fff";
-                } else if (currentTheme == "color-theme-blue") {
-                    bgColorTheme = "#2196f3";
-                    fontColorTheme = "#fff";
-                } else if (currentTheme == "color-theme-green") {
-                    bgColorTheme = "#4caf50";
-                    fontColorTheme = "#fff";
-                } else if (currentTheme == "color-theme-red") {
-                    bgColorTheme = "#f44336";
-                    fontColorTheme = "#fff";
-                } else {
-                    bgColorTheme = "#4caf50";
-                    fontColorTheme = "#fff";
-                }
-
-                var options = {
-                    'bgcolor': bgColorTheme,
-                    'fontcolor': fontColorTheme,
-
-                    // Parallax example – Remove comments to test it out:
-
-                    parallax: true,
-                    // parallaxBackgroundImage: 'http://lorempixell.com/900/600/nightlife/2/', // parallax default background image
-                    parallaxBackground: '-23%', // parallax default background effect
-                    /* parallaxSlideElements: {
-                          title: -100, 
-                          subtitle: -300, 
-                          text: -500
-                      }, */
-
-                    'onOpened': function() {
-                        console.log("welcome screen opened");
-                    },
-                    'onClosed': function() {
-                        console.log("welcome screen closed");
-                    }
-                };
-                app.welcomescreen.open();
             });
 
         });

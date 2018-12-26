@@ -123,8 +123,8 @@
             if (currentTheme == "color-theme-orange") {
                 bgColorTheme = "#ff9800";
                 fontColorTheme = "#fff";
-            } else if (currentTheme == "color-theme-black") {
-                bgColorTheme = "#000000";
+            } else if (currentTheme == "color-theme-gray") {
+                bgColorTheme = "#9e9e9e";
                 fontColorTheme = "#fff";
             } else if (currentTheme == "color-theme-pink") {
                 bgColorTheme = "#e91e63";

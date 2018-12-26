@@ -208,8 +208,8 @@
 
             if (currentThemeStatusbar == "color-theme-orange") {
                 bgColorThemeStatusBar = "#c66900";
-            } else if (currentThemeStatusbar == "color-theme-black") {
-                bgColorThemeStatusBar = "#484848";
+            } else if (currentThemeStatusbar == "color-theme-gray") {
+                bgColorThemeStatusBar = "#707070";
             } else if (currentThemeStatusbar == "color-theme-pink") {
                 bgColorThemeStatusBar = "#b0003a";
             } else if (currentThemeStatusbar == "color-theme-blue") {
@@ -221,7 +221,8 @@
             } else {
                 bgColorThemeStatusBar = "#087f23";
             }
-            StatusBar.overlaysWebView(false);
+            
+            // StatusBar.overlaysWebView(false);
             StatusBar.backgroundColorByHexString(bgColorThemeStatusBar);
             StatusBar.styleLightContent();
         }

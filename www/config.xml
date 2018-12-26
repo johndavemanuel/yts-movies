@@ -28,6 +28,7 @@
     </platform>
     <platform name="android">
         <preference name="Orientation" value="portrait" />
+        <preference name="Orientation" value="landscape" />
         <preference name="AndroidLaunchMode" value="singleTop" />
         <preference name="AutoHideSplashScreen" value="true" />
         <preference name="FadeSplashScreen" value="true" />
@@ -45,6 +46,12 @@
         <splash platform="android" src="res/screen/android/drawable-port-ldpi-screen.png" density="ldpi" width="480" height="320" orientation="portrait" />
         <splash platform="android" src="res/screen/android/drawable-port-xxhdpi-screen.png" density="xxhdpi" width="1600" height="960" orientation="portrait" />
         <splash platform="android" src="res/screen/android/drawable-port-xxxhdpi-screen.png" density="xxxhdpi" width="1920" height="1280" orientation="portrait" />
+        <splash platform="android" src="res/screen/android/drawable-land-xhdpi-screen.png" density="xhdpi" width="1280" height="720" orientation="landscape" />
+        <splash platform="android" src="res/screen/android/drawable-land-hdpi-screen.png" density="hdpi" width="800" height="480" orientation="landscape" />
+        <splash platform="android" src="res/screen/android/drawable-land-mdpi-screen.png" density="mdpi" width="320" height="200" orientation="landscape" />
+        <splash platform="android" src="res/screen/android/drawable-land-ldpi-screen.png" density="ldpi" width="480" height="320" orientation="landscape" />
+        <splash platform="android" src="res/screen/android/drawable-land-xxhdpi-screen.png" density="xxhdpi" width="1600" height="960" orientation="landscape" />
+        <splash platform="android" src="res/screen/android/drawable-land-xxxhdpi-screen.png" density="xxxhdpi" width="1920" height="1280" orientation="landscape" />
     </platform>
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#FFFFFF" />

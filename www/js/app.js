@@ -24,6 +24,7 @@ var mainView = app.views.create('.view-main', {
     url: '/'
 });
 
+// GLOBAL VARIABLES
 var baseUrl = 'https://yts.am/api/v2/';
 var isSingleSearch = false;
 var isAdvanceSearch = false;
@@ -105,6 +106,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
         latestMovies();
         setTimeout(function() {
             app.ptr.done();
+            alert("done");
         }, 2000);
     });
 
@@ -356,18 +358,17 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
     });
 
     // PULL TO REFRESH QUALITY 1
-    $$('.ptr-content-quality1-movies').on('ptr:refresh', function(e) {
-        console.log("PTR Quality 1");
-        $$('#quality1-movies').html("");
-        sevenTwentyP();
-        setTimeout(function() {
-            app.ptr.done();
-        }, 2000);
-    });
+    // $$('.ptr-content-quality1-movies').on('ptr:refresh', function(e) {
+    //     $$('#test').show();
+    //     $$('#quality1-movies').html("");
+    //     sevenTwentyP();
+    //     setTimeout(function() {
+    //         $$('#test').hide();
+    //         app.ptr.done();
+    //     }, 2000);
+    // });
 
     $$('#quality1').on('tab:show', function() {
-        app.infiniteScroll.create(".infinite-scroll-content-quality1-movies");
-        app.ptr.create(".ptr-content-quality1-movies");
         sevenTwentyP();
         // INIFINITE SCROLL QUALITY 1
         var allowInfinite = true;
@@ -418,26 +419,121 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
         });
 
         // PULL TO REFRESH QUALITY 1
-        $$('.ptr-content-quality1-movies').on('ptr:refresh', function(e) {
-            console.log("PTR Quality 1");
-            $$('#quality1-movies').html("");
-            sevenTwentyP();
-            setTimeout(function() {
-                app.ptr.done();
-            }, 2000);
-        });
+        // $$('.ptr-content-quality1-movies').on('ptr:refresh', function(e) {
+        //     console.log("PTR Quality 1");
+        //     $$('#quality1-movies').html("");
+        //     sevenTwentyP();
+        //     setTimeout(function() {
+        //         app.ptr.done();
+        //     }, 2000);
+        // });
     });
 
     $$('#quality2').on('tab:show', function() {
         app.infiniteScroll.create(".infinite-scroll-content-quality2-movies");
         app.ptr.create(".ptr-content-quality2-movies");
         tenEightyP();
+
+        // INIFINITE SCROLL QUALITY 1
+        var allowInfinite = true;
+        var lastItemIndex = $$('#quality2-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-quality2-movies').on('infinite', function() {
+            console.log("Infinite Scroll Quality 1");
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-quality2-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?quality=1080p&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var qualityTwoItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#quality2-movies').append(qualityTwoItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#quality2-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
 
     $$('#quality3').on('tab:show', function() {
         app.infiniteScroll.create(".infinite-scroll-content-quality3-movies");
         app.ptr.create(".ptr-content-quality3-movies");
         threeD();
+        // INIFINITE SCROLL QUALITY 1
+        var allowInfinite = true;
+        var lastItemIndex = $$('#quality3-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-quality3-movies').on('infinite', function() {
+            console.log("Infinite Scroll Quality 1");
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-quality3-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?quality=3D&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var qualityThreeItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#quality3-movies').append(qualityThreeItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#quality3-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
 })
 
@@ -450,72 +546,1154 @@ $$(document).on('page:init', '.page[data-name="moviedetails"]', function(e, page
 
 
 $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
+    app.infiniteScroll.create(".infinite-scroll-content-action-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-animation-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-comedy-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-documentary-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-family-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-film-noi-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-horror-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-musical-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-romance-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-sport-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-war-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-adventure-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-biography-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-crime-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-drama-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-fantasy-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-history-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-music-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-mystery-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-scifi-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-thriller-movies");
+    app.infiniteScroll.create(".infinite-scroll-content-western-movies");
+
     genreAction();
-    $$('#genre').on('tab:show', function() {
-        genreAction();
+
+    var allowInfinite = true;
+    var lastItemIndex = $$('#action-movies ul li').length;
+    var maxItems = 2000;
+    var itemsPerLoad = 20;
+    var scrollInfiniteCounter = 2;
+
+    $$('.infinite-scroll-content-action-movies').on('infinite', function() {
+        if (!allowInfinite) return;
+        allowInfinite = false;
+        setTimeout(function() {
+            allowInfinite = true;
+
+            if (lastItemIndex >= maxItems) {
+                app.infiniteScroll.destroy('.infinite-scroll-content-action-movies');
+                $$('.infinite-scroll-preloader').remove();
+                return;
+            }
+            $.ajax({
+                url: baseUrl + 'list_movies.json?genre=action&page=' + scrollInfiniteCounter + '&limit=20',
+                type: "GET",
+            }).fail(function(data) {
+                console.log('error:' + data);
+                alertServerError();
+            }).done(function(data) {
+                $.each(data.data.movies, function(key, val) {
+                    var actionItemHolder = '<li>' +
+                        '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                        '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                        '<div class="item-inner">' +
+                        '<div class="item-title-row">' +
+                        '<div class="item-title">' + val.title_english + '</div>' +
+                        '</div>' +
+                        '<div class="item-subtitle">' + val.year + '</div>' +
+                        '<div class="item-text">' + val.description_full + '</div>' +
+                        '</div>' +
+                        '</a>' +
+                        '</li>';
+                    $$('#action-movies').append(actionItemHolder);
+                });
+            });
+
+            lastItemIndex = $$('#action-movies ul li').length;
+            scrollInfiniteCounter++;
+        }, 1000);
     });
+
+    $$('#action').on('tab:show', function() {
+        genreAction();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#action-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-action-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-action-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=action&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var actionItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#action-movies').append(actionItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#action-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
+    });
+
     $$('#animation').on('tab:show', function() {
         genreAnimation();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#animation-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-animation-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-animation-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=animation&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var animationItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#animation-movies').append(animationItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#animation-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#comedy').on('tab:show', function() {
         genreComedy();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#comedy-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-comedy-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-comedy-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=comedy&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var comedyItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#comedy-movies').append(comedyItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#comedy-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#documentary').on('tab:show', function() {
         genreDocumentary();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#documentary-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-documentary-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-documentary-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=documentary&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var documentaryItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#documentary-movies').append(documentaryItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#documentary-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#family').on('tab:show', function() {
         genreFamily();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#family-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-family-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-family-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=family&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var familyItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#family-movies').append(familyItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#family-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#film-noi').on('tab:show', function() {
         genrefilmnoi();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#film-noi-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-film-noi-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-film-noi-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=film-noi&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var filmnoiItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#film-noi-movies').append(filmnoiItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#film-noi-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#horror').on('tab:show', function() {
         genreHorror();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#horror-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-horror-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-horror-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=horror&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var horrorItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#horror-movies').append(horrorItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#horror-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
+    // START
     $$('#musical').on('tab:show', function() {
         genreMusical();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#musical-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-musical-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-musical-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=musical&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var musicalItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#musical-movies').append(musicalItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#musical-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#romance').on('tab:show', function() {
         genreRomance();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#romance-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-romance-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-romance-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=romance&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var romanceItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#romance-movies').append(romanceItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#romance-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#sport').on('tab:show', function() {
         genreSport();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#sport-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-sport-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-sport-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=sport&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var sportItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#sport-movies').append(sportItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#sport-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#war').on('tab:show', function() {
         genreWar();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#war-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-war-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-war-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=war&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var warItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#war-movies').append(warItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#war-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#adventure').on('tab:show', function() {
         genreAdventure();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#adventure-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-adventure-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-adventure-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=adventure&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var adventureItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#adventure-movies').append(adventureItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#adventure-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#biography').on('tab:show', function() {
         genreBiography();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#biography-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-biography-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-biography-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=biography&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var biographyItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#biography-movies').append(biographyItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#biography-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#crime').on('tab:show', function() {
         genreCrime();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#crime-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-crime-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-crime-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=crime&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var crimeItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#crime-movies').append(crimeItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#crime-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#drama').on('tab:show', function() {
         genreDrama();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#drama-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-drama-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-drama-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=drama&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var dramaItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#drama-movies').append(dramaItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#drama-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#fantasy').on('tab:show', function() {
         genreFantasy();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#fantansy-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-fantansy-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-fantansy-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=fantansy&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var fantasyItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#fantansy-movies').append(fantasyItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#fantansy-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#history').on('tab:show', function() {
         genreHistory();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#history-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-history-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-history-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=history&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var historyItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#history-movies').append(historyItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#history-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#music').on('tab:show', function() {
         genreMusic();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#music-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-music-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-music-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=music&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var musicItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#music-movies').append(musicItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#music-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#mystery').on('tab:show', function() {
         genreMystery();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#mystery-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-mystery-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-mystery-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=mystery&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var mysteryItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#mystery-movies').append(mysteryItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#mystery-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#scifi').on('tab:show', function() {
         genreScifi();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#scifi-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-scifi-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-scifi-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=scifi&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var scifiItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#scifi-movies').append(scifiItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#scifi-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#thriller').on('tab:show', function() {
         genreThriller();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#thriller-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-thriller-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-thriller-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=thriller&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var thrillerItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#thriller-movies').append(thrillerItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#thriller-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
+
     $$('#western').on('tab:show', function() {
         genreWestern();
+        var allowInfinite = true;
+        var lastItemIndex = $$('#western-movies ul li').length;
+        var maxItems = 2000;
+        var itemsPerLoad = 20;
+        var scrollInfiniteCounter = 2;
+
+        $$('.infinite-scroll-content-western-movies').on('infinite', function() {
+            if (!allowInfinite) return;
+            allowInfinite = false;
+            setTimeout(function() {
+                allowInfinite = true;
+
+                if (lastItemIndex >= maxItems) {
+                    app.infiniteScroll.destroy('.infinite-scroll-content-western-movies');
+                    $$('.infinite-scroll-preloader').remove();
+                    return;
+                }
+                $.ajax({
+                    url: baseUrl + 'list_movies.json?genre=western&page=' + scrollInfiniteCounter + '&limit=20',
+                    type: "GET",
+                }).fail(function(data) {
+                    console.log('error:' + data);
+                    alertServerError();
+                }).done(function(data) {
+                    $.each(data.data.movies, function(key, val) {
+                        var westernItemHolder = '<li>' +
+                            '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-inner">' +
+                            '<div class="item-title-row">' +
+                            '<div class="item-title">' + val.title_english + '</div>' +
+                            '</div>' +
+                            '<div class="item-subtitle">' + val.year + '</div>' +
+                            '<div class="item-text">' + val.description_full + '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '</li>';
+                        $$('#western-movies').append(westernItemHolder);
+                    });
+                });
+
+                lastItemIndex = $$('#western-movies ul li').length;
+                scrollInfiniteCounter++;
+            }, 1000);
+        });
     });
 })
 
@@ -579,8 +1757,8 @@ $$(document).on('page:init', '.page[data-name="credits"]', function(e, page) {
 
     if (currentTheme == "color-theme-orange") {
         bgColorTheme = "#c66900";
-    } else if (currentTheme == "color-theme-black") {
-        bgColorTheme = "#484848";
+    } else if (currentTheme == "color-theme-gray") {
+        bgColorTheme = "#9e9e9e";
     } else if (currentTheme == "color-theme-pink") {
         bgColorTheme = "#b0003a";
     } else if (currentTheme == "color-theme-blue") {
@@ -593,12 +1771,12 @@ $$(document).on('page:init', '.page[data-name="credits"]', function(e, page) {
         bgColorTheme = "#087f23";
     }
     $$('.f7-link-web').on('click', function() {
-        var f7 = cordova.InAppBrowser.open('https://framework7.io/', '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + '');
+        var f7 = cordova.InAppBrowser.open('https://framework7.io/', '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + ',navigationbuttoncolor=#FFFFFF,closebuttoncolor=#FFFFFF');
         f7.addEventListener('exit', loadExitCallBack);
     });
 
     $$('.yts-link-web').on('click', function() {
-        var yts = cordova.InAppBrowser.open('https://yts.am/api', '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + '');
+        var yts = cordova.InAppBrowser.open('https://yts.am/api', '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + ',navigationbuttoncolor=#FFFFFF,closebuttoncolor=#FFFFFF');
         yts.addEventListener('exit', loadExitCallBack);
     });
 
@@ -692,15 +1870,15 @@ var themecolor_select = app.actions.create({
                 }
             },
             {
-                text: 'Yellow',
-                icon: '<button class="button button-fill button-round button-raised color-yellow"></button>',
+                text: 'Gray',
+                icon: '<button class="button button-fill button-round button-raised color-gray"></button>',
                 onClick: function() {
                     $('body').removeClass();
-                    $$('body').addClass('color-theme-yellow');
-                    localStorage.setItem('color-theme', 'color-theme-yellow');
-                    localStorage.setItem('color-theme-form', 'color-yellow');
+                    $$('body').addClass('color-theme-gray');
+                    localStorage.setItem('color-theme', 'color-theme-gray');
+                    localStorage.setItem('color-theme-form', 'color-gray');
                     isDarkTheme();
-                    StatusBar.backgroundColorByHexString("#ffeb3b");
+                    StatusBar.backgroundColorByHexString("#707070");
                     StatusBar.styleLightContent();
                 }
             },
@@ -866,12 +2044,6 @@ function sevenTwentyP() {
     });
 }
 
-
-function sevenTwentyPISPTR() {
-
-}
-
-
 function tenEightyP() {
     $.ajax({
         url: baseUrl + 'list_movies.json?quality=1080p',
@@ -1007,7 +2179,7 @@ function movieDetails(movieID) {
             $$('#cast-holder').append(movieCasts);
         });
 
-        // console.log(data.data.movie.genres);
+        // console.log(data.data.movie.genres)
         $.each(data.data.movie.genres, function(key, val) {
             var moviegenres = '<div class="chip ' + currentThemeForm + '">' +
                 '<div class="chip-label">' + val + '</div>';
