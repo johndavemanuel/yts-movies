@@ -12,6 +12,10 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
+    <plugin name="cordova-plugin-email-composer" spec="^0.9.1" />
+    <plugin name="cordova-plugin-admobpro" spec="^2.35.3">
+        <variable name="PLAY_SERVICES_VERSION" value="16.0.0" />
+    </plugin>
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -28,7 +32,6 @@
     </platform>
     <platform name="android">
         <preference name="Orientation" value="portrait" />
-        <!-- <preference name="Orientation" value="landscape" /> -->
         <preference name="AndroidLaunchMode" value="singleTop" />
         <preference name="AutoHideSplashScreen" value="true" />
         <preference name="FadeSplashScreen" value="true" />

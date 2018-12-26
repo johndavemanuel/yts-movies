@@ -10,9 +10,13 @@
     "author": "Apache Cordova Team",
     "license": "Apache-2.0",
     "dependencies": {
+        "cordova-admobsdk": "^7.35.0",
         "cordova-android": "7.1.1",
         "cordova-browser": "^5.0.4",
         "cordova-ios": "4.5.5",
+        "cordova-plugin-admobpro": "^2.35.3",
+        "cordova-plugin-email-composer": "^0.9.1",
+        "cordova-plugin-extension": "^1.5.4",
         "cordova-plugin-inappbrowser": "^3.0.0",
         "cordova-plugin-splashscreen": "^5.0.2",
         "cordova-plugin-statusbar": "^2.4.2",
@@ -23,7 +27,11 @@
             "cordova-plugin-whitelist": {},
             "cordova-plugin-statusbar": {},
             "cordova-plugin-inappbrowser": {},
-            "cordova-plugin-splashscreen": {}
+            "cordova-plugin-splashscreen": {},
+            "cordova-plugin-email-composer": {},
+            "cordova-plugin-admobpro": {
+                "PLAY_SERVICES_VERSION": "16.0.0"
+            }
         },
         "platforms": [
             "android",

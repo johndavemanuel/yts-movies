@@ -10,7 +10,7 @@
 
 .demo-card-header-pic .card-header {
     height: 40vw;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     color: #fff;
 }
@@ -86,6 +86,10 @@
 
 #other-settings ul:before {
     background-color: transparent !important;
+}
+
+#search-movie-advance {
+    margin-top:10px;
 }
 
 

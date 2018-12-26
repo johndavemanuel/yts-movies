@@ -18,7 +18,18 @@
     },
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "io.cordova.hellocordova"
+    },
+    "cordova-plugin-email-composer": {
+      "PACKAGE_NAME": "io.davemanuel.ytsmovies"
+    },
+    "cordova-plugin-admobpro": {
+      "PLAY_SERVICES_VERSION": "16.0.0",
+      "PACKAGE_NAME": "io.davemanuel.ytsmovies"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-extension": {
+      "PACKAGE_NAME": "io.davemanuel.ytsmovies"
+    }
+  }
 }

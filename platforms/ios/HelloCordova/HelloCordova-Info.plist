@@ -52,5 +52,9 @@
       <key>NSAllowsArbitraryLoads</key>
       <true/>
     </dict>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>mailto</string>
+    </array>
   </dict>
 </plist>

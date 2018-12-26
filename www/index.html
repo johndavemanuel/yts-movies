@@ -103,20 +103,20 @@
                                                 </div>
                                             </a>
                                         </li>
-                                         <li>
+                                        <li>
                                             <a id="welcome-screen" href="#" class="item-link item-content">
                                                 <div class="item-inner">
                                                     <div class="item-title">Welcome Screen</div>
                                                 </div>
                                             </a>
                                         </li>
-                                        <li>
+                                        <!-- <li>
                                             <a href="/feedback/" class="item-link item-content">
                                                 <div class="item-inner">
                                                     <div class="item-title">Give Feedback</div>
                                                 </div>
                                             </a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
                             </div>
@@ -200,7 +200,36 @@
         <script>
         document.addEventListener("deviceready", onDeviceReady, false);
 
+        function adSetter() {
+            alert(navigator.userAgent);
+            var admobid = {}
+            if (/(android)/i.test(navigator.userAgent)) {
+                admobid = { // for Android
+                    banner: 'ca-app-pub-5793280052328718/3202992078',
+                    interstitial: 'ca-app-pub-5793280052328718/3202992078'
+                }
+            } else if (/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
+                admobid = { // for iOS
+                    banner: 'ca-app-pub-5793280052328718/3202992078',
+                    interstitial: 'ca-app-pub-5793280052328718/3202992078'
+                };
+            } else {
+                admobid = { // for Windows Phone
+                    banner: 'cca-app-pub-5793280052328718/3202992078',
+                    interstitial: 'ca-app-pub-5793280052328718/3202992078'
+                };
+            }
+            //code for pop-up-ads
+            if (AdMob) AdMob createBanner({
+                adId: admobid.banner,
+                position: AdMob.AD_POSITION.BOTTOM_CENTER,
+                autoShow: true
+            });
+
+        }
+
         function onDeviceReady() {
+            adSetter();
             var currentThemeStatusbar = localStorage.getItem('color-theme');
             var bgColorThemeStatusBar;
 

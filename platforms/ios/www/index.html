@@ -91,13 +91,6 @@
                                                 </div>
                                             </a>
                                         </li>
-                                        <!-- <li>
-                                            <a id="welcome-screen" href="#" class="item-link item-content">
-                                                <div class="item-inner">
-                                                    <div class="item-title">Welcome Screen</div>
-                                                </div>
-                                            </a>
-                                        </li> -->
                                     </ul>
                                 </div>
                                 <div class="block-title">App</div>
@@ -111,12 +104,19 @@
                                             </a>
                                         </li>
                                         <li>
+                                            <a id="welcome-screen" href="#" class="item-link item-content">
+                                                <div class="item-inner">
+                                                    <div class="item-title">Welcome Screen</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <!-- <li>
                                             <a href="/feedback/" class="item-link item-content">
                                                 <div class="item-inner">
                                                     <div class="item-title">Give Feedback</div>
                                                 </div>
                                             </a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
                             </div>
@@ -150,43 +150,41 @@
                             <a href="#download" class="tab-link">Popular Downloads</a>
                         </div>
                     </div>
-                    <div class="tabs">
-                        <div class="page-content infinite-scroll-content-latest-movies ptr-content-latest-movies tab tab-active" id="latest">
-                            <div class="ptr-preloader">
-                                <div class="preloader"></div>
-                                <div class="ptr-arrow"></div>
+                    <div class="tabs-swipeable-wrap">
+                        <div class="tabs">
+                            <div class="page-content infinite-scroll-content-latest-movies ptr-content-latest-movies tab tab-active" id="latest">
+                                <div class="ptr-preloader">
+                                    <div class="preloader"></div>
+                                    <div class="ptr-arrow"></div>
+                                </div>
+                                <div class="list media-list" id="latest-movies-wrapper">
+                                    <ul id="latest-movies">
+                                    </ul>
+                                </div>
+                                <div class="preloader infinite-scroll-preloader"></div>
                             </div>
-                            <div class="list media-list" id="latest-movies-wrapper">
-                                <ul id="latest-movies">
-                                </ul>
-                            </div>
-                            <div class="preloader infinite-scroll-preloader"></div>
-                        </div>
-                        <div class="page-content infinite-scroll-content-rated-movies  ptr-content-rated-movies tab" id="rated">
-                            <div class="ptr-preloader">
-                                <div class="preloader"></div>
-                                <div class="ptr-arrow"></div>
-                            </div>
-                            <div>
+                            <div class="page-content infinite-scroll-content-rated-movies  ptr-content-rated-movies tab" id="rated">
+                                <div class="ptr-preloader">
+                                    <div class="preloader"></div>
+                                    <div class="ptr-arrow"></div>
+                                </div>
                                 <div class="list media-list" id="rated-movies-wrapper">
                                     <ul id="rated-movies">
                                     </ul>
                                 </div>
+                                <div class="preloader infinite-scroll-preloader"></div>
                             </div>
-                            <div class="preloader infinite-scroll-preloader"></div>
-                        </div>
-                        <div class="page-content infinite-scroll-content-download-movies ptr-content-download-movies tab" id="download">
-                            <div class="ptr-preloader">
-                                <div class="preloader"></div>
-                                <div class="ptr-arrow"></div>
-                            </div>
-                            <div>
+                            <div class="page-content infinite-scroll-content-download-movies ptr-content-download-movies tab" id="download">
+                                <div class="ptr-preloader">
+                                    <div class="preloader"></div>
+                                    <div class="ptr-arrow"></div>
+                                </div>
                                 <div class="list media-list" id="download-movies-wrapper">
                                     <ul id="download-movies">
                                     </ul>
                                 </div>
+                                <div class="preloader infinite-scroll-preloader"></div>
                             </div>
-                            <div class="preloader infinite-scroll-preloader"></div>
                         </div>
                     </div>
                 </div>
@@ -221,7 +219,7 @@
             } else {
                 bgColorThemeStatusBar = "#087f23";
             }
-            
+
             // StatusBar.overlaysWebView(false);
             StatusBar.backgroundColorByHexString(bgColorThemeStatusBar);
             StatusBar.styleLightContent();

@@ -33,22 +33,26 @@
         <preference name="FadeSplashScreen" value="true" />
         <preference name="ShowSplashScreenSpinner" value="false" />
         <preference name="SplashScreenDelay" value="3000" />
-        <icon src="res/icon/android/ldpi.png" density="ldpi" />
-        <icon src="res/icon/android/mdpi.png" density="mdpi" />
-        <icon src="res/icon/android/hdpi.png" density="hdpi" />
-        <icon src="res/icon/android/xhdpi.png" density="xhdpi" />
-        <icon src="res/icon/android/xxhdpi.png" density="xxhdpi" />
-        <icon src="res/icon/android/xxxhdpi.png" density="xxxhdpi" />
-        <splash platform="android" src="res/screen/android/drawable-port-xhdpi-screen.png" density="xhdpi" width="1280" height="720" orientation="portrait" />
-        <splash platform="android" src="res/screen/android/drawable-port-hdpi-screen.png" density="hdpi" width="800" height="480" orientation="portrait" />
-        <splash platform="android" src="res/screen/android/drawable-port-mdpi-screen.png" density="mdpi" width="320" height="200" orientation="portrait" />
-        <splash platform="android" src="res/screen/android/drawable-port-ldpi-screen.png" density="ldpi" width="480" height="320" orientation="portrait" />
-        <splash platform="android" src="res/screen/android/drawable-port-xxhdpi-screen.png" density="xxhdpi" width="1600" height="960" orientation="portrait" />
-        <splash platform="android" src="res/screen/android/drawable-port-xxxhdpi-screen.png" density="xxxhdpi" width="1920" height="1280" orientation="portrait" />
+        <icon density="ldpi" src="res/icon/android/ldpi.png" />
+        <icon density="mdpi" src="res/icon/android/mdpi.png" />
+        <icon density="hdpi" src="res/icon/android/hdpi.png" />
+        <icon density="xhdpi" src="res/icon/android/xhdpi.png" />
+        <icon density="xxhdpi" src="res/icon/android/xxhdpi.png" />
+        <icon density="xxxhdpi" src="res/icon/android/xxxhdpi.png" />
+        <splash density="xhdpi" height="720" orientation="portrait" platform="android" src="res/screen/android/drawable-port-xhdpi-screen.png" width="1280" />
+        <splash density="hdpi" height="480" orientation="portrait" platform="android" src="res/screen/android/drawable-port-hdpi-screen.png" width="800" />
+        <splash density="mdpi" height="200" orientation="portrait" platform="android" src="res/screen/android/drawable-port-mdpi-screen.png" width="320" />
+        <splash density="ldpi" height="320" orientation="portrait" platform="android" src="res/screen/android/drawable-port-ldpi-screen.png" width="480" />
+        <splash density="xxhdpi" height="960" orientation="portrait" platform="android" src="res/screen/android/drawable-port-xxhdpi-screen.png" width="1600" />
+        <splash density="xxxhdpi" height="1280" orientation="portrait" platform="android" src="res/screen/android/drawable-port-xxxhdpi-screen.png" width="1920" />
     </platform>
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#FFFFFF" />
     <preference name="StatusBarStyle" value="lightcontent" />
     <engine name="android" spec="~7.1.4" />
     <engine name="ios" spec="~4.5.5" />
+    <plugin name="cordova-plugin-email-composer" spec="^0.9.1" />
+    <plugin name="cordova-plugin-admobpro" spec="^2.35.3">
+        <variable name="PLAY_SERVICES_VERSION" value="16.0.0" />
+    </plugin>
 </widget>
