@@ -34,7 +34,7 @@ var prepairedAd;
 
 $$(document).on('page:init', '.page[data-name="home"]', function(e) {
     app.infiniteScroll.create(".infinite-scroll-content-latest-movies");
-    app.ptr.create(".ptr-content-latest-movies");
+    // app.ptr.create(".ptr-content-latest-movies");
 
     // ADS
     if (!app.vi.sdkReady) {
@@ -113,7 +113,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
     // TABS HOME
     $$('#latest').on('tab:show', function() {
         app.infiniteScroll.create(".infinite-scroll-content-latest-movies");
-        app.ptr.create(".ptr-content-latest-movies");
+        // app.ptr.create(".ptr-content-latest-movies");
 
         latestMovies();
 
@@ -178,7 +178,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
 
     $$('#rated').on('tab:show', function() {
         app.infiniteScroll.create(".infinite-scroll-content-rated-movies");
-        app.ptr.create(".ptr-content-rated-movies");
+        // app.ptr.create(".ptr-content-rated-movies");
         topRatedMovies();
         // INIFINITE SCROLL RATED
         var allowInfinite = true;
@@ -2195,10 +2195,37 @@ function movieDetails(movieID) {
                 '<p>Peers: ' + val.peers + '</p>' +
                 '<p>Size: ' + val.size + '</p>' +
                 '</div>' +
-                '<div class="card-footer"><a class="link external" href="' + val.url + '" class="link">DOWNLOAD</a></div>' +
+                '<div class="card-footer"><a class="torrent-download link external" href="' + val.url + '" class="link">DOWNLOAD</a></div>' +
                 '</div>';
             $$('#download-holder').append(torrentList);
         });
+        $$('.torrent-download').on('click', function() {
+            var currentTheme = localStorage.getItem('color-theme');
+            var bgColorTheme;
+
+            if (currentTheme == "color-theme-orange") {
+                bgColorTheme = "#c66900";
+            } else if (currentTheme == "color-theme-gray") {
+                bgColorTheme = "#9e9e9e";
+            } else if (currentTheme == "color-theme-pink") {
+                bgColorTheme = "#b0003a";
+            } else if (currentTheme == "color-theme-blue") {
+                bgColorTheme = "#0069c0";
+            } else if (currentTheme == "color-theme-green") {
+                bgColorTheme = "#087f23";
+            } else if (currentTheme == "color-theme-red") {
+                bgColorTheme = "#ba000d";
+            } else {
+                bgColorTheme = "#087f23";
+            }
+            // var link = $(this).attr("href");
+            // var torrent = cordova.InAppBrowser.open(link, '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + ',navigationbuttoncolor=#FFFFFF,closebuttoncolor=#FFFFFF');
+            // torrent.addEventListener('exit', loadExitCallBack);
+        });
+
+        function loadExitCallBack(params) {
+            mainView.router.navigate('/');
+        }
     });
 }
 

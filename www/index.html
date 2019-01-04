@@ -153,10 +153,10 @@
                     <div class="tabs-swipeable-wrap">
                         <div class="tabs">
                             <div class="page-content infinite-scroll-content-latest-movies ptr-content-latest-movies tab tab-active" id="latest">
-                                <div class="ptr-preloader">
+                                <!-- <div class="ptr-preloader">
                                     <div class="preloader"></div>
                                     <div class="ptr-arrow"></div>
-                                </div>
+                                </div> -->
                                 <div class="list media-list" id="latest-movies-wrapper">
                                     <ul id="latest-movies">
                                     </ul>
@@ -164,10 +164,10 @@
                                 <div class="preloader infinite-scroll-preloader"></div>
                             </div>
                             <div class="page-content infinite-scroll-content-rated-movies  ptr-content-rated-movies tab" id="rated">
-                                <div class="ptr-preloader">
+                                <!-- <div class="ptr-preloader">
                                     <div class="preloader"></div>
                                     <div class="ptr-arrow"></div>
-                                </div>
+                                </div> -->
                                 <div class="list media-list" id="rated-movies-wrapper">
                                     <ul id="rated-movies">
                                     </ul>
@@ -175,10 +175,10 @@
                                 <div class="preloader infinite-scroll-preloader"></div>
                             </div>
                             <div class="page-content infinite-scroll-content-download-movies ptr-content-download-movies tab" id="download">
-                                <div class="ptr-preloader">
+                                <!-- <div class="ptr-preloader">
                                     <div class="preloader"></div>
                                     <div class="ptr-arrow"></div>
-                                </div>
+                                </div> -->
                                 <div class="list media-list" id="download-movies-wrapper">
                                     <ul id="download-movies">
                                     </ul>
@@ -200,36 +200,8 @@
         <script>
         document.addEventListener("deviceready", onDeviceReady, false);
 
-        function adSetter() {
-            alert(navigator.userAgent);
-            var admobid = {}
-            if (/(android)/i.test(navigator.userAgent)) {
-                admobid = { // for Android
-                    banner: 'ca-app-pub-5793280052328718/3202992078',
-                    interstitial: 'ca-app-pub-5793280052328718/3202992078'
-                }
-            } else if (/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
-                admobid = { // for iOS
-                    banner: 'ca-app-pub-5793280052328718/3202992078',
-                    interstitial: 'ca-app-pub-5793280052328718/3202992078'
-                };
-            } else {
-                admobid = { // for Windows Phone
-                    banner: 'cca-app-pub-5793280052328718/3202992078',
-                    interstitial: 'ca-app-pub-5793280052328718/3202992078'
-                };
-            }
-            //code for pop-up-ads
-            if (AdMob) AdMob createBanner({
-                adId: admobid.banner,
-                position: AdMob.AD_POSITION.BOTTOM_CENTER,
-                autoShow: true
-            });
-
-        }
-
         function onDeviceReady() {
-            adSetter();
+            
             var currentThemeStatusbar = localStorage.getItem('color-theme');
             var bgColorThemeStatusBar;
 
@@ -249,9 +221,39 @@
                 bgColorThemeStatusBar = "#087f23";
             }
 
-            // StatusBar.overlaysWebView(false);
+            StatusBar.overlaysWebView(false);
             StatusBar.backgroundColorByHexString(bgColorThemeStatusBar);
             StatusBar.styleLightContent();
+
+            var admobid = {}
+
+            if (/(android)/i.test(navigator.userAgent)) {
+                alert("Android");
+                admobid = {
+                    banner: 'ca-app-pub-5793280052328718/3202992078',
+                    interstitial: 'ca-app-pub-5793280052328718/1542531242'
+                }
+            } else if (/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
+                alert("IOS");
+                admobid = {
+                    banner: 'ca-app-pub-5793280052328718/3202992078',
+                    interstitial: 'ca-app-pub-5793280052328718/1542531242'
+                };
+            } else {
+                alert("Windows");
+                admobid = {
+                    banner: 'cca-app-pub-5793280052328718/3202992078',
+                    interstitial: 'ca-app-pub-5793280052328718/1542531242'
+                };
+            }
+            
+            if (AdMob) {
+                AdMob.createBanner({
+                    adId: admobid.banner,
+                    position: AdMob.AD_POSITION.BOTTOM_CENTER,
+                    autoShow: true
+                });
+            }
         }
         </script>
     </body>
