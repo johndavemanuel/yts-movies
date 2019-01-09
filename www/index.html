@@ -97,16 +97,16 @@
                                 <div class="list">
                                     <ul>
                                         <li>
-                                            <a href="/credits/" class="item-link item-content">
+                                            <a id="welcome-screen" href="#" class="item-link item-content">
                                                 <div class="item-inner">
-                                                    <div class="item-title">Credits</div>
+                                                    <div class="item-title">Welcome Screen</div>
                                                 </div>
                                             </a>
                                         </li>
                                         <li>
-                                            <a id="welcome-screen" href="#" class="item-link item-content">
+                                            <a href="/credits/" class="item-link item-content">
                                                 <div class="item-inner">
-                                                    <div class="item-title">Welcome Screen</div>
+                                                    <div class="item-title">Credits</div>
                                                 </div>
                                             </a>
                                         </li>
@@ -201,7 +201,7 @@
         document.addEventListener("deviceready", onDeviceReady, false);
 
         function onDeviceReady() {
-            
+
             var currentThemeStatusbar = localStorage.getItem('color-theme');
             var bgColorThemeStatusBar;
 
@@ -228,31 +228,31 @@
             var admobid = {}
 
             if (/(android)/i.test(navigator.userAgent)) {
-                alert("Android");
                 admobid = {
-                    banner: 'ca-app-pub-5793280052328718/3202992078',
+                    banner: 'ca-app-pub-5793280052328718/6357837676',
                     interstitial: 'ca-app-pub-5793280052328718/1542531242'
                 }
             } else if (/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
-                alert("IOS");
                 admobid = {
-                    banner: 'ca-app-pub-5793280052328718/3202992078',
+                    banner: 'ca-app-pub-5793280052328718/6357837676',
                     interstitial: 'ca-app-pub-5793280052328718/1542531242'
                 };
             } else {
-                alert("Windows");
                 admobid = {
-                    banner: 'cca-app-pub-5793280052328718/3202992078',
+                    banner: 'cca-app-pub-5793280052328718/6357837676',
                     interstitial: 'ca-app-pub-5793280052328718/1542531242'
                 };
             }
-            
+
             if (AdMob) {
                 AdMob.createBanner({
                     adId: admobid.banner,
                     position: AdMob.AD_POSITION.BOTTOM_CENTER,
                     autoShow: true
                 });
+                alert("ADS");
+            } else {
+                alert("NO ADS");
             }
         }
         </script>
