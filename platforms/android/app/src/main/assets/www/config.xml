@@ -13,6 +13,12 @@
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <plugin name="cordova-plugin-email-composer" spec="^0.9.1" />
+    <!--  <plugin name="cordova-plugin-admobpro" spec="^2.35.3">
+        <variable name="PLAY_SERVICES_VERSION" value="16.0.0" />
+    </plugin> -->
+    <plugin name="cordova-admob-sdk" spec="~0.13.1">
+        <variable name="PLAY_SERVICES_VERSION" value="11.6.0" />
+    </plugin>
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -29,7 +35,6 @@
     </platform>
     <platform name="android">
         <preference name="Orientation" value="portrait" />
-        <!-- <preference name="Orientation" value="landscape" /> -->
         <preference name="AndroidLaunchMode" value="singleTop" />
         <preference name="AutoHideSplashScreen" value="true" />
         <preference name="FadeSplashScreen" value="true" />
@@ -47,16 +52,12 @@
         <splash platform="android" src="res/screen/android/drawable-port-ldpi-screen.png" density="ldpi" width="480" height="320" orientation="portrait" />
         <splash platform="android" src="res/screen/android/drawable-port-xxhdpi-screen.png" density="xxhdpi" width="1600" height="960" orientation="portrait" />
         <splash platform="android" src="res/screen/android/drawable-port-xxxhdpi-screen.png" density="xxxhdpi" width="1920" height="1280" orientation="portrait" />
-        <splash platform="android" src="res/screen/android/drawable-land-xhdpi-screen.png" density="xhdpi" width="1280" height="720" orientation="landscape" />
-        <splash platform="android" src="res/screen/android/drawable-land-hdpi-screen.png" density="hdpi" width="800" height="480" orientation="landscape" />
-        <splash platform="android" src="res/screen/android/drawable-land-mdpi-screen.png" density="mdpi" width="320" height="200" orientation="landscape" />
-        <splash platform="android" src="res/screen/android/drawable-land-ldpi-screen.png" density="ldpi" width="480" height="320" orientation="landscape" />
-        <splash platform="android" src="res/screen/android/drawable-land-xxhdpi-screen.png" density="xxhdpi" width="1600" height="960" orientation="landscape" />
-        <splash platform="android" src="res/screen/android/drawable-land-xxxhdpi-screen.png" density="xxxhdpi" width="1920" height="1280" orientation="landscape" />
     </platform>
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#FFFFFF" />
     <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="android-build-tool" value="gradle" />
+    <preference name="phonegap-version" value="cli-8.0.0" />
     <engine name="android" spec="~7.1.4" />
     <engine name="ios" spec="~4.5.5" />
 </widget>

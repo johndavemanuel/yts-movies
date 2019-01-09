@@ -12,7 +12,17 @@
     height: 40vw;
     background-size: contain;
     background-position: center;
-    color: #fff;
+    background-repeat: no-repeat;
+    color: black;
+}
+
+
+#movide-details-holder .card {
+    box-shadow: none;
+}
+
+#movide-details-holder .card-header:after {
+    background-color: transparent;
 }
 
 .md .navbar:after {
@@ -89,7 +99,7 @@
 }
 
 #search-movie-advance {
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 

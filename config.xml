@@ -55,4 +55,7 @@
     <plugin name="cordova-plugin-admobpro" spec="^2.35.3">
         <variable name="PLAY_SERVICES_VERSION" value="16.0.0" />
     </plugin>
+    <plugin name="cordova-plugin-admob-free" spec="0.25.0">
+        <variable name="ADMOB_APP_ID" value="&lt;ca-app-pub-5793280052328718~8290052827&gt;" />
+    </plugin>
 </widget>

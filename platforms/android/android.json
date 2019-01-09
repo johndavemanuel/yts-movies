@@ -27,6 +27,10 @@
             {
               "xml": "<feature name=\"AdMob\"><param name=\"android-package\" value=\"com.rjfun.cordova.admob.AdMobPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"AdMob\"><param name=\"android-package\" value=\"name.ratson.cordova.admob.AdMob\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -52,17 +56,21 @@
           "/manifest/application": [
             {
               "xml": "<activity android:configChanges=\"keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize\" android:name=\"com.google.android.gms.ads.AdActivity\" android:theme=\"@android:style/Theme.Translucent\" />",
+              "count": 2
+            },
+            {
+              "xml": "<meta-data android:name=\"com.google.android.gms.ads.APPLICATION_ID\" android:value=\"<ca-app-pub-5793280052328718~8290052827>\" />",
               "count": 1
             }
           ],
           "/*": [
             {
               "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
-              "count": 1
+              "count": 2
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
-              "count": 1
+              "count": 2
             }
           ]
         }
@@ -90,6 +98,18 @@
     },
     "cordova-plugin-admobpro": {
       "PLAY_SERVICES_VERSION": "16.0.0",
+      "PACKAGE_NAME": "io.davemanuel.ytsmovies"
+    },
+    "cordova-promise-polyfill": {
+      "PACKAGE_NAME": "io.davemanuel.ytsmovies"
+    },
+    "cordova-admob-sdk": {
+      "PLAY_SERVICES_VERSION": "11.0.4",
+      "PACKAGE_NAME": "io.davemanuel.ytsmovies"
+    },
+    "cordova-plugin-admob-free": {
+      "ADMOB_APP_ID": "<ca-app-pub-5793280052328718~8290052827>",
+      "PLAY_SERVICES_VERSION": "11.0.4",
       "PACKAGE_NAME": "io.davemanuel.ytsmovies"
     }
   },
@@ -135,6 +155,27 @@
       "clobbers": [
         "window.AdMob"
       ]
+    },
+    {
+      "id": "cordova-promise-polyfill.Promise",
+      "file": "plugins/cordova-promise-polyfill/www/Promise.js",
+      "pluginId": "cordova-promise-polyfill",
+      "runs": true
+    },
+    {
+      "id": "cordova-promise-polyfill.promise.min",
+      "file": "plugins/cordova-promise-polyfill/www/promise.min.js",
+      "pluginId": "cordova-promise-polyfill"
+    },
+    {
+      "id": "cordova-plugin-admob-free.AdMob",
+      "file": "plugins/cordova-plugin-admob-free/www/admob.js",
+      "pluginId": "cordova-plugin-admob-free",
+      "clobbers": [
+        "admob",
+        "AdMob",
+        "plugins.AdMob"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -144,6 +185,9 @@
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-email-composer": "0.9.1",
     "cordova-plugin-extension": "1.5.4",
-    "cordova-plugin-admobpro": "2.35.3"
+    "cordova-plugin-admobpro": "2.35.3",
+    "cordova-promise-polyfill": "0.0.2",
+    "cordova-admob-sdk": "0.22.0",
+    "cordova-plugin-admob-free": "0.25.0"
   }
 }

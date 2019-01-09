@@ -19,6 +19,10 @@ routes = [{
     url: './pages/feedback.html',
   },
   {
+    path: '/howto/',
+    url: './pages/howto.html',
+  },
+  {
     path: '/quality/',
     url: './pages/quality.html',
   },

@@ -94,6 +94,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
                         '</div>' +
                         '</a>' +
                         '</li>';
+                    app.lazy.create("#latest-movies");
                     $$('#latest-movies').append(latestItemHolder);
                 });
             });
@@ -160,6 +161,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#latest-movies");
                         $$('#latest-movies').append(latestItemHolder);
                     });
                 });
@@ -223,6 +225,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#rated-movies");
                         $$('#rated-movies').append(ratedItemHolder);
                     });
                 });
@@ -286,6 +289,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#download-movies");
                         $$('#download-movies').append(downloadItemHolder);
                     });
                 });
@@ -352,6 +356,7 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
                         '</div>' +
                         '</a>' +
                         '</li>';
+                    app.lazy.create("#quality1-movies");
                     $$('#quality1-movies').append(qualityOneItemHolder);
                 });
             });
@@ -413,6 +418,7 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#quality1-movies");
                         $$('#quality1-movies').append(qualityOneItemHolder);
                     });
                 });
@@ -477,6 +483,7 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#quality2-movies");
                         $$('#quality2-movies').append(qualityTwoItemHolder);
                     });
                 });
@@ -530,6 +537,7 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#quality3-movies");
                         $$('#quality3-movies').append(qualityThreeItemHolder);
                     });
                 });

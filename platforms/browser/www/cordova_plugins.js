@@ -64,6 +64,27 @@ module.exports = [
         "clobbers": [
             "window.AdMob"
         ]
+    },
+    {
+        "file": "plugins/cordova-promise-polyfill/www/Promise.js",
+        "id": "cordova-promise-polyfill.Promise",
+        "pluginId": "cordova-promise-polyfill",
+        "runs": true
+    },
+    {
+        "file": "plugins/cordova-promise-polyfill/www/promise.min.js",
+        "id": "cordova-promise-polyfill.promise.min",
+        "pluginId": "cordova-promise-polyfill"
+    },
+    {
+        "file": "plugins/cordova-plugin-admob-free/www/admob.js",
+        "id": "cordova-plugin-admob-free.AdMob",
+        "pluginId": "cordova-plugin-admob-free",
+        "clobbers": [
+            "admob",
+            "AdMob",
+            "plugins.AdMob"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -75,7 +96,10 @@ module.exports.metadata =
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-email-composer": "0.9.1",
     "cordova-plugin-extension": "1.5.4",
-    "cordova-plugin-admobpro": "2.35.3"
+    "cordova-plugin-admobpro": "2.35.3",
+    "cordova-promise-polyfill": "0.0.2",
+    "cordova-admob-sdk": "0.22.0",
+    "cordova-plugin-admob-free": "0.25.0"
 }
 // BOTTOM OF METADATA
 });

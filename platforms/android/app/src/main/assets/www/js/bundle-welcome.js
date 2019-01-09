@@ -155,6 +155,7 @@
                 },
                 'onClosed': function() {
                     console.log("welcome screen closed");
+                     app.dialog.alert('You need a torrent client to download your favorite movies.');
                 }
             };
 
@@ -193,7 +194,7 @@
                     bgColorTheme = "#ff9800";
                     fontColorTheme = "#fff";
                 } else if (currentTheme == "color-theme-gray") {
-                    bgColorTheme = "#000000";
+                    bgColorTheme = "#9e9e9e";
                     fontColorTheme = "#fff";
                 } else if (currentTheme == "color-theme-pink") {
                     bgColorTheme = "#e91e63";

@@ -24,10 +24,19 @@
     },
     "cordova-plugin-admobpro": {
       "PACKAGE_NAME": "io.davemanuel.ytsmovies"
+    },
+    "cordova-plugin-admob-free": {
+      "PACKAGE_NAME": "io.davemanuel.ytsmovies"
     }
   },
   "dependent_plugins": {
     "cordova-plugin-extension": {
+      "PACKAGE_NAME": "io.davemanuel.ytsmovies"
+    },
+    "cordova-promise-polyfill": {
+      "PACKAGE_NAME": "io.davemanuel.ytsmovies"
+    },
+    "cordova-admob-sdk": {
       "PACKAGE_NAME": "io.davemanuel.ytsmovies"
     }
   }

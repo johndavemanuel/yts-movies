@@ -48,6 +48,8 @@
 		F8284685A0E446A99ED0397F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6759384A80694DE9B5764B08 /* UIKit.framework */; };
 		B09D2C2B540D41C8A888F9A3 /* CDVAdMobPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FC990CD5455D44B6AD913904 /* CDVAdMobPlugin.m */; };
 		9C75222EDF0A4CCA9784B7BE /* AdMobMediation.m in Sources */ = {isa = PBXBuildFile; fileRef = 443B144E350644ECAAB52DE3 /* AdMobMediation.m */; };
+		BDDD7DF70F184E27828E2B0E /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 104D7612FDF24E74A1BD986C /* GoogleMobileAds.framework */; };
+		B714DD706D684E60966FC139 /* CDVAdMob.m in Sources */ = {isa = PBXBuildFile; fileRef = CB304C0E64BE463D8E3CCF47 /* CDVAdMob.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +133,9 @@
 		443B144E350644ECAAB52DE3 /* AdMobMediation.m */ = {isa = PBXFileReference; name = "AdMobMediation.m"; path = "cordova-plugin-admobpro/AdMobMediation.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		C8B1897A49214C3F965B4974 /* CDVAdMobPlugin.h */ = {isa = PBXFileReference; name = "CDVAdMobPlugin.h"; path = "cordova-plugin-admobpro/CDVAdMobPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		3FDB126CF4E64E67869E67FF /* AdMobMediation.h */ = {isa = PBXFileReference; name = "AdMobMediation.h"; path = "cordova-plugin-admobpro/AdMobMediation.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		104D7612FDF24E74A1BD986C /* GoogleMobileAds.framework */ = {isa = PBXFileReference; name = "GoogleMobileAds.framework"; path = "HelloCordova/Plugins/cordova-admob-sdk/GoogleMobileAds.framework"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		CB304C0E64BE463D8E3CCF47 /* CDVAdMob.m */ = {isa = PBXFileReference; name = "CDVAdMob.m"; path = "cordova-plugin-admob-free/CDVAdMob.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		C015A16142654D3CA7D9DF34 /* CDVAdMob.h */ = {isa = PBXFileReference; name = "CDVAdMob.h"; path = "cordova-plugin-admob-free/CDVAdMob.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +167,7 @@
 				67110A7CF99347779F91D22B /* StoreKit.framework in Frameworks */,
 				B1B76B7FCACD41779DFF18A1 /* SystemConfiguration.framework in Frameworks */,
 				F8284685A0E446A99ED0397F /* UIKit.framework in Frameworks */,
+				BDDD7DF70F184E27828E2B0E /* GoogleMobileAds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +261,7 @@
 				9E725CA0A90246E2BD23F1F7 /* StoreKit.framework */,
 				E9F371E412F0478FB8460451 /* SystemConfiguration.framework */,
 				6759384A80694DE9B5764B08 /* UIKit.framework */,
+				104D7612FDF24E74A1BD986C /* GoogleMobileAds.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -300,6 +307,8 @@
 				443B144E350644ECAAB52DE3 /* AdMobMediation.m */,
 				C8B1897A49214C3F965B4974 /* CDVAdMobPlugin.h */,
 				3FDB126CF4E64E67869E67FF /* AdMobMediation.h */,
+				CB304C0E64BE463D8E3CCF47 /* CDVAdMob.m */,
+				C015A16142654D3CA7D9DF34 /* CDVAdMob.h */,
 			);
 			name = Plugins;
 			path = "HelloCordova/Plugins";
@@ -421,6 +430,7 @@
 				105305B680D840E98884FEA7 /* CDVPluginExt.m in Sources */,
 				B09D2C2B540D41C8A888F9A3 /* CDVAdMobPlugin.m in Sources */,
 				9C75222EDF0A4CCA9784B7BE /* AdMobMediation.m in Sources */,
+				B714DD706D684E60966FC139 /* CDVAdMob.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +473,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"HelloCordova/Plugins/cordova-admobsdk\"",
+					"\"HelloCordova/Plugins/cordova-admob-sdk\"",
 				);
 			};
 			name = Debug;
@@ -493,6 +504,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"HelloCordova/Plugins/cordova-admobsdk\"",
+					"\"HelloCordova/Plugins/cordova-admob-sdk\"",
 				);
 			};
 			name = Release;

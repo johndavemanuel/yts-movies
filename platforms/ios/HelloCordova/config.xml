@@ -37,6 +37,9 @@
         <param name="ios-package" value="CDVAdMobPlugin" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="AdMob">
+        <param name="ios-package" value="CDVAdMob" />
+    </feature>
     <name>YTS Movies</name>
     <description>
         YTS Movie Browser

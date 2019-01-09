@@ -229,17 +229,17 @@
 
             if (/(android)/i.test(navigator.userAgent)) {
                 admobid = {
-                    banner: 'ca-app-pub-5793280052328718/6357837676',
+                    banner: 'ca-app-pub-5793280052328718/3202992078',
                     interstitial: 'ca-app-pub-5793280052328718/1542531242'
                 }
             } else if (/(ipod|iphone|ipad)/i.test(navigator.userAgent)) {
                 admobid = {
-                    banner: 'ca-app-pub-5793280052328718/6357837676',
+                    banner: 'ca-app-pub-5793280052328718/3202992078',
                     interstitial: 'ca-app-pub-5793280052328718/1542531242'
                 };
             } else {
                 admobid = {
-                    banner: 'cca-app-pub-5793280052328718/6357837676',
+                    banner: 'ca-app-pub-5793280052328718/3202992078',
                     interstitial: 'ca-app-pub-5793280052328718/1542531242'
                 };
             }
@@ -248,12 +248,31 @@
                 AdMob.createBanner({
                     adId: admobid.banner,
                     position: AdMob.AD_POSITION.BOTTOM_CENTER,
-                    autoShow: true
+                    autoShow: true,
+                    success: function() {
+                        // alert('success to create banner');
+                    },
+                    error: function() {
+                        // alert('failed to create banner');
+                    }
                 });
-                // alert("ADS");
-            } else {
-                // alert("NO ADS");
             }
+
+            document.addEventListener('onAdFailLoad', function(e) {
+                // alert(e);
+            });
+            document.addEventListener('onAdLoaded', function(e) {
+                // alert(e);
+            });
+
+
+            // admob.banner.config({
+            //     id: admobid.banner,
+            //     isTesting: false,
+            //     autoShow: true,
+            //     position: AdMob.AD_POSITION.BOTTOM_CENTER,
+            // });
+            // admob.banner.prepare();
         }
         </script>
     </body>

@@ -13,6 +13,7 @@
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/emailcomposer_provider_paths" />
         </provider>
         <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" android:name="com.google.android.gms.ads.AdActivity" android:theme="@android:style/Theme.Translucent" />
+        <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="&lt;ca-app-pub-5793280052328718~8290052827&gt;" />
     </application>
     <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="27" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

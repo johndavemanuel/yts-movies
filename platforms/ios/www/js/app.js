@@ -15,7 +15,11 @@ var app = new Framework7({
     materialRipple: false,
     vi: {
         placementId: 'pltWU1VaLaaSS34L1qN'
-    }
+    },
+    lazy: {
+        threshold: 50,
+        sequential: false,
+    },
 });
 
 
@@ -34,22 +38,22 @@ var prepairedAd;
 
 $$(document).on('page:init', '.page[data-name="home"]', function(e) {
     app.infiniteScroll.create(".infinite-scroll-content-latest-movies");
-    app.ptr.create(".ptr-content-latest-movies");
 
     // ADS
-    if (!app.vi.sdkReady) {
-        app.on('viSdkReady', function() {
-            prepairedAd = app.vi.createAd({
-                autoplay: false,
-            });
-        })
-    } else {
-        prepairedAd = app.vi.createAd({
-            autoplay: false,
-        });
-    }
+    // if (!app.vi.sdkReady) {
+    //     app.on('viSdkReady', function() {
+    //         prepairedAd = app.vi.createAd({
+    //             autoplay: false,
+    //         });
+    //     })
+    // } else {
+    //     prepairedAd = app.vi.createAd({
+    //         autoplay: false,
+    //     });
+    // }
 
     latestMovies();
+
 
     // INIFINITE SCROLL LATEST
     var allowInfinite = true;
@@ -80,7 +84,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
                 $.each(data.data.movies, function(key, val) {
                     var latestItemHolder = '<li>' +
                         '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                        '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                        '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                         '<div class="item-inner">' +
                         '<div class="item-title-row">' +
                         '<div class="item-title">' + val.title_english + '</div>' +
@@ -93,7 +97,6 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
                     $$('#latest-movies').append(latestItemHolder);
                 });
             });
-
             lastItemIndex = $$('#latest-movies-wrapper ul li').length;
             scrollInfiniteCounter++;
         }, 1000);
@@ -113,9 +116,10 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
     // TABS HOME
     $$('#latest').on('tab:show', function() {
         app.infiniteScroll.create(".infinite-scroll-content-latest-movies");
-        app.ptr.create(".ptr-content-latest-movies");
+        // app.ptr.create(".ptr-content-latest-movies");
 
         latestMovies();
+
 
         // INIFINITE SCROLL LATEST
         var allowInfinite = true;
@@ -146,7 +150,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var latestItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -178,7 +182,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
 
     $$('#rated').on('tab:show', function() {
         app.infiniteScroll.create(".infinite-scroll-content-rated-movies");
-        app.ptr.create(".ptr-content-rated-movies");
+        // app.ptr.create(".ptr-content-rated-movies");
         topRatedMovies();
         // INIFINITE SCROLL RATED
         var allowInfinite = true;
@@ -209,7 +213,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var ratedItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -241,7 +245,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
 
     $$('#download').on('tab:show', function() {
         app.infiniteScroll.create(".infinite-scroll-content-download-movies");
-        app.ptr.create(".ptr-content-download-movies");
+        // app.ptr.create(".ptr-content-download-movies");
         topDownloadMovies();
         // INIFINITE SCROLL DOWNLOAD
         var allowInfinite = true;
@@ -272,7 +276,7 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var downloadItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -338,7 +342,7 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
                 $.each(data.data.movies, function(key, val) {
                     var qualityOneItemHolder = '<li>' +
                         '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                        '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                        '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                         '<div class="item-inner">' +
                         '<div class="item-title-row">' +
                         '<div class="item-title">' + val.title_english + '</div>' +
@@ -399,7 +403,7 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var qualityOneItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -463,7 +467,7 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var qualityTwoItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -516,7 +520,7 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var qualityThreeItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -539,6 +543,8 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
 
 
 $$(document).on('page:init', '.page[data-name="moviedetails"]', function(e, page) {
+    $$("#movide-details-holder").html("");
+    $$("#movie-suggestions-holder").html("");
     var movieID = (page.route.query.id);
     movieDetails(movieID);
     movieSuggestions(movieID);
@@ -598,7 +604,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                 $.each(data.data.movies, function(key, val) {
                     var actionItemHolder = '<li>' +
                         '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                        '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                        '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                         '<div class="item-inner">' +
                         '<div class="item-title-row">' +
                         '<div class="item-title">' + val.title_english + '</div>' +
@@ -646,7 +652,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var actionItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -695,7 +701,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var animationItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -744,7 +750,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var comedyItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -793,7 +799,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var documentaryItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -842,7 +848,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var familyItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -891,7 +897,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var filmnoiItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -940,7 +946,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var horrorItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -990,7 +996,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var musicalItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -1039,7 +1045,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var romanceItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -1088,7 +1094,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var sportItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -1137,7 +1143,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var warItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -1186,7 +1192,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var adventureItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -1235,7 +1241,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var biographyItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -1284,7 +1290,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var crimeItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -1333,7 +1339,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var dramaItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -1382,7 +1388,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var fantasyItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -1431,7 +1437,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var historyItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -1480,7 +1486,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var musicItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -1529,7 +1535,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var mysteryItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -1578,7 +1584,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var scifiItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -1627,7 +1633,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var thrillerItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -1676,7 +1682,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                     $.each(data.data.movies, function(key, val) {
                         var westernItemHolder = '<li>' +
                             '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                            '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                            '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                             '<div class="item-inner">' +
                             '<div class="item-title-row">' +
                             '<div class="item-title">' + val.title_english + '</div>' +
@@ -1924,6 +1930,7 @@ $$('body').addClass(currentThemeDark);
 
 app.init();
 
+
 function alertServerError() {
     app.dialog.alert('Cannot connect to server. Please try again later.');
 }
@@ -1947,7 +1954,7 @@ function latestMovies() {
         $.each(data.data.movies, function(key, val) {
             var latestItemHolder = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -1957,8 +1964,13 @@ function latestMovies() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#latest-movies");
             $$('#latest-movies').append(latestItemHolder);
         });
+    });
+
+    $$('.lazy').on('lazy:loaded', function() {
+        console.log("lazy loaded");
     });
 }
 
@@ -1974,7 +1986,7 @@ function topRatedMovies() {
         $.each(data.data.movies, function(key, val) {
             var ratedItemHolder = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -1984,6 +1996,7 @@ function topRatedMovies() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#rated-movies");
             $$('#rated-movies').append(ratedItemHolder);
         });
     });
@@ -2001,7 +2014,7 @@ function topDownloadMovies() {
         $.each(data.data.movies, function(key, val) {
             var downloadItemHolder = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2011,6 +2024,7 @@ function topDownloadMovies() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#download-movies");
             $$('#download-movies').append(downloadItemHolder);
         });
     });
@@ -2029,7 +2043,7 @@ function sevenTwentyP() {
         $.each(data.data.movies, function(key, val) {
             var quality1moviesHolder = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2039,6 +2053,7 @@ function sevenTwentyP() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#quality1-movies");
             $$('#quality1-movies').append(quality1moviesHolder);
         });
     });
@@ -2056,7 +2071,7 @@ function tenEightyP() {
         $.each(data.data.movies, function(key, val) {
             var quality2moviesHolder = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2066,6 +2081,7 @@ function tenEightyP() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#quality2-movies");
             $$('#quality2-movies').append(quality2moviesHolder);
         });
     });
@@ -2083,7 +2099,7 @@ function threeD() {
         $.each(data.data.movies, function(key, val) {
             var quality3moviesHolder = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2093,6 +2109,7 @@ function threeD() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#quality3-movies");
             $$('#quality3-movies').append(quality3moviesHolder);
         });
     });
@@ -2110,8 +2127,8 @@ function movieSuggestions(id) {
         console.log(data.data.movies);
         $.each(data.data.movies, function(key, val) {
             var movieSuggestionsItem = '<li>' +
-                '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<a href="#" data-id="' + val.id + '" class="item-link item-content movieSuggestion">' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2121,8 +2138,17 @@ function movieSuggestions(id) {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#movie-suggestions-holder");
             $$('#movie-suggestions-holder').append(movieSuggestionsItem);
         });
+        $$('.movieSuggestion').on('click', function() {
+            var movieSuggestionID = $(this).attr("data-id");
+            $$("#movide-details-holder").html("");
+            $$("#movie-suggestions-holder").html("");
+            movieDetails(movieSuggestionID);
+            movieSuggestions(movieSuggestionID);
+        });
+
     });
 }
 
@@ -2138,8 +2164,9 @@ function movieDetails(movieID) {
 
         $$('.movie-title').text(data.data.movie.title);
         var movieDetailsHolder = '<div class="card demo-card-header-pic">' +
-            '<div style="background-image:url(' + data.data.movie.large_cover_image + ')" class="card-header align-items-flex-end">' + data.data.movie.title + '</div>' +
+            '<div data-background=' + data.data.movie.large_cover_image + ' class="card-header align-items-flex-end lazy lazy-fade-in"></div>' +
             '<div class="card-content card-content-padding">' +
+            '<p style="font-weight: bold;">' + data.data.movie.title + '</p>' +
             '<p>' + data.data.movie.description_full + '</p>' +
             '</div>' +
             '</div>' +
@@ -2163,7 +2190,9 @@ function movieDetails(movieID) {
             '<div class="block" id="download-holder">' +
             '</div>' +
             '</div>';
+        app.lazy.create("#movide-details-holder");
         $$('#movide-details-holder').append(movieDetailsHolder);
+        $$('div.lazy').trigger('lazy');
 
         // console.log(data.data.movie.cast);
 
@@ -2173,8 +2202,15 @@ function movieDetails(movieID) {
         }
 
         $.each(data.data.movie.cast, function(key, val) {
+             var img = val.url_small_image;
+
+             if (img == "" || img == undefined) {
+                img = "img/default.png";
+             }
+
+
             var movieCasts = '<div class="chip ' + currentThemeForm + '">' +
-                ' <div class="chip-media"><img src="' + val.url_small_image + '"/></div>' +
+                ' <div class="chip-media"><img src="' + img + '"/></div>' +
                 '<div class="chip-label">' + val.name + '</div>';
             $$('#cast-holder').append(movieCasts);
         });
@@ -2195,10 +2231,37 @@ function movieDetails(movieID) {
                 '<p>Peers: ' + val.peers + '</p>' +
                 '<p>Size: ' + val.size + '</p>' +
                 '</div>' +
-                '<div class="card-footer"><a class="link external" href="' + val.url + '" class="link">DOWNLOAD</a></div>' +
+                '<div class="card-footer"><a class="torrent-download link external" href="' + val.url + '" class="link">DOWNLOAD</a></div>' +
                 '</div>';
             $$('#download-holder').append(torrentList);
         });
+        $$('.torrent-download').on('click', function() {
+            var currentTheme = localStorage.getItem('color-theme');
+            var bgColorTheme;
+
+            if (currentTheme == "color-theme-orange") {
+                bgColorTheme = "#c66900";
+            } else if (currentTheme == "color-theme-gray") {
+                bgColorTheme = "#9e9e9e";
+            } else if (currentTheme == "color-theme-pink") {
+                bgColorTheme = "#b0003a";
+            } else if (currentTheme == "color-theme-blue") {
+                bgColorTheme = "#0069c0";
+            } else if (currentTheme == "color-theme-green") {
+                bgColorTheme = "#087f23";
+            } else if (currentTheme == "color-theme-red") {
+                bgColorTheme = "#ba000d";
+            } else {
+                bgColorTheme = "#087f23";
+            }
+            // var link = $(this).attr("href");
+            // var torrent = cordova.InAppBrowser.open(link, '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + ',navigationbuttoncolor=#FFFFFF,closebuttoncolor=#FFFFFF');
+            // torrent.addEventListener('exit', loadExitCallBack);
+        });
+
+        function loadExitCallBack(params) {
+            mainView.router.navigate('/');
+        }
     });
 }
 
@@ -2211,13 +2274,13 @@ function searchSingle(movieNameSearch) {
         console.log('error:' + data);
         alertServerError();
     }).done(function(data) {
-        console.log(data.data);
+        // console.log(data.data);
         $("#advancedsearch-movies").hide();
         if (data.data.movie_count > 0) {
             $.each(data.data.movies, function(key, val) {
                 var simpleSearchHolder = '<li>' +
                     '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                    '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                    '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                     '<div class="item-inner">' +
                     '<div class="item-title-row">' +
                     '<div class="item-title">' + val.title_english + '</div>' +
@@ -2227,6 +2290,7 @@ function searchSingle(movieNameSearch) {
                     '</div>' +
                     '</a>' +
                     '</li>';
+                app.lazy.create("#simplesearch-movies");
                 $$('#simplesearch-movies').append(simpleSearchHolder);
             });
         } else {
@@ -2244,13 +2308,13 @@ function searchAdvanced(movieQualitySearch, movieGenreSearch, movieRatingSearch,
         console.log('error:' + data);
         alertServerError();
     }).done(function(data) {
-        console.log(data.data);
+        // console.log(data.data);
         $("#simplesearch-movies").hide();
         if (data.data.movie_count > 0) {
             $.each(data.data.movies, function(key, val) {
                 var advancedSearchHolder = '<li>' +
                     '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                    '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                    '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                     '<div class="item-inner">' +
                     '<div class="item-title-row">' +
                     '<div class="item-title">' + val.title_english + '</div>' +
@@ -2260,6 +2324,7 @@ function searchAdvanced(movieQualitySearch, movieGenreSearch, movieRatingSearch,
                     '</div>' +
                     '</a>' +
                     '</li>';
+                app.lazy.create("#advancedsearch-movies");
                 $$('#advancedsearch-movies').append(advancedSearchHolder);
             });
         } else {
@@ -2284,7 +2349,7 @@ function genreAction() {
         $.each(data.data.movies, function(key, val) {
             var genreAction = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2294,6 +2359,7 @@ function genreAction() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#action-movies");
             $$('#action-movies').append(genreAction);
         });
     });
@@ -2311,7 +2377,7 @@ function genreAnimation() {
         $.each(data.data.movies, function(key, val) {
             var genreAnimation = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2321,6 +2387,7 @@ function genreAnimation() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#animation-movies");
             $$('#animation-movies').append(genreAnimation);
         });
     });
@@ -2338,7 +2405,7 @@ function genreComedy() {
         $.each(data.data.movies, function(key, val) {
             var genreComedy = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2348,6 +2415,7 @@ function genreComedy() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#comedy-movies");
             $$('#comedy-movies').append(genreComedy);
         });
     });
@@ -2365,7 +2433,7 @@ function genreDocumentary() {
         $.each(data.data.movies, function(key, val) {
             var genreDocumentary = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2375,6 +2443,7 @@ function genreDocumentary() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#documentary-movies");
             $$('#documentary-movies').append(genreDocumentary);
         });
     });
@@ -2392,7 +2461,7 @@ function genreFamily() {
         $.each(data.data.movies, function(key, val) {
             var genreFamily = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2402,6 +2471,7 @@ function genreFamily() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#family-movies");
             $$('#family-movies').append(genreFamily);
         });
     });
@@ -2419,7 +2489,7 @@ function genrefilmnoi() {
         $.each(data.data.movies, function(key, val) {
             var genreFilmnoi = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2429,6 +2499,7 @@ function genrefilmnoi() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#film-noi-movies");
             $$('#film-noi-movies').append(genreFilmnoi);
         });
     });
@@ -2446,7 +2517,7 @@ function genreHorror() {
         $.each(data.data.movies, function(key, val) {
             var genreHorror = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2456,6 +2527,7 @@ function genreHorror() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#horror-movies");
             $$('#horror-movies').append(genreHorror);
         });
     });
@@ -2473,7 +2545,7 @@ function genreMusical() {
         $.each(data.data.movies, function(key, val) {
             var genreMusical = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2483,6 +2555,7 @@ function genreMusical() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#musical-movies");
             $$('#musical-movies').append(genreMusical);
         });
     });
@@ -2500,7 +2573,7 @@ function genreRomance() {
         $.each(data.data.movies, function(key, val) {
             var genreRomance = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2510,6 +2583,7 @@ function genreRomance() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#romance-movies");
             $$('#romance-movies').append(genreRomance);
         });
     });
@@ -2527,7 +2601,7 @@ function genreSport() {
         $.each(data.data.movies, function(key, val) {
             var genreSport = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2537,6 +2611,7 @@ function genreSport() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#sport-movies");
             $$('#sport-movies').append(genreSport);
         });
     });
@@ -2554,7 +2629,7 @@ function genreWar() {
         $.each(data.data.movies, function(key, val) {
             var genreWar = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2564,6 +2639,7 @@ function genreWar() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#war-movies");
             $$('#war-movies').append(genreWar);
         });
     });
@@ -2581,7 +2657,7 @@ function genreAdventure() {
         $.each(data.data.movies, function(key, val) {
             var genreAdventure = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2591,6 +2667,7 @@ function genreAdventure() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#adventure-movies");
             $$('#adventure-movies').append(genreAdventure);
         });
     });
@@ -2608,7 +2685,7 @@ function genreBiography() {
         $.each(data.data.movies, function(key, val) {
             var genreBiography = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2618,6 +2695,7 @@ function genreBiography() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#biography-movies");
             $$('#biography-movies').append(genreBiography);
         });
     });
@@ -2635,7 +2713,7 @@ function genreCrime() {
         $.each(data.data.movies, function(key, val) {
             var genreCrime = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2645,6 +2723,7 @@ function genreCrime() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#crime-movies");
             $$('#crime-movies').append(genreCrime);
         });
     });
@@ -2662,7 +2741,7 @@ function genreDrama() {
         $.each(data.data.movies, function(key, val) {
             var genreDrama = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2672,6 +2751,7 @@ function genreDrama() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#drama-movies");
             $$('#drama-movies').append(genreDrama);
         });
     });
@@ -2689,7 +2769,7 @@ function genreFantasy() {
         $.each(data.data.movies, function(key, val) {
             var genreFantasy = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2699,6 +2779,7 @@ function genreFantasy() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#fantasy-movies");
             $$('#fantasy-movies').append(genreFantasy);
         });
     });
@@ -2716,7 +2797,7 @@ function genreHistory() {
         $.each(data.data.movies, function(key, val) {
             var genreHistory = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2726,6 +2807,7 @@ function genreHistory() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#history-movies");
             $$('#history-movies').append(genreHistory);
         });
     });
@@ -2743,7 +2825,7 @@ function genreMusic() {
         $.each(data.data.movies, function(key, val) {
             var genreMusic = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2753,6 +2835,7 @@ function genreMusic() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#music-movies");
             $$('#music-movies').append(genreMusic);
         });
     });
@@ -2770,7 +2853,7 @@ function genreMystery() {
         $.each(data.data.movies, function(key, val) {
             var genreMystery = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2780,6 +2863,7 @@ function genreMystery() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#mystery-movies");
             $$('#mystery-movies').append(genreMystery);
         });
     });
@@ -2797,7 +2881,7 @@ function genreScifi() {
         $.each(data.data.movies, function(key, val) {
             var genreScifi = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2807,6 +2891,7 @@ function genreScifi() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#scifi-movies");
             $$('#scifi-movies').append(genreScifi);
         });
     });
@@ -2824,7 +2909,7 @@ function genreThriller() {
         $.each(data.data.movies, function(key, val) {
             var genreThriller = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2834,6 +2919,7 @@ function genreThriller() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#thriller-movies");
             $$('#thriller-movies').append(genreThriller);
         });
     });
@@ -2851,7 +2937,7 @@ function genreWestern() {
         $.each(data.data.movies, function(key, val) {
             var genreWestern = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img src="' + val.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
                 '<div class="item-title">' + val.title_english + '</div>' +
@@ -2861,6 +2947,7 @@ function genreWestern() {
                 '</div>' +
                 '</a>' +
                 '</li>';
+            app.lazy.create("#western-movies");
             $$('#western-movies').append(genreWestern);
         });
     });

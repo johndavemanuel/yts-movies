@@ -25,10 +25,22 @@
     "cordova-plugin-admobpro": {
       "PLAY_SERVICES_VERSION": "16.0.0",
       "PACKAGE_NAME": "io.davemanuel.ytsmovies"
+    },
+    "cordova-plugin-admob-free": {
+      "ADMOB_APP_ID": "<ca-app-pub-5793280052328718~8290052827>",
+      "PLAY_SERVICES_VERSION": "11.0.4",
+      "PACKAGE_NAME": "io.davemanuel.ytsmovies"
     }
   },
   "dependent_plugins": {
     "cordova-plugin-extension": {
+      "PACKAGE_NAME": "io.davemanuel.ytsmovies"
+    },
+    "cordova-promise-polyfill": {
+      "PACKAGE_NAME": "io.davemanuel.ytsmovies"
+    },
+    "cordova-admob-sdk": {
+      "PLAY_SERVICES_VERSION": "11.0.4",
       "PACKAGE_NAME": "io.davemanuel.ytsmovies"
     }
   }
