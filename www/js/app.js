@@ -543,6 +543,8 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
 
 
 $$(document).on('page:init', '.page[data-name="moviedetails"]', function(e, page) {
+    $$("#movide-details-holder").html("");
+    $$("#movie-suggestions-holder").html("");
     var movieID = (page.route.query.id);
     movieDetails(movieID);
     movieSuggestions(movieID);
@@ -2125,7 +2127,7 @@ function movieSuggestions(id) {
         console.log(data.data.movies);
         $.each(data.data.movies, function(key, val) {
             var movieSuggestionsItem = '<li>' +
-                '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
+                '<a href="#" data-id="' + val.id + '" class="item-link item-content movieSuggestion">' +
                 '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
                 '<div class="item-inner">' +
                 '<div class="item-title-row">' +
@@ -2139,6 +2141,14 @@ function movieSuggestions(id) {
             app.lazy.create("#movie-suggestions-holder");
             $$('#movie-suggestions-holder').append(movieSuggestionsItem);
         });
+        $$('.movieSuggestion').on('click', function() {
+            var movieSuggestionID = $(this).attr("data-id");
+            $$("#movide-details-holder").html("");
+            $$("#movie-suggestions-holder").html("");
+            movieDetails(movieSuggestionID);
+            movieSuggestions(movieSuggestionID);
+        });
+
     });
 }
 
@@ -2154,8 +2164,9 @@ function movieDetails(movieID) {
 
         $$('.movie-title').text(data.data.movie.title);
         var movieDetailsHolder = '<div class="card demo-card-header-pic">' +
-            '<div style="background-image:url(' + data.data.movie.large_cover_image + ')" class="card-header align-items-flex-end">' + data.data.movie.title + '</div>' +
+            '<div data-background=' + data.data.movie.large_cover_image + ' class="card-header align-items-flex-end lazy lazy-fade-in"></div>' +
             '<div class="card-content card-content-padding">' +
+            '<p style="font-weight: bold;">' + data.data.movie.title + '</p>' +
             '<p>' + data.data.movie.description_full + '</p>' +
             '</div>' +
             '</div>' +
@@ -2179,7 +2190,9 @@ function movieDetails(movieID) {
             '<div class="block" id="download-holder">' +
             '</div>' +
             '</div>';
+        app.lazy.create("#movide-details-holder");
         $$('#movide-details-holder').append(movieDetailsHolder);
+        $$('div.lazy').trigger('lazy');
 
         // console.log(data.data.movie.cast);
 
@@ -2189,8 +2202,15 @@ function movieDetails(movieID) {
         }
 
         $.each(data.data.movie.cast, function(key, val) {
+             var img = val.url_small_image;
+
+             if (img == "" || img == undefined) {
+                img = "img/default.png";
+             }
+
+
             var movieCasts = '<div class="chip ' + currentThemeForm + '">' +
-                ' <div class="chip-media"><img src="' + val.url_small_image + '"/></div>' +
+                ' <div class="chip-media"><img src="' + img + '"/></div>' +
                 '<div class="chip-label">' + val.name + '</div>';
             $$('#cast-holder').append(movieCasts);
         });
