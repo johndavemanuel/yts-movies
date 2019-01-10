@@ -155,7 +155,7 @@
                 },
                 'onClosed': function() {
                     console.log("welcome screen closed");
-                     app.dialog.alert('You need a torrent client to download your favorite movies.');
+                     // app.dialog.alert('You need a torrent client to download your favorite movies.');
                 }
             };
 

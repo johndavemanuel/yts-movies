@@ -622,6 +622,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                         '</div>' +
                         '</a>' +
                         '</li>';
+                    app.lazy.create("#action-movies");
                     $$('#action-movies').append(actionItemHolder);
                 });
             });
@@ -670,6 +671,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#action-movies");
                         $$('#action-movies').append(actionItemHolder);
                     });
                 });
@@ -719,6 +721,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#animation-movies");
                         $$('#animation-movies').append(animationItemHolder);
                     });
                 });
@@ -768,6 +771,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#comedy-movies");
                         $$('#comedy-movies').append(comedyItemHolder);
                     });
                 });
@@ -817,6 +821,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#documentary-movies");
                         $$('#documentary-movies').append(documentaryItemHolder);
                     });
                 });
@@ -866,6 +871,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#family-movies");
                         $$('#family-movies').append(familyItemHolder);
                     });
                 });
@@ -915,6 +921,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#film-noi-movies");
                         $$('#film-noi-movies').append(filmnoiItemHolder);
                     });
                 });
@@ -964,6 +971,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#horror-movies");
                         $$('#horror-movies').append(horrorItemHolder);
                     });
                 });
@@ -974,7 +982,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
         });
     });
 
-    // START
+
     $$('#musical').on('tab:show', function() {
         genreMusical();
         var allowInfinite = true;
@@ -1014,6 +1022,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#musical-movies");
                         $$('#musical-movies').append(musicalItemHolder);
                     });
                 });
@@ -1063,6 +1072,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#romance-movies");
                         $$('#romance-movies').append(romanceItemHolder);
                     });
                 });
@@ -1112,6 +1122,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#sport-movies");
                         $$('#sport-movies').append(sportItemHolder);
                     });
                 });
@@ -1161,6 +1172,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#war-movies");
                         $$('#war-movies').append(warItemHolder);
                     });
                 });
@@ -1210,6 +1222,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#adventure-movies");
                         $$('#adventure-movies').append(adventureItemHolder);
                     });
                 });
@@ -1259,6 +1272,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#biography-movies");
                         $$('#biography-movies').append(biographyItemHolder);
                     });
                 });
@@ -1308,6 +1322,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#crime-movies");
                         $$('#crime-movies').append(crimeItemHolder);
                     });
                 });
@@ -1357,6 +1372,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#drama-movies");
                         $$('#drama-movies').append(dramaItemHolder);
                     });
                 });
@@ -1406,6 +1422,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#fantansy-movies");
                         $$('#fantansy-movies').append(fantasyItemHolder);
                     });
                 });
@@ -1455,6 +1472,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#history-movies");
                         $$('#history-movies').append(historyItemHolder);
                     });
                 });
@@ -1504,6 +1522,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#music-movies");
                         $$('#music-movies').append(musicItemHolder);
                     });
                 });
@@ -1553,6 +1572,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#mystery-movies");
                         $$('#mystery-movies').append(mysteryItemHolder);
                     });
                 });
@@ -1602,6 +1622,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#scifi-movies");
                         $$('#scifi-movies').append(scifiItemHolder);
                     });
                 });
@@ -1651,6 +1672,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#thriller-movies");
                         $$('#thriller-movies').append(thrillerItemHolder);
                     });
                 });
@@ -1700,6 +1722,7 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
                             '</div>' +
                             '</a>' +
                             '</li>';
+                        app.lazy.create("#western-movies");
                         $$('#western-movies').append(westernItemHolder);
                     });
                 });
@@ -2210,11 +2233,11 @@ function movieDetails(movieID) {
         }
 
         $.each(data.data.movie.cast, function(key, val) {
-             var img = val.url_small_image;
+            var img = val.url_small_image;
 
-             if (img == "" || img == undefined) {
+            if (img == "" || img == undefined) {
                 img = "img/default.png";
-             }
+            }
 
 
             var movieCasts = '<div class="chip ' + currentThemeForm + '">' +
