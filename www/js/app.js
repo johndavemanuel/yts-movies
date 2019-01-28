@@ -38,21 +38,39 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
     // INIFINITE SCROLL LATEST
     var scrollInfiniteCounterLatest = 2;
     $$('.infinite-scroll-content-latest-movies').on('infinite', function() {
-        infiniteScrollHome("latest", scrollInfiniteCounterLatest);
+        infiniteScroll("latest", scrollInfiniteCounterLatest, false);
         scrollInfiniteCounterLatest++;
     });
 
     // TABS HOME
     $$('#latest').on('tab:show', function() {
         homeMovies("#latest");
+        // INIFINITE SCROLL LATEST
+        var scrollInfiniteCounterLatest = 2;
+        $$('.infinite-scroll-content-latest-movies').on('infinite', function() {
+            infiniteScroll("latest", scrollInfiniteCounterLatest, false);
+            scrollInfiniteCounterLatest++;
+        });
     });
 
     $$('#rated').on('tab:show', function() {
         homeMovies("#rated");
+        // INIFINITE SCROLL RATED
+        var scrollInfiniteCounterRated = 2;
+        $$('.infinite-scroll-content-rated-movies').on('infinite', function() {
+            infiniteScroll("rated", scrollInfiniteCounterRated, false);
+            scrollInfiniteCounterRated++;
+        });
     });
 
     $$('#download').on('tab:show', function() {
         homeMovies("#download");
+        // INIFINITE SCROLL DOWNLOAD
+        var scrollInfiniteCounterDownload = 2;
+        $$('.infinite-scroll-content-download-movies').on('infinite', function() {
+            infiniteScroll("download", scrollInfiniteCounterDownload, false);
+            scrollInfiniteCounterDownload++;
+        });
     });
 })
 
@@ -61,17 +79,38 @@ $$(document).on('page:init', '.page[data-name="quality"]', function(e) {
     app.infiniteScroll.create(".infinite-scroll-content-quality2-movies");
     app.infiniteScroll.create(".infinite-scroll-content-quality3-movies");
     qualityMovies("#quality1");
+    var scrollInfiniteCounterQuality1 = 2;
+    $$('.infinite-scroll-content-quality1-movies').on('infinite', function() {
+        infiniteScroll("quality1", scrollInfiniteCounterQuality1, false);
+        scrollInfiniteCounterQuality1++;
+    });
 
     $$('#quality1').on('tab:show', function() {
         qualityMovies("#quality1");
+        // INIFINITE SCROLL QUALITY 1
+        var scrollInfiniteCounterQuality1 = 2;
+        $$('.infinite-scroll-content-quality1-movies').on('infinite', function() {
+            infiniteScroll("quality1", scrollInfiniteCounterQuality1, false);
+            scrollInfiniteCounterQuality1++;
+        });
     });
 
     $$('#quality2').on('tab:show', function() {
         qualityMovies("#quality2");
+        var scrollInfiniteCounterQuality2 = 2;
+        $$('.infinite-scroll-content-quality2-movies').on('infinite', function() {
+            infiniteScroll("quality2", scrollInfiniteCounterQuality2, false);
+            scrollInfiniteCounterQuality2++;
+        });
     });
 
     $$('#quality3').on('tab:show', function() {
         qualityMovies("#quality3");
+        var scrollInfiniteCounterQuality3 = 2;
+        $$('.infinite-scroll-content-quality3-movies').on('infinite', function() {
+            infiniteScroll("quality3", scrollInfiniteCounterQuality3, false);
+            scrollInfiniteCounterQuality3++;
+        });
     });
 })
 
@@ -100,93 +139,208 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
     app.infiniteScroll.create(".infinite-scroll-content-western-movies");
 
     genreMovies("action");
+    var scrollInfiniteCounterAction = 2;
+    $$('.infinite-scroll-content-action-movies').on('infinite', function() {
+        infiniteScroll("action", scrollInfiniteCounterAction, true);
+        scrollInfiniteCounterAction++;
+    });
 
     $$('#action').on('tab:show', function() {
         genreMovies("action");
+        var scrollInfiniteCounterAction = 2;
+        $$('.infinite-scroll-content-action-movies').on('infinite', function() {
+            infiniteScroll("action", scrollInfiniteCounterAction, true);
+            scrollInfiniteCounterAction++;
+        });
     });
 
     $$('#animation').on('tab:show', function() {
         genreMovies("animation");
+        var scrollInfiniteCounterAnimation = 2;
+        $$('.infinite-scroll-content-animation-movies').on('infinite', function() {
+            infiniteScroll("action", scrollInfiniteCounterAnimation, true);
+            scrollInfiniteCounterAnimation++;
+        });
     });
 
     $$('#comedy').on('tab:show', function() {
         genreMovies("comedy");
+        var scrollInfiniteCounterComedy = 2;
+        $$('.infinite-scroll-content-comedy-movies').on('infinite', function() {
+            infiniteScroll("comedy", scrollInfiniteCounterComedy, true);
+            scrollInfiniteCounterComedy++;
+        });
     });
 
     $$('#documentary').on('tab:show', function() {
         genreMovies("documentary");
+        var scrollInfiniteCounterDocu = 2;
+        $$('.infinite-scroll-content-documentary-movies').on('infinite', function() {
+            infiniteScroll("documentary", scrollInfiniteCounterDocu, true);
+            scrollInfiniteCounterDocu++;
+        });
     });
 
     $$('#family').on('tab:show', function() {
         genreMovies("family");
+        var scrollInfiniteCounterFamily = 2;
+        $$('.infinite-scroll-content-family-movies').on('infinite', function() {
+            infiniteScroll("family", scrollInfiniteCounterFamily, true);
+            scrollInfiniteCounterFamily++;
+        });
     });
 
     $$('#film-noi').on('tab:show', function() {
         genreMovies("film-noi");
+        var scrollInfiniteCounterFilmNoi = 2;
+        $$('.infinite-scroll-content-film-noi-movies').on('infinite', function() {
+            infiniteScroll("film-noi", scrollInfiniteCounterFilmNoi, true);
+            scrollInfiniteCounterFilmNoi++;
+        });
     });
 
     $$('#horror').on('tab:show', function() {
         genreMovies("horror");
+        var scrollInfiniteCounterHorror = 2;
+        $$('.infinite-scroll-content-horror-movies').on('infinite', function() {
+            infiniteScroll("horror", scrollInfiniteCounterHorror, true);
+            scrollInfiniteCounterHorror++;
+        });
     });
 
     $$('#musical').on('tab:show', function() {
         genreMovies("musical");
+        var scrollInfiniteCounterMusical = 2;
+        $$('.infinite-scroll-content-musical-movies').on('infinite', function() {
+            infiniteScroll("musical", scrollInfiniteCounterMusical, true);
+            scrollInfiniteCounterMusical++;
+        });
     });
 
     $$('#romance').on('tab:show', function() {
         genreMovies("romance");
+        var scrollInfiniteCounterRomance = 2;
+        $$('.infinite-scroll-content-romance-movies').on('infinite', function() {
+            infiniteScroll("romance", scrollInfiniteCounterRomance, true);
+            scrollInfiniteCounterRomance++;
+        });
     });
 
     $$('#sport').on('tab:show', function() {
         genreMovies("sport");
+        var scrollInfiniteCounterSport = 2;
+        $$('.infinite-scroll-content-sport-movies').on('infinite', function() {
+            infiniteScroll("sport", scrollInfiniteCounterSport, true);
+            scrollInfiniteCounterSport++;
+        });
     });
 
     $$('#war').on('tab:show', function() {
         genreMovies("war");
+        var scrollInfiniteCounterWar = 2;
+        $$('.infinite-scroll-content-war-movies').on('infinite', function() {
+            infiniteScroll("war", scrollInfiniteCounterWar, true);
+            scrollInfiniteCounterWar++;
+        });
     });
 
     $$('#adventure').on('tab:show', function() {
         genreMovies("adventure");
+        var scrollInfiniteCounterAdv = 2;
+        $$('.infinite-scroll-content-adventure-movies').on('infinite', function() {
+            infiniteScroll("adventure", scrollInfiniteCounterAdv, true);
+            scrollInfiniteCounterAdv++;
+        });
     });
 
     $$('#biography').on('tab:show', function() {
         genreMovies("biography");
+        var scrollInfiniteCounterBio = 2;
+        $$('.infinite-scroll-content-biography-movies').on('infinite', function() {
+            infiniteScroll("biography", scrollInfiniteCounterBio, true);
+            scrollInfiniteCounterBio++;
+        });
     });
 
     $$('#crime').on('tab:show', function() {
         genreMovies("crime");
+        var scrollInfiniteCounterCrime = 2;
+        $$('.infinite-scroll-content-crime-movies').on('infinite', function() {
+            infiniteScroll("crime", scrollInfiniteCounterCrime, true);
+            scrollInfiniteCounterCrime++;
+        });
     });
 
     $$('#drama').on('tab:show', function() {
         genreMovies("drama");
+        var scrollInfiniteCounterDrama = 2;
+        $$('.infinite-scroll-content-drama-movies').on('infinite', function() {
+            infiniteScroll("drama", scrollInfiniteCounterDrama, true);
+            scrollInfiniteCounterDrama++;
+        });
     });
 
     $$('#fantasy').on('tab:show', function() {
         genreMovies("fantasy");
+        var scrollInfiniteCounterFantasy = 2;
+        $$('.infinite-scroll-content-fantasy-movies').on('infinite', function() {
+            infiniteScroll("fantasy", scrollInfiniteCounterFantasy, true);
+            scrollInfiniteCounterFantasy++;
+        });
     });
 
     $$('#history').on('tab:show', function() {
         genreMovies("history");
+        var scrollInfiniteCounterHistory = 2;
+        $$('.infinite-scroll-content-history-movies').on('infinite', function() {
+            infiniteScroll("history", scrollInfiniteCounterHistory, true);
+            scrollInfiniteCounterHistory++;
+        });
     });
 
     $$('#music').on('tab:show', function() {
         genreMovies("music");
+        var scrollInfiniteCounterMusic = 2;
+        $$('.infinite-scroll-content-music-movies').on('infinite', function() {
+            infiniteScroll("music", scrollInfiniteCounterMusic, true);
+            scrollInfiniteCounterMusic++;
+        });
     });
 
     $$('#mystery').on('tab:show', function() {
         genreMovies("mystery");
+        var scrollInfiniteCounterMystery = 2;
+        $$('.infinite-scroll-content-mystery-movies').on('infinite', function() {
+            infiniteScroll("mystery", scrollInfiniteCounterMystery, true);
+            scrollInfiniteCounterMystery++;
+        });
     });
 
     $$('#scifi').on('tab:show', function() {
         genreMovies("scifi");
+        var scrollInfiniteCounterScifi = 2;
+        $$('.infinite-scroll-content-scifi-movies').on('infinite', function() {
+            infiniteScroll("scifi", scrollInfiniteCounterScifi, true);
+            scrollInfiniteCounterScifi++;
+        });
     });
 
     $$('#thriller').on('tab:show', function() {
         genreMovies("thriller");
+        var scrollInfiniteCounterThriller = 2;
+        $$('.infinite-scroll-content-thriller-movies').on('infinite', function() {
+            infiniteScroll("thriller", scrollInfiniteCounterThriller, true);
+            scrollInfiniteCounterThriller++;
+        });
     });
 
     $$('#western').on('tab:show', function() {
         genreMovies("western");
+        var scrollInfiniteCounterWestern = 2;
+        $$('.infinite-scroll-content-western-movies').on('infinite', function() {
+            infiniteScroll("western", scrollInfiniteCounterWestern, true);
+            scrollInfiniteCounterWestern++;
+        });
     });
 })
 
@@ -445,12 +599,12 @@ function homeMovies(type) {
 // QUALITY
 function qualityMovies(quality) {
 
-    var qualityULT;
+    var qualityURL;
 
     if (quality == "#quality1") {
         qualityURL = baseUrl + 'list_movies.json?quality=720p';
     } else if (quality == "#quality2") {
-        qualityURL = 'list_movies.json?quality=1080p';
+        qualityURL = baseUrl + 'list_movies.json?quality=1080p';
     } else if (quality == "#quality3") {
         qualityURL = baseUrl + 'list_movies.json?quality=3D';
     }
@@ -744,11 +898,33 @@ function statusbarColor(colorName, colorHex) {
 }
 
 // INFINITE SCROLL
-function infiniteScrollHome(element, counter) {
+function infiniteScroll(element, counter, flag) {
     console.log(element + " + " + counter);
     var allowInfinite = true;
     var lastItemIndex = $$('#' + element + '-movies-wrapper ul li').length;
     var maxItems = 2000;
+
+    var urlType;
+
+    if (flag == false) {
+        if (element == "latest") {
+            urlType = baseUrl + 'list_movies.json?page=' + counter + '&limit=20';
+        } else if (element == "rated") {
+            urlType = baseUrl + 'list_movies.json?minimum_rating=9&page=' + counter + '&limit=20';
+        } else if (element == "download") {
+            urlType = baseUrl + 'list_movies.json?sort_by=download_count&page=' + counter + '&limit=20';
+        } else if (element == "quality1") {
+            urlType = baseUrl + 'list_movies.json?quality=720p&page=' + counter + '&limit=20';
+        } else if (element == "quality2") {
+            urlType = baseUrl + 'list_movies.json?quality=1080p&page=' + counter + '&limit=20';
+        } else if (element == "quality3") {
+            urlType = baseUrl + 'list_movies.json?quality=3D&page=' + counter + '&limit=20';
+        }
+    } else {
+        urlType = baseUrl + 'list_movies.json?genre=' + element + '&page=' + counter + '&limit=20';
+    }
+
+    console.log(urlType);
 
     if (!allowInfinite) return;
     allowInfinite = false;
@@ -760,17 +936,6 @@ function infiniteScrollHome(element, counter) {
             $$('.infinite-scroll-preloader').remove();
             return;
         }
-
-        var urlType;
-
-        if (type == "latest") {
-            urlType = baseUrl + 'list_movies.json?page=' + counter + '&limit=20';
-        } else if (type == "rated") {
-            urlType = baseUrl + 'list_movies.json??minimum_rating=9&page=' + counter + '&limit=20';
-        } else if (type == "download") {
-            urlType = baseUrl + baseUrl + 'list_movies.json??sort_by=download_count&page=' + counter + '&limit=20';
-        }
-
         $.ajax({
             url: urlType,
             type: "GET",
@@ -778,6 +943,7 @@ function infiniteScrollHome(element, counter) {
             console.log('error:' + data);
             alertServerError();
         }).done(function(data) {
+            console.log(data);
             $.each(data.data.movies, function(key, val) {
                 var movieItem = '<li>' +
                     '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
@@ -792,9 +958,9 @@ function infiniteScrollHome(element, counter) {
                     '</a>' +
                     '</li>';
                 app.lazy.create('#' + element + "-movies");
-                $$('#' + element + +"-movies").append(movieItem);
+                $$('#' + element + "-movies").append(movieItem);
             });
         });
-        lastItemIndex = $$('#latest-movies-wrapper ul li').length;
+        lastItemIndex = $$('#' + element + "-movies-wrapper ul li").length;
     }, 1000);
 }
