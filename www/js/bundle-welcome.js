@@ -162,25 +162,25 @@
             var welcomescreen_slides = [{
                     id: 'slide0',
                     title: 'Welcome',
-                    picture: '<div style="line-height: 170px;" class="tutorialicon"><i  style="font-size: 150px;" class="material-icons">movie</i></div>',
+                    picture: '<div style="line-height: 170px;" class="tutorialicon"><i  style="font-size: 100px;" class="material-icons">movie</i></div>',
                     text: 'Welcome to YTS Movies! <br><br>Swipe to continue →'
                 },
                 {
                     id: 'slide1',
                     title: 'Browse and Search Movies',
-                    picture: '<div style="line-height: 170px;" class="tutorialicon"><i  style="font-size: 150px;" class="material-icons">search</i></div>',
+                    picture: '<div style="line-height: 170px;" class="tutorialicon"><i  style="font-size: 100px;" class="material-icons">search</i></div>',
                     text: 'You can find your favorite movies, check the casts and storyline and much more.<br><br>Swipe to continue →'
                 },
                 {
                     id: 'slide2',
                     title: 'Download Movies',
-                    picture: '<div style="line-height: 170px;" class="tutorialicon"><i  style="font-size: 150px;" class="material-icons">cloud_download</i></div>',
+                    picture: '<div style="line-height: 170px;" class="tutorialicon"><i  style="font-size: 100px;" class="material-icons">cloud_download</i></div>',
                     text: 'You can download your favourite movies on the go!<br><br>Swipe to continue →'
                 },
                 {
                     id: 'slide3',
                     title: 'Enjoy',
-                    picture: '<div style="line-height: 170px;" class="tutorialicon"><i  style="font-size: 150px;" class="material-icons">favorite</i></div>',
+                    picture: '<div style="line-height: 170px;" class="tutorialicon"><i  style="font-size: 100px;" class="material-icons">favorite</i></div>',
                     text: "<p>Enjoy the app</p> <br><br> <a class='close-welcomescreen col button-fill color-white' href='#'>Start browsing and downloading →</a>"
                 }
             ];

@@ -102,6 +102,10 @@
     margin-top: 10px;
 }
 
+.md .chip {
+    margin-right: 10px;
+}
+
 
 /*COLOR THEME RED*/
 .color-theme-red #search-btn-holder button.color-green,

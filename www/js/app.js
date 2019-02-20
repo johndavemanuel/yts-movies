@@ -898,9 +898,10 @@ function statusbarColor(colorName, colorHex) {
 }
 
 // INFINITE SCROLL
+var allowInfinite = true;
+
 function infiniteScroll(element, counter, flag) {
     console.log(element + " + " + counter);
-    var allowInfinite = true;
     var lastItemIndex = $$('#' + element + '-movies-wrapper ul li').length;
     var maxItems = 2000;
 
@@ -933,7 +934,7 @@ function infiniteScroll(element, counter, flag) {
 
         if (lastItemIndex >= maxItems) {
             app.infiniteScroll.destroy('.infinite-scroll-content-' + element + '-movies');
-            $$('.infinite-scroll-preloader').remove();
+            $$('.'+element+'-preloader').remove();
             return;
         }
         $.ajax({
@@ -962,5 +963,6 @@ function infiniteScroll(element, counter, flag) {
             });
         });
         lastItemIndex = $$('#' + element + "-movies-wrapper ul li").length;
+        console.log(lastItemIndex);
     }, 1000);
 }

@@ -1,5 +1,5 @@
 # YTS Movies
-Phonegap App for browsing and downloading movies (YTS API)
+Phonegap App for browsing and downloading movies
 
 Browse different types of movie with details and download via torrent 
 
@@ -22,7 +22,6 @@ Browse different types of movie with details and download via torrent
 ## Settings
 - Dark Mode
 - Theme Color
-- Welcome Screen
 
 ## Android Installer
 File: [Android](https://github.com/johndavemanuel/yts-movies/blob/master/YTSMovies-debug.3394139.1.apk)
