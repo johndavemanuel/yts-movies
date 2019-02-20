@@ -9,8 +9,8 @@ Browse different types of movie with details and download via torrent
 - Popular Downloads
 
 ## Quality
-- 720
-- 1080
+- 720p
+- 1080p
 - 3D
 
 ## Genre
