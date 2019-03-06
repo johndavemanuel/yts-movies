@@ -3,13 +3,14 @@ Phonegap App for browsing and downloading movies
 
 Browse different types of movie with details and download via torrent 
 
-<p float="left">
+<p align="middle" float="left">
 <img src="https://github.com/johndavemanuel/yts-movies/blob/master/screenshots/yts-movies-1.jpg" width="200">
 <img src="https://github.com/johndavemanuel/yts-movies/blob/master/screenshots/yts-movies-2.jpg" width="200">
 <img src="https://github.com/johndavemanuel/yts-movies/blob/master/screenshots/yts-movies-3.jpg" width="200">
 <img src="https://github.com/johndavemanuel/yts-movies/blob/master/screenshots/yts-movies-4.jpg" width="200">
 <img src="https://github.com/johndavemanuel/yts-movies/blob/master/screenshots/yts-movies-5.jpg" width="200">
 </p>
+
 ## Home
 - Latest Upload
 - Top Rated
