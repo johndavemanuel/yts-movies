@@ -573,10 +573,8 @@ function homeMovies(type) {
         url: urlType,
         type: "GET",
     }).fail(function(data) {
-        console.log('error:' + data);
         alertServerError();
     }).done(function(data) {
-        console.log('data:' + data);
         $.each(data.data.movies, function(key, val) {
             var movieItem = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
@@ -612,10 +610,8 @@ function qualityMovies(quality) {
         url: qualityURL,
         type: "GET",
     }).fail(function(data) {
-        console.log('error:' + data);
         alertServerError();
     }).done(function(data) {
-        console.log('data:' + data);
         $.each(data.data.movies, function(key, val) {
             var movieItem = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
@@ -641,10 +637,8 @@ function genreMovies(genre) {
         url: baseUrl + 'list_movies.json?genre=' + genre + '',
         type: "GET",
     }).fail(function(data) {
-        console.log('error:' + data);
         alertServerError();
     }).done(function(data) {
-        console.log('data:' + data);
         $.each(data.data.movies, function(key, val) {
             var movieItem = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
@@ -670,10 +664,8 @@ function movieSuggestions(id) {
         url: baseUrl + 'movie_suggestions.json?movie_id=' + id + '',
         type: "GET",
     }).fail(function(data) {
-        console.log('error:' + data);
         alertServerError();
     }).done(function(data) {
-        console.log(data.data.movies);
         $.each(data.data.movies, function(key, val) {
             var movieSuggestionsItem = '<li>' +
                 '<a href="#" data-id="' + val.id + '" class="item-link item-content movieSuggestion">' +
@@ -707,11 +699,8 @@ function movieDetails(movieID) {
         url: baseUrl + 'movie_details.json?movie_id=' + movieID + '&with_images=true&with_cast=true',
         type: "GET",
     }).fail(function(data) {
-        console.log('error:' + data);
         alertServerError();
     }).done(function(data) {
-        console.log(data.data.movie.mpa_rating);
-
         $$('.movie-title').text(data.data.movie.title);
         var movieDetailsHolder = '<div class="card demo-card-header-pic">' +
             '<div data-background=' + data.data.movie.large_cover_image + ' class="card-header align-items-flex-end lazy lazy-fade-in"></div>' +
@@ -744,8 +733,6 @@ function movieDetails(movieID) {
         $$('#movide-details-holder').append(movieDetailsHolder);
         $$('div.lazy').trigger('lazy');
 
-        // console.log(data.data.movie.cast);
-
         var currentThemeForm = localStorage.getItem('color-theme-form');
         if (currentThemeForm == null) {
             currentThemeForm = "color-green";
@@ -765,14 +752,12 @@ function movieDetails(movieID) {
             $$('#cast-holder').append(movieCasts);
         });
 
-        // console.log(data.data.movie.genres)
         $.each(data.data.movie.genres, function(key, val) {
             var moviegenres = '<div class="chip ' + currentThemeForm + '">' +
                 '<div class="chip-label">' + val + '</div>';
             $$('#genre-holder').append(moviegenres);
         });
 
-        // console.log(data.data.movie.torrents);
         $.each(data.data.movie.torrents, function(key, val) {
             var torrentList = '<div class="card demo-card-header-pic">' +
                 '<div class="card-content card-content-padding">' +
@@ -821,10 +806,8 @@ function searchSingle(movieNameSearch) {
         url: baseUrl + 'list_movies.json?query_term=' + movieNameSearch + '',
         type: "GET",
     }).fail(function(data) {
-        console.log('error:' + data);
         alertServerError();
     }).done(function(data) {
-        // console.log(data.data);
         $("#advancedsearch-movies").hide();
         if (data.data.movie_count > 0) {
             $.each(data.data.movies, function(key, val) {
@@ -856,10 +839,8 @@ function searchAdvanced(movieQualitySearch, movieGenreSearch, movieRatingSearch,
         url: baseUrl + 'list_movies.json?quality=' + movieQualitySearch + '&genre=' + movieGenreSearch + '&minimum_rating=' + movieRatingSearch + '&sort_by=' + movieSortbySearch + '',
         type: "GET",
     }).fail(function(data) {
-        console.log('error:' + data);
         alertServerError();
     }).done(function(data) {
-        // console.log(data.data);
         $("#simplesearch-movies").hide();
         if (data.data.movie_count > 0) {
             $.each(data.data.movies, function(key, val) {
@@ -901,7 +882,6 @@ function statusbarColor(colorName, colorHex) {
 var allowInfinite = true;
 
 function infiniteScroll(element, counter, flag) {
-    console.log(element + " + " + counter);
     var lastItemIndex = $$('#' + element + '-movies-wrapper ul li').length;
     var maxItems = 2000;
 
@@ -925,8 +905,6 @@ function infiniteScroll(element, counter, flag) {
         urlType = baseUrl + 'list_movies.json?genre=' + element + '&page=' + counter + '&limit=20';
     }
 
-    console.log(urlType);
-
     if (!allowInfinite) return;
     allowInfinite = false;
     setTimeout(function() {
@@ -941,10 +919,8 @@ function infiniteScroll(element, counter, flag) {
             url: urlType,
             type: "GET",
         }).fail(function(data) {
-            console.log('error:' + data);
             alertServerError();
         }).done(function(data) {
-            console.log(data);
             $.each(data.data.movies, function(key, val) {
                 var movieItem = '<li>' +
                     '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
@@ -963,6 +939,5 @@ function infiniteScroll(element, counter, flag) {
             });
         });
         lastItemIndex = $$('#' + element + "-movies-wrapper ul li").length;
-        console.log(lastItemIndex);
     }, 1000);
 }
