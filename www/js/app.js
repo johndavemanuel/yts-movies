@@ -28,8 +28,10 @@ var mainView = app.views.create('.view-main', {
 var baseUrl = 'https://yts.am/api/v2/';
 var isSingleSearch = false;
 var isAdvanceSearch = false;
+var favorites = [];
 
-$$(document).on('page:init', '.page[data-name="home"]', function(e) {
+
+$$(document).on('page:init', '.page[data-name="home"]', function (e) {
     app.infiniteScroll.create(".infinite-scroll-content-latest-movies");
     app.infiniteScroll.create(".infinite-scroll-content-rated-movies");
     app.infiniteScroll.create(".infinite-scroll-content-download-movies");
@@ -37,84 +39,84 @@ $$(document).on('page:init', '.page[data-name="home"]', function(e) {
 
     // INIFINITE SCROLL LATEST
     var scrollInfiniteCounterLatest = 2;
-    $$('.infinite-scroll-content-latest-movies').on('infinite', function() {
+    $$('.infinite-scroll-content-latest-movies').on('infinite', function () {
         infiniteScroll("latest", scrollInfiniteCounterLatest, false);
         scrollInfiniteCounterLatest++;
     });
 
     // TABS HOME
-    $$('#latest').on('tab:show', function() {
+    $$('#latest').on('tab:show', function () {
         homeMovies("#latest");
         // INIFINITE SCROLL LATEST
         var scrollInfiniteCounterLatest = 2;
-        $$('.infinite-scroll-content-latest-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-latest-movies').on('infinite', function () {
             infiniteScroll("latest", scrollInfiniteCounterLatest, false);
             scrollInfiniteCounterLatest++;
         });
     });
 
-    $$('#rated').on('tab:show', function() {
+    $$('#rated').on('tab:show', function () {
         homeMovies("#rated");
         // INIFINITE SCROLL RATED
         var scrollInfiniteCounterRated = 2;
-        $$('.infinite-scroll-content-rated-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-rated-movies').on('infinite', function () {
             infiniteScroll("rated", scrollInfiniteCounterRated, false);
             scrollInfiniteCounterRated++;
         });
     });
 
-    $$('#download').on('tab:show', function() {
+    $$('#download').on('tab:show', function () {
         homeMovies("#download");
         // INIFINITE SCROLL DOWNLOAD
         var scrollInfiniteCounterDownload = 2;
-        $$('.infinite-scroll-content-download-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-download-movies').on('infinite', function () {
             infiniteScroll("download", scrollInfiniteCounterDownload, false);
             scrollInfiniteCounterDownload++;
         });
     });
-})
+});
 
-$$(document).on('page:init', '.page[data-name="quality"]', function(e) {
+$$(document).on('page:init', '.page[data-name="quality"]', function (e) {
     app.infiniteScroll.create(".infinite-scroll-content-quality1-movies");
     app.infiniteScroll.create(".infinite-scroll-content-quality2-movies");
     app.infiniteScroll.create(".infinite-scroll-content-quality3-movies");
     qualityMovies("#quality1");
     var scrollInfiniteCounterQuality1 = 2;
-    $$('.infinite-scroll-content-quality1-movies').on('infinite', function() {
+    $$('.infinite-scroll-content-quality1-movies').on('infinite', function () {
         infiniteScroll("quality1", scrollInfiniteCounterQuality1, false);
         scrollInfiniteCounterQuality1++;
     });
 
-    $$('#quality1').on('tab:show', function() {
+    $$('#quality1').on('tab:show', function () {
         qualityMovies("#quality1");
         // INIFINITE SCROLL QUALITY 1
         var scrollInfiniteCounterQuality1 = 2;
-        $$('.infinite-scroll-content-quality1-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-quality1-movies').on('infinite', function () {
             infiniteScroll("quality1", scrollInfiniteCounterQuality1, false);
             scrollInfiniteCounterQuality1++;
         });
     });
 
-    $$('#quality2').on('tab:show', function() {
+    $$('#quality2').on('tab:show', function () {
         qualityMovies("#quality2");
         var scrollInfiniteCounterQuality2 = 2;
-        $$('.infinite-scroll-content-quality2-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-quality2-movies').on('infinite', function () {
             infiniteScroll("quality2", scrollInfiniteCounterQuality2, false);
             scrollInfiniteCounterQuality2++;
         });
     });
 
-    $$('#quality3').on('tab:show', function() {
+    $$('#quality3').on('tab:show', function () {
         qualityMovies("#quality3");
         var scrollInfiniteCounterQuality3 = 2;
-        $$('.infinite-scroll-content-quality3-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-quality3-movies').on('infinite', function () {
             infiniteScroll("quality3", scrollInfiniteCounterQuality3, false);
             scrollInfiniteCounterQuality3++;
         });
     });
-})
+});
 
-$$(document).on('page:init', '.page[data-name="genre"]', function(e) {
+$$(document).on('page:init', '.page[data-name="genre"]', function (e) {
     app.infiniteScroll.create(".infinite-scroll-content-action-movies");
     app.infiniteScroll.create(".infinite-scroll-content-animation-movies");
     app.infiniteScroll.create(".infinite-scroll-content-comedy-movies");
@@ -140,220 +142,265 @@ $$(document).on('page:init', '.page[data-name="genre"]', function(e) {
 
     genreMovies("action");
     var scrollInfiniteCounterAction = 2;
-    $$('.infinite-scroll-content-action-movies').on('infinite', function() {
+    $$('.infinite-scroll-content-action-movies').on('infinite', function () {
         infiniteScroll("action", scrollInfiniteCounterAction, true);
         scrollInfiniteCounterAction++;
     });
 
-    $$('#action').on('tab:show', function() {
+    $$('#action').on('tab:show', function () {
         genreMovies("action");
         var scrollInfiniteCounterAction = 2;
-        $$('.infinite-scroll-content-action-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-action-movies').on('infinite', function () {
             infiniteScroll("action", scrollInfiniteCounterAction, true);
             scrollInfiniteCounterAction++;
         });
     });
 
-    $$('#animation').on('tab:show', function() {
+    $$('#animation').on('tab:show', function () {
         genreMovies("animation");
         var scrollInfiniteCounterAnimation = 2;
-        $$('.infinite-scroll-content-animation-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-animation-movies').on('infinite', function () {
             infiniteScroll("action", scrollInfiniteCounterAnimation, true);
             scrollInfiniteCounterAnimation++;
         });
     });
 
-    $$('#comedy').on('tab:show', function() {
+    $$('#comedy').on('tab:show', function () {
         genreMovies("comedy");
         var scrollInfiniteCounterComedy = 2;
-        $$('.infinite-scroll-content-comedy-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-comedy-movies').on('infinite', function () {
             infiniteScroll("comedy", scrollInfiniteCounterComedy, true);
             scrollInfiniteCounterComedy++;
         });
     });
 
-    $$('#documentary').on('tab:show', function() {
+    $$('#documentary').on('tab:show', function () {
         genreMovies("documentary");
         var scrollInfiniteCounterDocu = 2;
-        $$('.infinite-scroll-content-documentary-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-documentary-movies').on('infinite', function () {
             infiniteScroll("documentary", scrollInfiniteCounterDocu, true);
             scrollInfiniteCounterDocu++;
         });
     });
 
-    $$('#family').on('tab:show', function() {
+    $$('#family').on('tab:show', function () {
         genreMovies("family");
         var scrollInfiniteCounterFamily = 2;
-        $$('.infinite-scroll-content-family-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-family-movies').on('infinite', function () {
             infiniteScroll("family", scrollInfiniteCounterFamily, true);
             scrollInfiniteCounterFamily++;
         });
     });
 
-    $$('#film-noi').on('tab:show', function() {
+    $$('#film-noi').on('tab:show', function () {
         genreMovies("film-noi");
         var scrollInfiniteCounterFilmNoi = 2;
-        $$('.infinite-scroll-content-film-noi-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-film-noi-movies').on('infinite', function () {
             infiniteScroll("film-noi", scrollInfiniteCounterFilmNoi, true);
             scrollInfiniteCounterFilmNoi++;
         });
     });
 
-    $$('#horror').on('tab:show', function() {
+    $$('#horror').on('tab:show', function () {
         genreMovies("horror");
         var scrollInfiniteCounterHorror = 2;
-        $$('.infinite-scroll-content-horror-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-horror-movies').on('infinite', function () {
             infiniteScroll("horror", scrollInfiniteCounterHorror, true);
             scrollInfiniteCounterHorror++;
         });
     });
 
-    $$('#musical').on('tab:show', function() {
+    $$('#musical').on('tab:show', function () {
         genreMovies("musical");
         var scrollInfiniteCounterMusical = 2;
-        $$('.infinite-scroll-content-musical-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-musical-movies').on('infinite', function () {
             infiniteScroll("musical", scrollInfiniteCounterMusical, true);
             scrollInfiniteCounterMusical++;
         });
     });
 
-    $$('#romance').on('tab:show', function() {
+    $$('#romance').on('tab:show', function () {
         genreMovies("romance");
         var scrollInfiniteCounterRomance = 2;
-        $$('.infinite-scroll-content-romance-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-romance-movies').on('infinite', function () {
             infiniteScroll("romance", scrollInfiniteCounterRomance, true);
             scrollInfiniteCounterRomance++;
         });
     });
 
-    $$('#sport').on('tab:show', function() {
+    $$('#sport').on('tab:show', function () {
         genreMovies("sport");
         var scrollInfiniteCounterSport = 2;
-        $$('.infinite-scroll-content-sport-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-sport-movies').on('infinite', function () {
             infiniteScroll("sport", scrollInfiniteCounterSport, true);
             scrollInfiniteCounterSport++;
         });
     });
 
-    $$('#war').on('tab:show', function() {
+    $$('#war').on('tab:show', function () {
         genreMovies("war");
         var scrollInfiniteCounterWar = 2;
-        $$('.infinite-scroll-content-war-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-war-movies').on('infinite', function () {
             infiniteScroll("war", scrollInfiniteCounterWar, true);
             scrollInfiniteCounterWar++;
         });
     });
 
-    $$('#adventure').on('tab:show', function() {
+    $$('#adventure').on('tab:show', function () {
         genreMovies("adventure");
         var scrollInfiniteCounterAdv = 2;
-        $$('.infinite-scroll-content-adventure-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-adventure-movies').on('infinite', function () {
             infiniteScroll("adventure", scrollInfiniteCounterAdv, true);
             scrollInfiniteCounterAdv++;
         });
     });
 
-    $$('#biography').on('tab:show', function() {
+    $$('#biography').on('tab:show', function () {
         genreMovies("biography");
         var scrollInfiniteCounterBio = 2;
-        $$('.infinite-scroll-content-biography-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-biography-movies').on('infinite', function () {
             infiniteScroll("biography", scrollInfiniteCounterBio, true);
             scrollInfiniteCounterBio++;
         });
     });
 
-    $$('#crime').on('tab:show', function() {
+    $$('#crime').on('tab:show', function () {
         genreMovies("crime");
         var scrollInfiniteCounterCrime = 2;
-        $$('.infinite-scroll-content-crime-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-crime-movies').on('infinite', function () {
             infiniteScroll("crime", scrollInfiniteCounterCrime, true);
             scrollInfiniteCounterCrime++;
         });
     });
 
-    $$('#drama').on('tab:show', function() {
+    $$('#drama').on('tab:show', function () {
         genreMovies("drama");
         var scrollInfiniteCounterDrama = 2;
-        $$('.infinite-scroll-content-drama-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-drama-movies').on('infinite', function () {
             infiniteScroll("drama", scrollInfiniteCounterDrama, true);
             scrollInfiniteCounterDrama++;
         });
     });
 
-    $$('#fantasy').on('tab:show', function() {
+    $$('#fantasy').on('tab:show', function () {
         genreMovies("fantasy");
         var scrollInfiniteCounterFantasy = 2;
-        $$('.infinite-scroll-content-fantasy-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-fantasy-movies').on('infinite', function () {
             infiniteScroll("fantasy", scrollInfiniteCounterFantasy, true);
             scrollInfiniteCounterFantasy++;
         });
     });
 
-    $$('#history').on('tab:show', function() {
+    $$('#history').on('tab:show', function () {
         genreMovies("history");
         var scrollInfiniteCounterHistory = 2;
-        $$('.infinite-scroll-content-history-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-history-movies').on('infinite', function () {
             infiniteScroll("history", scrollInfiniteCounterHistory, true);
             scrollInfiniteCounterHistory++;
         });
     });
 
-    $$('#music').on('tab:show', function() {
+    $$('#music').on('tab:show', function () {
         genreMovies("music");
         var scrollInfiniteCounterMusic = 2;
-        $$('.infinite-scroll-content-music-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-music-movies').on('infinite', function () {
             infiniteScroll("music", scrollInfiniteCounterMusic, true);
             scrollInfiniteCounterMusic++;
         });
     });
 
-    $$('#mystery').on('tab:show', function() {
+    $$('#mystery').on('tab:show', function () {
         genreMovies("mystery");
         var scrollInfiniteCounterMystery = 2;
-        $$('.infinite-scroll-content-mystery-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-mystery-movies').on('infinite', function () {
             infiniteScroll("mystery", scrollInfiniteCounterMystery, true);
             scrollInfiniteCounterMystery++;
         });
     });
 
-    $$('#scifi').on('tab:show', function() {
+    $$('#scifi').on('tab:show', function () {
         genreMovies("scifi");
         var scrollInfiniteCounterScifi = 2;
-        $$('.infinite-scroll-content-scifi-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-scifi-movies').on('infinite', function () {
             infiniteScroll("scifi", scrollInfiniteCounterScifi, true);
             scrollInfiniteCounterScifi++;
         });
     });
 
-    $$('#thriller').on('tab:show', function() {
+    $$('#thriller').on('tab:show', function () {
         genreMovies("thriller");
         var scrollInfiniteCounterThriller = 2;
-        $$('.infinite-scroll-content-thriller-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-thriller-movies').on('infinite', function () {
             infiniteScroll("thriller", scrollInfiniteCounterThriller, true);
             scrollInfiniteCounterThriller++;
         });
     });
 
-    $$('#western').on('tab:show', function() {
+    $$('#western').on('tab:show', function () {
         genreMovies("western");
         var scrollInfiniteCounterWestern = 2;
-        $$('.infinite-scroll-content-western-movies').on('infinite', function() {
+        $$('.infinite-scroll-content-western-movies').on('infinite', function () {
             infiniteScroll("western", scrollInfiniteCounterWestern, true);
             scrollInfiniteCounterWestern++;
         });
     });
-})
+});
 
-$$(document).on('page:init', '.page[data-name="moviedetails"]', function(e, page) {
+$$(document).on('page:init', '.page[data-name="favorites"]', function (e, page) {
+
+    var getFavorite = localStorage.getItem('favorites');
+    var getFavoriteParse = JSON.parse(getFavorite);
+    console.log(getFavoriteParse);
+    if (getFavoriteParse == null) {
+        $$("#favorite-movies-wrapper").prepend('<p class="text-center">You do not have favorites yet</p>');
+        return false;
+    }
+    $.each(getFavoriteParse, function (key, val) {
+        $.ajax({
+            url: baseUrl + 'movie_details.json?movie_id=' + val + '&with_images=true&with_cast=true',
+            type: "GET",
+        }).fail(function (data) {
+            alertServerError();
+        }).done(function (data) {
+            var movieItem = '<li>' +
+                '<a href="/moviedetails/?id=' + data.data.movie.id + '" class="item-link item-content">' +
+                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + data.data.movie.medium_cover_image + '" width="80px"/></div>' +
+                '<div class="item-inner">' +
+                '<div class="item-title-row">' +
+                '<div class="item-title">' + data.data.movie.title_english + '</div>' +
+                '</div>' +
+                '<div class="item-subtitle">' + data.data.movie.year + '</div>' +
+                '<div class="item-text">' + data.data.movie.description_full + '</div>' +
+                '</div>' +
+                '</a>' +
+                '</li>';
+            $$("#favorite-movies").append(movieItem);
+            app.lazy.create("#favorite-movies");
+        });
+    });
+});
+
+$$(document).on('page:init', '.page[data-name="moviedetails"]', function (e, page) {
     $$("#movide-details-holder").html("");
     $$("#movie-suggestions-holder").html("");
     var movieID = page.route.query.id;
     movieDetails(movieID);
     movieSuggestions(movieID);
-})
 
-$$(document).on('page:init', '.page[data-name="search"]', function(e) {
-    $$('#search-movie-name').on('click', function(e) {
+    $$('.js-favorite').on('click', function () {
+        var movieID = $(this).data('id');
+        if ($(this).find('i').text() == 'favorite_border') {
+            addToFavorite(movieID);
+            $(this).find('i').text('favorite');
+        } else {
+            removeToFavorite(movieID);
+            $(this).find('i').text('favorite_border');
+        }
+    });
+});
+
+$$(document).on('page:init', '.page[data-name="search"]', function (e) {
+    $$('#search-movie-name').on('click', function (e) {
         var movieName = $$('#movie-name-search-input').val();
         if (movieName == "") {
             var notificationWithButton = app.notification.create({
@@ -369,7 +416,7 @@ $$(document).on('page:init', '.page[data-name="search"]', function(e) {
         }
     });
 
-    $$('#search-movie-advance').on('click', function(e) {
+    $$('#search-movie-advance').on('click', function (e) {
         isAdvanceSearch = true;
         var movieQuality = $$('#quality').val();
         var movieGenre = $$('#genre').val();
@@ -377,9 +424,9 @@ $$(document).on('page:init', '.page[data-name="search"]', function(e) {
         var movieSortby = $$('#sortby').val();
         mainView.router.navigate('/search-results/?movieQuality=' + movieQuality + '&movieGenre=' + movieGenre + '&movieRating=' + movieRating + '&movieSortby=' + movieSortby + '');
     });
-})
+});
 
-$$(document).on('page:init', '.page[data-name="search-results"]', function(e, page) {
+$$(document).on('page:init', '.page[data-name="search-results"]', function (e, page) {
     if (isSingleSearch == true) {
         var movieNameSearch = (page.route.query.moviename);
 
@@ -403,9 +450,9 @@ $$(document).on('page:init', '.page[data-name="search-results"]', function(e, pa
         $('#searh-result-category').append(advanceCat);
         searchAdvanced(movieQualitySearch, movieGenreSearch, movieRatingSearch, movieSortbySearch);
     }
-})
+});
 
-$$(document).on('page:init', '.page[data-name="credits"]', function(e, page) {
+$$(document).on('page:init', '.page[data-name="credits"]', function (e, page) {
     var currentTheme = localStorage.getItem('color-theme');
     var bgColorTheme;
 
@@ -424,12 +471,12 @@ $$(document).on('page:init', '.page[data-name="credits"]', function(e, page) {
     } else {
         bgColorTheme = "#087f23";
     }
-    $$('.f7-link-web').on('click', function() {
+    $$('.f7-link-web').on('click', function () {
         var f7 = cordova.InAppBrowser.open('https://framework7.io/', '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + ',navigationbuttoncolor=#FFFFFF,closebuttoncolor=#FFFFFF');
         f7.addEventListener('exit', loadExitCallBack);
     });
 
-    $$('.yts-link-web').on('click', function() {
+    $$('.yts-link-web').on('click', function () {
         var yts = cordova.InAppBrowser.open('https://yts.am/api', '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + ',navigationbuttoncolor=#FFFFFF,closebuttoncolor=#FFFFFF');
         yts.addEventListener('exit', loadExitCallBack);
     });
@@ -437,12 +484,12 @@ $$(document).on('page:init', '.page[data-name="credits"]', function(e, page) {
     function loadExitCallBack(params) {
         mainView.router.navigate('/');
     }
-})
+});
 
 var toggle = app.toggle.create({
     el: '.toggle',
     on: {
-        change: function() {
+        change: function () {
             var toggle = app.toggle.get('.toggle');
 
             if (toggle.checked) {
@@ -456,9 +503,9 @@ var toggle = app.toggle.create({
             }
         }
     }
-})
+});
 
-$$('#side-menu li > a').on('click', function(e) {
+$$('#side-menu li > a').on('click', function (e) {
     var panel = app.panel.create({
         el: '.panel-left',
     })
@@ -475,21 +522,21 @@ var themecolor_select = app.actions.create({
             {
                 text: 'Red',
                 icon: '<button class="button button-fill button-round button-raised color-red"></button>',
-                onClick: function() {
+                onClick: function () {
                     statusbarColor("red", "#ba000d");
                 }
             },
             {
                 text: 'Green',
                 icon: '<button class="button button-fill button-round button-raised color-green"></button>',
-                onClick: function() {
+                onClick: function () {
                     statusbarColor("green", "#087f23");
                 }
             },
             {
                 text: 'Blue',
                 icon: '<button class="button button-fill button-round button-raised color-blue"></button>',
-                onClick: function() {
+                onClick: function () {
                     statusbarColor("blue", "#0069c0");
                 }
             },
@@ -497,21 +544,21 @@ var themecolor_select = app.actions.create({
         [{
                 text: 'Pink',
                 icon: '<button class="button button-fill button-round button-raised color-pink"></button>',
-                onClick: function() {
+                onClick: function () {
                     statusbarColor("pink", "#b0003a");
                 }
             },
             {
                 text: 'Gray',
                 icon: '<button class="button button-fill button-round button-raised color-gray"></button>',
-                onClick: function() {
+                onClick: function () {
                     statusbarColor("gray", "#707070");
                 }
             },
             {
                 text: 'Orange',
                 icon: '<button class="button button-fill button-round button-raised color-orange"></button>',
-                onClick: function() {
+                onClick: function () {
                     statusbarColor("orange", "#c66900");
                 }
             },
@@ -519,7 +566,7 @@ var themecolor_select = app.actions.create({
     ]
 });
 
-$$('#theme-color').on('click', function() {
+$$('#theme-color').on('click', function () {
     themecolor_select.open();
 });
 
@@ -540,7 +587,6 @@ if (currentThemeDark == null) {
 }
 
 $$('body').addClass(currentThemeDark);
-
 
 app.init();
 
@@ -572,10 +618,11 @@ function homeMovies(type) {
     $.ajax({
         url: urlType,
         type: "GET",
-    }).fail(function(data) {
+    }).fail(function (data) {
         alertServerError();
-    }).done(function(data) {
-        $.each(data.data.movies, function(key, val) {
+    }).done(function (data) {
+        ;
+        $.each(data.data.movies, function (key, val) {
             var movieItem = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
                 '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
@@ -609,10 +656,10 @@ function qualityMovies(quality) {
     $.ajax({
         url: qualityURL,
         type: "GET",
-    }).fail(function(data) {
+    }).fail(function (data) {
         alertServerError();
-    }).done(function(data) {
-        $.each(data.data.movies, function(key, val) {
+    }).done(function (data) {
+        $.each(data.data.movies, function (key, val) {
             var movieItem = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
                 '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
@@ -636,10 +683,10 @@ function genreMovies(genre) {
     $.ajax({
         url: baseUrl + 'list_movies.json?genre=' + genre + '',
         type: "GET",
-    }).fail(function(data) {
+    }).fail(function (data) {
         alertServerError();
-    }).done(function(data) {
-        $.each(data.data.movies, function(key, val) {
+    }).done(function (data) {
+        $.each(data.data.movies, function (key, val) {
             var movieItem = '<li>' +
                 '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
                 '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
@@ -663,10 +710,10 @@ function movieSuggestions(id) {
     $.ajax({
         url: baseUrl + 'movie_suggestions.json?movie_id=' + id + '',
         type: "GET",
-    }).fail(function(data) {
+    }).fail(function (data) {
         alertServerError();
-    }).done(function(data) {
-        $.each(data.data.movies, function(key, val) {
+    }).done(function (data) {
+        $.each(data.data.movies, function (key, val) {
             var movieSuggestionsItem = '<li>' +
                 '<a href="#" data-id="' + val.id + '" class="item-link item-content movieSuggestion">' +
                 '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
@@ -682,7 +729,7 @@ function movieSuggestions(id) {
             app.lazy.create("#movie-suggestions-holder");
             $$('#movie-suggestions-holder').append(movieSuggestionsItem);
         });
-        $$('.movieSuggestion').on('click', function() {
+        $$('.movieSuggestion').on('click', function () {
             var movieSuggestionID = $(this).attr("data-id");
             $$("#movide-details-holder").html("");
             $$("#movie-suggestions-holder").html("");
@@ -698,10 +745,21 @@ function movieDetails(movieID) {
     $.ajax({
         url: baseUrl + 'movie_details.json?movie_id=' + movieID + '&with_images=true&with_cast=true',
         type: "GET",
-    }).fail(function(data) {
+    }).fail(function (data) {
         alertServerError();
-    }).done(function(data) {
+    }).done(function (data) {
         $$('.movie-title').text(data.data.movie.title);
+        $('.js-favorite').attr('data-id', data.data.movie.id);
+
+        var getFavorite = localStorage.getItem('favorites');
+        var getFavoriteParse = JSON.parse(getFavorite);
+        $.each(getFavoriteParse, function (key, val) {
+            if (data.data.movie.id == val) {
+                $('.js-favorite').find('i').text('favorite');
+            }
+        });
+
+
         var movieDetailsHolder = '<div class="card demo-card-header-pic">' +
             '<div data-background=' + data.data.movie.large_cover_image + ' class="card-header align-items-flex-end lazy lazy-fade-in"></div>' +
             '<div class="card-content card-content-padding">' +
@@ -738,7 +796,7 @@ function movieDetails(movieID) {
             currentThemeForm = "color-green";
         }
 
-        $.each(data.data.movie.cast, function(key, val) {
+        $.each(data.data.movie.cast, function (key, val) {
             var img = val.url_small_image;
 
             if (img == "" || img == undefined) {
@@ -752,13 +810,13 @@ function movieDetails(movieID) {
             $$('#cast-holder').append(movieCasts);
         });
 
-        $.each(data.data.movie.genres, function(key, val) {
+        $.each(data.data.movie.genres, function (key, val) {
             var moviegenres = '<div class="chip ' + currentThemeForm + '">' +
                 '<div class="chip-label">' + val + '</div>';
             $$('#genre-holder').append(moviegenres);
         });
 
-        $.each(data.data.movie.torrents, function(key, val) {
+        $.each(data.data.movie.torrents, function (key, val) {
             var torrentList = '<div class="card demo-card-header-pic">' +
                 '<div class="card-content card-content-padding">' +
                 '<p class="date">Quality: ' + val.quality + '</p>' +
@@ -770,7 +828,7 @@ function movieDetails(movieID) {
                 '</div>';
             $$('#download-holder').append(torrentList);
         });
-        $$('.torrent-download').on('click', function() {
+        $$('.torrent-download').on('click', function () {
             var currentTheme = localStorage.getItem('color-theme');
             var bgColorTheme;
 
@@ -805,12 +863,12 @@ function searchSingle(movieNameSearch) {
     $.ajax({
         url: baseUrl + 'list_movies.json?query_term=' + movieNameSearch + '',
         type: "GET",
-    }).fail(function(data) {
+    }).fail(function (data) {
         alertServerError();
-    }).done(function(data) {
+    }).done(function (data) {
         $("#advancedsearch-movies").hide();
         if (data.data.movie_count > 0) {
-            $.each(data.data.movies, function(key, val) {
+            $.each(data.data.movies, function (key, val) {
                 var simpleSearchHolder = '<li>' +
                     '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
                     '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
@@ -838,12 +896,12 @@ function searchAdvanced(movieQualitySearch, movieGenreSearch, movieRatingSearch,
     $.ajax({
         url: baseUrl + 'list_movies.json?quality=' + movieQualitySearch + '&genre=' + movieGenreSearch + '&minimum_rating=' + movieRatingSearch + '&sort_by=' + movieSortbySearch + '',
         type: "GET",
-    }).fail(function(data) {
+    }).fail(function (data) {
         alertServerError();
-    }).done(function(data) {
+    }).done(function (data) {
         $("#simplesearch-movies").hide();
         if (data.data.movie_count > 0) {
-            $.each(data.data.movies, function(key, val) {
+            $.each(data.data.movies, function (key, val) {
                 var advancedSearchHolder = '<li>' +
                     '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
                     '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
@@ -907,21 +965,21 @@ function infiniteScroll(element, counter, flag) {
 
     if (!allowInfinite) return;
     allowInfinite = false;
-    setTimeout(function() {
+    setTimeout(function () {
         allowInfinite = true;
 
         if (lastItemIndex >= maxItems) {
             app.infiniteScroll.destroy('.infinite-scroll-content-' + element + '-movies');
-            $$('.'+element+'-preloader').remove();
+            $$('.' + element + '-preloader').remove();
             return;
         }
         $.ajax({
             url: urlType,
             type: "GET",
-        }).fail(function(data) {
+        }).fail(function (data) {
             alertServerError();
-        }).done(function(data) {
-            $.each(data.data.movies, function(key, val) {
+        }).done(function (data) {
+            $.each(data.data.movies, function (key, val) {
                 var movieItem = '<li>' +
                     '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
                     '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
@@ -940,4 +998,19 @@ function infiniteScroll(element, counter, flag) {
         });
         lastItemIndex = $$('#' + element + "-movies-wrapper ul li").length;
     }, 1000);
+}
+
+// ADD TO FAVORITE
+function addToFavorite(id) {
+    favorites.push(id);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+}
+
+// REMOVE TO FAVORITEs
+function removeToFavorite(id) {
+    var index = favorites.indexOf(id);
+    if (index > -1) {
+        favorites.splice(index, 1);
+    }
+    localStorage.setItem('favorites', JSON.stringify(favorites));
 }

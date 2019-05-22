@@ -106,6 +106,9 @@
     margin-right: 10px;
 }
 
+.text-center {
+    text-align: center;
+}
 
 /*COLOR THEME RED*/
 .color-theme-red #search-btn-holder button.color-green,

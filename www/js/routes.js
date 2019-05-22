@@ -7,6 +7,10 @@ routes = [{
     url: './pages/moviedetails.html',
   },
   {
+    path: '/favorites/',
+    url: './pages/favorites.html',
+  },
+  {
     path: '/search/',
     url: './pages/search.html',
   },

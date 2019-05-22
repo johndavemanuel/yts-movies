@@ -14,6 +14,7 @@ Browse different types of movie with details and download via torrent
 - Latest Upload
 - Top Rated
 - Popular Downloads
+- Favorites
 
 ## Quality
 - 720p
