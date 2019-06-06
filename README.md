@@ -32,7 +32,4 @@ Browse different types of movie with details and download via torrent
 - Theme Color
 
 ## Android Installer
-[Android](https://github.com/johndavemanuel/yts-movies/blob/master/app-debug.3394139.110.apk)
-
-## iOS 
-Coming Soon
+[Android](https://github.com/johndavemanuel/yts-movies/tree/master/apk)
