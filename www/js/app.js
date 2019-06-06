@@ -30,6 +30,15 @@ var isSingleSearch = false;
 var isAdvanceSearch = false;
 var favorites = [];
 
+// CUSTOM HELPERS
+Template7.registerHelper('checkImage', function (obj) {
+    if (obj == "" || obj == undefined) {
+        return "img/default.png";
+    }
+    else {
+        return obj;
+    }
+});
 
 $$(document).on('page:init', '.page[data-name="home"]', function (e) {
     app.infiniteScroll.create(".infinite-scroll-content-latest-movies");
@@ -82,6 +91,7 @@ $$(document).on('page:init', '.page[data-name="quality"]', function (e) {
     app.infiniteScroll.create(".infinite-scroll-content-quality3-movies");
     qualityMovies("#quality1");
     var scrollInfiniteCounterQuality1 = 2;
+    
     $$('.infinite-scroll-content-quality1-movies').on('infinite', function () {
         infiniteScroll("quality1", scrollInfiniteCounterQuality1, false);
         scrollInfiniteCounterQuality1++;
@@ -347,54 +357,38 @@ $$(document).on('page:init', '.page[data-name="genre"]', function (e) {
 });
 
 $$(document).on('page:init', '.page[data-name="favorites"]', function (e, page) {
-
     var getFavorite = localStorage.getItem('favorites');
     var getFavoriteParse = JSON.parse(getFavorite);
-    console.log(getFavoriteParse);
     if (getFavoriteParse == null) {
         $$("#favorite-movies-wrapper").prepend('<p class="text-center">You do not have favorites yet</p>');
         return false;
     }
-    $.each(getFavoriteParse, function (key, val) {
-        $.ajax({
-            url: baseUrl + 'movie_details.json?movie_id=' + val + '&with_images=true&with_cast=true',
-            type: "GET",
-        }).fail(function (data) {
-            alertServerError();
-        }).done(function (data) {
-            var movieItem = '<li>' +
-                '<a href="/moviedetails/?id=' + data.data.movie.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + data.data.movie.medium_cover_image + '" width="80px"/></div>' +
-                '<div class="item-inner">' +
-                '<div class="item-title-row">' +
-                '<div class="item-title">' + data.data.movie.title_english + '</div>' +
-                '</div>' +
-                '<div class="item-subtitle">' + data.data.movie.year + '</div>' +
-                '<div class="item-text">' + data.data.movie.description_full + '</div>' +
-                '</div>' +
-                '</a>' +
-                '</li>';
-            $$("#favorite-movies").append(movieItem);
-            app.lazy.create("#favorite-movies");
+    getFavoriteParse.forEach(function (val) {
+        ajaxGet(baseUrl + 'movie_details.json?movie_id=' + val + '&with_images=true&with_cast=true', function (data) {
+            var template = document.getElementById('movie-item-favorite').innerHTML;
+            var compiledTemplate = Template7.compile(template);
+            var compiledRendered = compiledTemplate(data.data.movie);
+            $$('#favorite-movies').append(compiledRendered);
+            app.lazy.create('#favorite-movies');
         });
     });
 });
 
 $$(document).on('page:init', '.page[data-name="moviedetails"]', function (e, page) {
-    $$("#movide-details-holder").html("");
+    $$("#movie-detail-content").html("");
     $$("#movie-suggestions-holder").html("");
     var movieID = page.route.query.id;
     movieDetails(movieID);
     movieSuggestions(movieID);
 
     $$('.js-favorite').on('click', function () {
-        var movieID = $(this).data('id');
-        if ($(this).find('i').text() == 'favorite_border') {
+        var movieID = $$(this).data('id');
+        if ($$(this).find('i').text() == 'favorite_border') {
             addToFavorite(movieID);
-            $(this).find('i').text('favorite');
+            $$(this).find('i').text('favorite');
         } else {
             removeToFavorite(movieID);
-            $(this).find('i').text('favorite_border');
+            $$(this).find('i').text('favorite_border');
         }
     });
 });
@@ -429,7 +423,6 @@ $$(document).on('page:init', '.page[data-name="search"]', function (e) {
 $$(document).on('page:init', '.page[data-name="search-results"]', function (e, page) {
     if (isSingleSearch == true) {
         var movieNameSearch = (page.route.query.moviename);
-
         isSingleSearch = false;
         $('#searh-result-category').html('Search for: ' + '<span style="font-style: italic;">' + movieNameSearch + '<span>');
         searchSingle(movieNameSearch);
@@ -575,7 +568,7 @@ var currentTheme = localStorage.getItem('color-theme');
 if (currentTheme == null) {
     currentTheme = "color-theme-green";
 }
-$('body').removeClass();
+document.querySelector('body').removeAttribute('class');
 $$('body').addClass(currentTheme);
 
 var currentThemeDark = localStorage.getItem('color-theme-dark');
@@ -606,7 +599,6 @@ function isDarkTheme() {
 function homeMovies(type) {
 
     var urlType;
-
     if (type == "#latest") {
         urlType = baseUrl + 'list_movies.json';
     } else if (type == "#rated") {
@@ -615,29 +607,12 @@ function homeMovies(type) {
         urlType = baseUrl + 'list_movies.json?sort_by=download_count';
     }
 
-    $.ajax({
-        url: urlType,
-        type: "GET",
-    }).fail(function (data) {
-        alertServerError();
-    }).done(function (data) {
-        ;
-        $.each(data.data.movies, function (key, val) {
-            var movieItem = '<li>' +
-                '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
-                '<div class="item-inner">' +
-                '<div class="item-title-row">' +
-                '<div class="item-title">' + val.title_english + '</div>' +
-                '</div>' +
-                '<div class="item-subtitle">' + val.year + '</div>' +
-                '<div class="item-text">' + val.description_full + '</div>' +
-                '</div>' +
-                '</a>' +
-                '</li>';
-            app.lazy.create(type + "-movies");
-            $$(type + "-movies").append(movieItem);
-        });
+    ajaxGet(urlType, function (data) {
+        var template = document.getElementById('movie-item').innerHTML;
+        var compiledTemplate = Template7.compile(template);
+        var compiledRendered = compiledTemplate(data.data);
+        $$(type + '-movies').html(compiledRendered);
+        app.lazy.create(type + "-movies");
     });
 }
 
@@ -645,7 +620,6 @@ function homeMovies(type) {
 function qualityMovies(quality) {
 
     var qualityURL;
-
     if (quality == "#quality1") {
         qualityURL = baseUrl + 'list_movies.json?quality=720p';
     } else if (quality == "#quality2") {
@@ -653,281 +627,114 @@ function qualityMovies(quality) {
     } else if (quality == "#quality3") {
         qualityURL = baseUrl + 'list_movies.json?quality=3D';
     }
-    $.ajax({
-        url: qualityURL,
-        type: "GET",
-    }).fail(function (data) {
-        alertServerError();
-    }).done(function (data) {
-        $.each(data.data.movies, function (key, val) {
-            var movieItem = '<li>' +
-                '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
-                '<div class="item-inner">' +
-                '<div class="item-title-row">' +
-                '<div class="item-title">' + val.title_english + '</div>' +
-                '</div>' +
-                '<div class="item-subtitle">' + val.year + '</div>' +
-                '<div class="item-text">' + val.description_full + '</div>' +
-                '</div>' +
-                '</a>' +
-                '</li>';
-            app.lazy.create(quality + "-movies");
-            $$(quality + "-movies").append(movieItem);
-        });
+
+    ajaxGet(qualityURL, function (data) {
+        var template = document.getElementById('movie-item').innerHTML;
+        var compiledTemplate = Template7.compile(template);
+        var compiledRendered = compiledTemplate(data.data);
+        app.lazy.create(quality + "-movies");
+        $$(quality + '-movies').html(compiledRendered);
     });
 }
 
 // GENRE
 function genreMovies(genre) {
-    $.ajax({
-        url: baseUrl + 'list_movies.json?genre=' + genre + '',
-        type: "GET",
-    }).fail(function (data) {
-        alertServerError();
-    }).done(function (data) {
-        $.each(data.data.movies, function (key, val) {
-            var movieItem = '<li>' +
-                '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
-                '<div class="item-inner">' +
-                '<div class="item-title-row">' +
-                '<div class="item-title">' + val.title_english + '</div>' +
-                '</div>' +
-                '<div class="item-subtitle">' + val.year + '</div>' +
-                '<div class="item-text">' + val.description_full + '</div>' +
-                '</div>' +
-                '</a>' +
-                '</li>';
-            app.lazy.create("#" + genre + "-movies");
-            $$("#" + genre + "-movies").append(movieItem);
-        });
+    ajaxGet(baseUrl + 'list_movies.json?genre=' + genre + '', function (data) {
+        var template = document.getElementById('movie-item').innerHTML;
+        var compiledTemplate = Template7.compile(template);
+        var compiledRendered = compiledTemplate(data.data);
+        $$("#" + genre + '-movies').html(compiledRendered);
+        app.lazy.create("#" + genre + "-movies");
     });
 }
 
 // MOVIE SUGGESTION
 function movieSuggestions(id) {
-    $.ajax({
-        url: baseUrl + 'movie_suggestions.json?movie_id=' + id + '',
-        type: "GET",
-    }).fail(function (data) {
-        alertServerError();
-    }).done(function (data) {
-        $.each(data.data.movies, function (key, val) {
-            var movieSuggestionsItem = '<li>' +
-                '<a href="#" data-id="' + val.id + '" class="item-link item-content movieSuggestion">' +
-                '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
-                '<div class="item-inner">' +
-                '<div class="item-title-row">' +
-                '<div class="item-title">' + val.title_english + '</div>' +
-                '</div>' +
-                '<div class="item-subtitle">' + val.year + '</div>' +
-                '<div class="item-text">' + val.description_full + '</div>' +
-                '</div>' +
-                '</a>' +
-                '</li>';
-            app.lazy.create("#movie-suggestions-holder");
-            $$('#movie-suggestions-holder').append(movieSuggestionsItem);
-        });
-        $$('.movieSuggestion').on('click', function () {
-            var movieSuggestionID = $(this).attr("data-id");
-            $$("#movide-details-holder").html("");
+    ajaxGet(baseUrl + 'movie_suggestions.json?movie_id=' + id + '', function (data) {
+        var template = document.getElementById('movie-item').innerHTML;
+        var compiledTemplate = Template7.compile(template);
+        var compiledRendered = compiledTemplate(data.data);
+        $$('#movie-suggestions-holder').html(compiledRendered);
+        app.lazy.create("#movie-suggestions-holder");
+
+        $$('#movie-suggestions-holder .movie-item').on('click', function () {
+            var movieSuggestionID = $$(this).attr('data-id');
+            console.log(movieSuggestionID);
+            $$("#movie-detail-content").html("");
             $$("#movie-suggestions-holder").html("");
             movieDetails(movieSuggestionID);
             movieSuggestions(movieSuggestionID);
         });
-
     });
 }
 
 // MOVIE DETAILS
 function movieDetails(movieID) {
-    $.ajax({
-        url: baseUrl + 'movie_details.json?movie_id=' + movieID + '&with_images=true&with_cast=true',
-        type: "GET",
-    }).fail(function (data) {
-        alertServerError();
-    }).done(function (data) {
+    $$('#movie-detail-content').html();
+    var currentThemeForm = localStorage.getItem('color-theme-form');
+    if (currentThemeForm == null) {
+        currentThemeForm = "color-green";
+    }
+
+    ajaxGet(baseUrl + 'movie_details.json?movie_id=' + movieID + '&with_images=true&with_cast=true', function (data) {
+        var template = document.getElementById('movie-detail').innerHTML;
+        var compiledTemplate = Template7.compile(template);
+        var compiledRendered = compiledTemplate(data.data.movie);
+        $$('#movie-detail-content').html(compiledRendered);
+        app.lazy.create("#movie-detail-content");
+        $$('.chip').addClass(currentThemeForm);
         $$('.movie-title').text(data.data.movie.title);
-        $('.js-favorite').attr('data-id', data.data.movie.id);
+        $$('.js-favorite').attr('data-id', data.data.movie.id);
 
         var getFavorite = localStorage.getItem('favorites');
         var getFavoriteParse = JSON.parse(getFavorite);
-        $.each(getFavoriteParse, function (key, val) {
-            if (data.data.movie.id == val) {
-                $('.js-favorite').find('i').text('favorite');
-            }
-        });
-
-
-        var movieDetailsHolder = '<div class="card demo-card-header-pic">' +
-            '<div data-background=' + data.data.movie.large_cover_image + ' class="card-header align-items-flex-end lazy lazy-fade-in"></div>' +
-            '<div class="card-content card-content-padding">' +
-            '<p style="font-weight: bold;">' + data.data.movie.title + '</p>' +
-            '<p>' + data.data.movie.description_full + '</p>' +
-            '</div>' +
-            '</div>' +
-            '<div class="block-title">Cast</div>' +
-            '<div class="block block-strong" id="cast-holder">' +
-            '</div>' +
-            '<div class="block-title">Year</div>' +
-            '<p class="block block-strong">' + data.data.movie.year + '</p>' +
-            '<div class="block-title">Language</div>' +
-            '<p class="block block-strong">' + data.data.movie.language + '</p>' +
-            '<div class="block-title">MPA Rating</div>' +
-            '<p class="block block-strong">' + data.data.movie.mpa_rating + '</p>' +
-            '</div>' +
-            '<div class="block-title">MDB Rating</div>' +
-            '<p class="block block-strong">' + data.data.movie.rating + '</p>' +
-            '</div>' +
-            '<div class="block-title">Genres</div>' +
-            '<div class="block block-strong" id="genre-holder">' +
-            '</div>' +
-            '<div class="block-title">Torrent Download</div>' +
-            '<div class="block" id="download-holder">' +
-            '</div>' +
-            '</div>';
-        app.lazy.create("#movide-details-holder");
-        $$('#movide-details-holder').append(movieDetailsHolder);
-        $$('div.lazy').trigger('lazy');
-
-        var currentThemeForm = localStorage.getItem('color-theme-form');
-        if (currentThemeForm == null) {
-            currentThemeForm = "color-green";
-        }
-
-        $.each(data.data.movie.cast, function (key, val) {
-            var img = val.url_small_image;
-
-            if (img == "" || img == undefined) {
-                img = "img/default.png";
-            }
-
-
-            var movieCasts = '<div class="chip ' + currentThemeForm + '">' +
-                ' <div class="chip-media"><img src="' + img + '"/></div>' +
-                '<div class="chip-label">' + val.name + '</div>';
-            $$('#cast-holder').append(movieCasts);
-        });
-
-        $.each(data.data.movie.genres, function (key, val) {
-            var moviegenres = '<div class="chip ' + currentThemeForm + '">' +
-                '<div class="chip-label">' + val + '</div>';
-            $$('#genre-holder').append(moviegenres);
-        });
-
-        $.each(data.data.movie.torrents, function (key, val) {
-            var torrentList = '<div class="card demo-card-header-pic">' +
-                '<div class="card-content card-content-padding">' +
-                '<p class="date">Quality: ' + val.quality + '</p>' +
-                '<p>Seeds: ' + val.seeds + '</p>' +
-                '<p>Peers: ' + val.peers + '</p>' +
-                '<p>Size: ' + val.size + '</p>' +
-                '</div>' +
-                '<div class="card-footer"><a class="torrent-download link external" href="' + val.url + '" class="link">DOWNLOAD</a></div>' +
-                '</div>';
-            $$('#download-holder').append(torrentList);
-        });
-        $$('.torrent-download').on('click', function () {
-            var currentTheme = localStorage.getItem('color-theme');
-            var bgColorTheme;
-
-            if (currentTheme == "color-theme-orange") {
-                bgColorTheme = "#c66900";
-            } else if (currentTheme == "color-theme-gray") {
-                bgColorTheme = "#9e9e9e";
-            } else if (currentTheme == "color-theme-pink") {
-                bgColorTheme = "#b0003a";
-            } else if (currentTheme == "color-theme-blue") {
-                bgColorTheme = "#0069c0";
-            } else if (currentTheme == "color-theme-green") {
-                bgColorTheme = "#087f23";
-            } else if (currentTheme == "color-theme-red") {
-                bgColorTheme = "#ba000d";
-            } else {
-                bgColorTheme = "#087f23";
-            }
-            // var link = $(this).attr("href");
-            // var torrent = cordova.InAppBrowser.open(link, '_blank', 'location=yes,toolbarcolor=' + bgColorTheme + ',navigationbuttoncolor=#FFFFFF,closebuttoncolor=#FFFFFF');
-            // torrent.addEventListener('exit', loadExitCallBack);
-        });
-
-        function loadExitCallBack(params) {
-            mainView.router.navigate('/');
+        if (getFavoriteParse != null) {
+            getFavoriteParse.forEach(function (val) {
+                if (data.data.movie.id == val) {
+                    $$('.js-favorite').find('i').text('favorite');
+                }
+            });
         }
     });
 }
 
 // SEARCH SINGLE
 function searchSingle(movieNameSearch) {
-    $.ajax({
-        url: baseUrl + 'list_movies.json?query_term=' + movieNameSearch + '',
-        type: "GET",
-    }).fail(function (data) {
-        alertServerError();
-    }).done(function (data) {
-        $("#advancedsearch-movies").hide();
+    ajaxGet(baseUrl + 'list_movies.json?query_term=' + movieNameSearch + '', function (data) {
+        $$("#advancedsearch-movies").hide();
+        var template = $$('#movie-item').html();
+        var compiledTemplate = Template7.compile(template);
         if (data.data.movie_count > 0) {
-            $.each(data.data.movies, function (key, val) {
-                var simpleSearchHolder = '<li>' +
-                    '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                    '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
-                    '<div class="item-inner">' +
-                    '<div class="item-title-row">' +
-                    '<div class="item-title">' + val.title_english + '</div>' +
-                    '</div>' +
-                    '<div class="item-subtitle">' + val.year + '</div>' +
-                    '<div class="item-text">' + val.description_full + '</div>' +
-                    '</div>' +
-                    '</a>' +
-                    '</li>';
-                app.lazy.create("#simplesearch-movies");
-                $$('#simplesearch-movies').append(simpleSearchHolder);
-            });
-        } else {
+            var compiledRendered = compiledTemplate(data.data);
+            $$('#simplesearch-movies').html(compiledRendered);
+            app.lazy.create("#simplesearch-movies");
+        }
+        else {
             $$('#simplesearch-movies').append("<div class='block'><p style='text-align: center;padding: 10px;'>No result found</p></div>");
         }
-
     });
 }
 
 // SEARCH ADVANCED
 function searchAdvanced(movieQualitySearch, movieGenreSearch, movieRatingSearch, movieSortbySearch) {
-    $.ajax({
-        url: baseUrl + 'list_movies.json?quality=' + movieQualitySearch + '&genre=' + movieGenreSearch + '&minimum_rating=' + movieRatingSearch + '&sort_by=' + movieSortbySearch + '',
-        type: "GET",
-    }).fail(function (data) {
-        alertServerError();
-    }).done(function (data) {
-        $("#simplesearch-movies").hide();
+    ajaxGet(baseUrl + 'list_movies.json?quality=' + movieQualitySearch + '&genre=' + movieGenreSearch + '&minimum_rating=' + movieRatingSearch + '&sort_by=' + movieSortbySearch + '', function (data) {
+        $$("#simplesearch-movies").hide();
+        var template = $$('#movie-item').html();
+        var compiledTemplate = Template7.compile(template);
         if (data.data.movie_count > 0) {
-            $.each(data.data.movies, function (key, val) {
-                var advancedSearchHolder = '<li>' +
-                    '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                    '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
-                    '<div class="item-inner">' +
-                    '<div class="item-title-row">' +
-                    '<div class="item-title">' + val.title_english + '</div>' +
-                    '</div>' +
-                    '<div class="item-subtitle">' + val.year + '</div>' +
-                    '<div class="item-text">' + val.description_full + '</div>' +
-                    '</div>' +
-                    '</a>' +
-                    '</li>';
-                app.lazy.create("#advancedsearch-movies");
-                $$('#advancedsearch-movies').append(advancedSearchHolder);
-            });
-        } else {
-
+            var compiledRendered = compiledTemplate(data.data);
+            $$('#advancedsearch-movies').html(compiledRendered);
+            app.lazy.create("#advancedsearch-movies");
+        }
+        else {
             $$('#advancedsearch-movies').append("<div class='block'><p style='text-align: center;padding: 10px;'>No result found</p></div>");
         }
-
     });
 }
 
 // STATUS BAR COLOR
 function statusbarColor(colorName, colorHex) {
-    $('body').removeClass();
+    document.querySelector('body').removeAttribute('class');
     $$('body').addClass('color-theme-' + colorName + '');
     localStorage.setItem('color-theme', 'color-theme-' + colorName + '');
     localStorage.setItem('color-theme-form', 'color-' + colorName + '');
@@ -973,28 +780,12 @@ function infiniteScroll(element, counter, flag) {
             $$('.' + element + '-preloader').remove();
             return;
         }
-        $.ajax({
-            url: urlType,
-            type: "GET",
-        }).fail(function (data) {
-            alertServerError();
-        }).done(function (data) {
-            $.each(data.data.movies, function (key, val) {
-                var movieItem = '<li>' +
-                    '<a href="/moviedetails/?id=' + val.id + '" class="item-link item-content">' +
-                    '<div class="item-media"><img class="lazy lazy-fade-in" data-src="' + val.medium_cover_image + '" width="80px"/></div>' +
-                    '<div class="item-inner">' +
-                    '<div class="item-title-row">' +
-                    '<div class="item-title">' + val.title_english + '</div>' +
-                    '</div>' +
-                    '<div class="item-subtitle">' + val.year + '</div>' +
-                    '<div class="item-text">' + val.description_full + '</div>' +
-                    '</div>' +
-                    '</a>' +
-                    '</li>';
-                app.lazy.create('#' + element + "-movies");
-                $$('#' + element + "-movies").append(movieItem);
-            });
+        ajaxGet(urlType, function (data) {
+            var template = document.getElementById('movie-item').innerHTML;
+            var compiledTemplate = Template7.compile(template);
+            var compiledRendered = compiledTemplate(data.data);
+            app.lazy.create('#' + element + '-movies');
+            document.getElementById(+ element + '-movies').innerHTML = compiledRendered;
         });
         lastItemIndex = $$('#' + element + "-movies-wrapper ul li").length;
     }, 1000);
@@ -1006,11 +797,30 @@ function addToFavorite(id) {
     localStorage.setItem('favorites', JSON.stringify(favorites));
 }
 
-// REMOVE TO FAVORITEs
+// REMOVE TO FAVORITE
 function removeToFavorite(id) {
     var index = favorites.indexOf(id);
     if (index > -1) {
         favorites.splice(index, 1);
     }
     localStorage.setItem('favorites', JSON.stringify(favorites));
+}
+
+// GLOBAL AJAX GET
+function ajaxGet(url, callback) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            // console.log('responseText:' + xmlhttp.responseText);
+            try {
+                var data = JSON.parse(xmlhttp.responseText);
+            } catch (err) {
+                console.log(err.message + " in " + xmlhttp.responseText);
+                return;
+            }
+            callback(data);
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
 }

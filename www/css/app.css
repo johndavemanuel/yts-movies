@@ -17,11 +17,11 @@
 }
 
 
-#movide-details-holder .card {
+#movie-detail-content .card {
     box-shadow: none;
 }
 
-#movide-details-holder .card-header:after {
+#movie-detail-content .card-header:after {
     background-color: transparent;
 }
 

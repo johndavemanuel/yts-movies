@@ -4,7 +4,7 @@
     <description>
         YTS Movie Browser
     </description>
-    <author email="jdmanuel242@gmail.com" href="">
+    <author email="jdmanuel242@gmail.com" href="https://johndavemanuel.github.io">
         John Dave Manuel
     </author>
     <content src="index.html" />
@@ -16,15 +16,6 @@
     <plugin name="cordova-plugin-admobpro" spec="^2.35.3">
         <variable name="PLAY_SERVICES_VERSION" value="16.0.0" />
     </plugin>
-    <!--  <plugin name="cordova-admob-pro" source="npm">
-        <variable name="PLAY_SERVICES_VERSION" value="16.0.0" />
-    </plugin> -->
-    <!--  <plugin name="cordova-admob-sdk" spec="~0.13.1">
-        <variable name="PLAY_SERVICES_VERSION" value="11.6.0" />
-    </plugin> -->
-    <!--  <plugin name="cordova-plugin-admob-free" spec="0.25.0">
-        <variable name="ADMOB_APP_ID" value="&lt;ca-app-pub-5793280052328718~8290052827&gt;" />
-    </plugin> -->
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -59,9 +50,6 @@
         <splash platform="android" src="res/screen/android/drawable-port-xxhdpi-screen.png" density="xxhdpi" width="1600" height="960" orientation="portrait" />
         <splash platform="android" src="res/screen/android/drawable-port-xxxhdpi-screen.png" density="xxxhdpi" width="1920" height="1280" orientation="portrait" />
     </platform>
-<!--     <preference name="StatusBarOverlaysWebView" value="false" />
-    <preference name="StatusBarBackgroundColor" value="#FFFFFF" /> -->
-    <preference name="StatusBarStyle" value="lightcontent" />
     <preference name="android-build-tool" value="gradle" />
     <preference name="phonegap-version" value="cli-8.0.0" />
     <engine name="android" spec="~7.1.4" />
