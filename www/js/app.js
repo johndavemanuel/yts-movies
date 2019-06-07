@@ -365,7 +365,7 @@ $$(document).on('page:init', '.page[data-name="favorites"]', function (e, page) 
     }
     getFavoriteParse.forEach(function (val) {
         ajaxGet(baseUrl + 'movie_details.json?movie_id=' + val + '&with_images=true&with_cast=true', function (data) {
-            var template = document.getElementById('movie-item-favorite').innerHTML;
+            var template = $$('#movie-item-favorite').html();
             var compiledTemplate = Template7.compile(template);
             var compiledRendered = compiledTemplate(data.data.movie);
             $$('#favorite-movies').append(compiledRendered);
@@ -608,7 +608,7 @@ function homeMovies(type) {
     }
 
     ajaxGet(urlType, function (data) {
-        var template = document.getElementById('movie-item').innerHTML;
+        var template = $$('#movie-item').html();
         var compiledTemplate = Template7.compile(template);
         var compiledRendered = compiledTemplate(data.data);
         $$(type + '-movies').html(compiledRendered);
@@ -629,7 +629,7 @@ function qualityMovies(quality) {
     }
 
     ajaxGet(qualityURL, function (data) {
-        var template = document.getElementById('movie-item').innerHTML;
+        var template = $$('#movie-item').html();
         var compiledTemplate = Template7.compile(template);
         var compiledRendered = compiledTemplate(data.data);
         app.lazy.create(quality + "-movies");
@@ -640,7 +640,7 @@ function qualityMovies(quality) {
 // GENRE
 function genreMovies(genre) {
     ajaxGet(baseUrl + 'list_movies.json?genre=' + genre + '', function (data) {
-        var template = document.getElementById('movie-item').innerHTML;
+        var template = $$('#movie-item').html();
         var compiledTemplate = Template7.compile(template);
         var compiledRendered = compiledTemplate(data.data);
         $$("#" + genre + '-movies').html(compiledRendered);
@@ -651,7 +651,7 @@ function genreMovies(genre) {
 // MOVIE SUGGESTION
 function movieSuggestions(id) {
     ajaxGet(baseUrl + 'movie_suggestions.json?movie_id=' + id + '', function (data) {
-        var template = document.getElementById('movie-item').innerHTML;
+        var template = $$('#movie-item').html();
         var compiledTemplate = Template7.compile(template);
         var compiledRendered = compiledTemplate(data.data);
         $$('#movie-suggestions-holder').html(compiledRendered);
@@ -677,7 +677,7 @@ function movieDetails(movieID) {
     }
 
     ajaxGet(baseUrl + 'movie_details.json?movie_id=' + movieID + '&with_images=true&with_cast=true', function (data) {
-        var template = document.getElementById('movie-detail').innerHTML;
+        var template = $$('#movie-detail').html();
         var compiledTemplate = Template7.compile(template);
         var compiledRendered = compiledTemplate(data.data.movie);
         $$('#movie-detail-content').html(compiledRendered);
@@ -781,11 +781,11 @@ function infiniteScroll(element, counter, flag) {
             return;
         }
         ajaxGet(urlType, function (data) {
-            var template = document.getElementById('movie-item').innerHTML;
+            var template = $$('#movie-item').html();
             var compiledTemplate = Template7.compile(template);
             var compiledRendered = compiledTemplate(data.data);
             app.lazy.create('#' + element + '-movies');
-            document.getElementById(+ element + '-movies').innerHTML = compiledRendered;
+            $$('#' + element + '-movies').html(compiledRendered);
         });
         lastItemIndex = $$('#' + element + "-movies-wrapper ul li").length;
     }, 1000);

@@ -33,3 +33,9 @@ Browse different types of movie with details and download via torrent
 
 ## Android Installer
 [Android](https://github.com/johndavemanuel/yts-movies/tree/master/apk)
+
+---
+
+#### Notes
+- Uncomment `cordova.js` script when building.
+- You need a torrent client to download the movie, the app only provides torrent file of the movie.
