@@ -187,7 +187,25 @@
     <script id="movie-item" type="text/template">
         {{#each movies}}
             <li>
-                <a href="/moviedetails/?id={{id}}" data-id={{id}} class="item-link item-content movie-item">
+                <a href="/moviedetails/?id={{id}}" class="item-link item-content">
+                    <div class="item-media">
+                        <img class="lazy lazy-fade-in" data-src={{medium_cover_image}} width="80px">
+                    </div>
+                    <div class="item-inner">
+                        <div class="item-title-row">
+                            <div class="item-title">{{title_english}}</div>
+                        </div>
+                        <div class="item-subtitle">{{year}}</div>
+                        <div class="item-text">{{description_full}}</div>
+                    </div>
+                </a>
+            </li>
+        {{/each}}
+    </script>
+    <script id="movie-item-suggestions" type="text/template">
+        {{#each movies}}
+            <li>
+                <a href="#" data-id={{id}} class="item-link item-content  movie-item">
                     <div class="item-media">
                         <img class="lazy lazy-fade-in" data-src={{medium_cover_image}} width="80px">
                     </div>
@@ -203,7 +221,7 @@
         {{/each}}
     </script>
     <script id="movie-item-favorite" type="text/template">
-        <li>
+            <li>
                 <a href="/moviedetails/?id={{id}}" class="item-link item-content">
                     <div class="item-media">
                         <img class="lazy lazy-fade-in" data-src={{medium_cover_image}} width="80px">
@@ -223,15 +241,15 @@
             <div class="card-header align-items-flex-end lazy lazy-fade-in" data-background="{{large_cover_image}}">
             </div>
             <div class="card-content card-content-padding">
-                <p style="font-weight: bold;">{{title}}</p>
-                {{description_full}}
+                <b>{{title}}</b>
+                <p>{{description_full}}</p>
             </div>
             <div class="block-title">Cast</div>
             <div class="block block-strong">
             {{#each cast}}
                 <div class="chip">
                     <div class="chip-media"><img src="{{checkImage url_small_image}}"/></div>
-                    <div class="chip-label">{{name}}</div>
+                    <div class="chip-label">{{name}} as <i>{{character_name}}</i></div>
                 </div>
                 {{else}}
                 <p>No cast available</p>

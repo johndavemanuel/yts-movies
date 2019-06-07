@@ -424,7 +424,7 @@ $$(document).on('page:init', '.page[data-name="search-results"]', function (e, p
     if (isSingleSearch == true) {
         var movieNameSearch = (page.route.query.moviename);
         isSingleSearch = false;
-        $('#searh-result-category').html('Search for: ' + '<span style="font-style: italic;">' + movieNameSearch + '<span>');
+        $$('#searh-result-category').html('Search for: ' + '<span style="font-style: italic;">' + movieNameSearch + '<span>');
         searchSingle(movieNameSearch);
     }
 
@@ -440,7 +440,7 @@ $$(document).on('page:init', '.page[data-name="search-results"]', function (e, p
         advanceCat += '<p>' + 'Rating: ' + '<span class="advanccatlabel">' + movieRatingSearch + '</span>' + '<p>';
         advanceCat += '<p>' + 'Sort By: ' + '<span class="advanccatlabel">' + movieSortbySearch + '</span>' + '<p>';
 
-        $('#searh-result-category').append(advanceCat);
+        $$('#searh-result-category').append(advanceCat);
         searchAdvanced(movieQualitySearch, movieGenreSearch, movieRatingSearch, movieSortbySearch);
     }
 });
@@ -651,7 +651,7 @@ function genreMovies(genre) {
 // MOVIE SUGGESTION
 function movieSuggestions(id) {
     ajaxGet(baseUrl + 'movie_suggestions.json?movie_id=' + id + '', function (data) {
-        var template = $$('#movie-item').html();
+        var template = $$('#movie-item-suggestions').html();
         var compiledTemplate = Template7.compile(template);
         var compiledRendered = compiledTemplate(data.data);
         $$('#movie-suggestions-holder').html(compiledRendered);
@@ -659,7 +659,6 @@ function movieSuggestions(id) {
 
         $$('#movie-suggestions-holder .movie-item').on('click', function () {
             var movieSuggestionID = $$(this).attr('data-id');
-            console.log(movieSuggestionID);
             $$("#movie-detail-content").html("");
             $$("#movie-suggestions-holder").html("");
             movieDetails(movieSuggestionID);
@@ -670,7 +669,6 @@ function movieSuggestions(id) {
 
 // MOVIE DETAILS
 function movieDetails(movieID) {
-    $$('#movie-detail-content').html();
     var currentThemeForm = localStorage.getItem('color-theme-form');
     if (currentThemeForm == null) {
         currentThemeForm = "color-green";
@@ -685,6 +683,7 @@ function movieDetails(movieID) {
         $$('.chip').addClass(currentThemeForm);
         $$('.movie-title').text(data.data.movie.title);
         $$('.js-favorite').attr('data-id', data.data.movie.id);
+        $$('.js-favorite').find('i').text('favorite_border');
 
         var getFavorite = localStorage.getItem('favorites');
         var getFavoriteParse = JSON.parse(getFavorite);
