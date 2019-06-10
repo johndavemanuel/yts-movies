@@ -16,7 +16,6 @@
     color: black;
 }
 
-
 #movie-detail-content .card {
     box-shadow: none;
 }
@@ -108,6 +107,11 @@
 
 .text-center {
     text-align: center;
+}
+
+.ph-picture,
+.ph-item {
+    margin-bottom: 0px;
 }
 
 /*COLOR THEME RED*/

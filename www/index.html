@@ -24,6 +24,7 @@
     <title>YTS Movies App</title>
     <link rel="stylesheet" href="css/framework7.css">
     <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="css/placeholder-loading.min.css">
     <link rel="stylesheet" href="css/app.css">
 </head>
 
@@ -157,15 +158,15 @@
                     <div class="tabs">
                         <div class="page-content infinite-scroll-content-latest-movies ptr-content-latest-movies tab tab-active"
                             id="latest">
-                            <div class="list media-list" id="latest-movies-wrapper">
+                            <div class="list media-list" id="latest-movies-wrapper" data-include="placeholder.html">
                                 <ul id="latest-movies">
                                 </ul>
                             </div>
                             <div class="preloader infinite-scroll-preloader latest-preloader"></div>
                         </div>
-                        <div class="page-content infinite-scroll-content-rated-movies  ptr-content-rated-movies tab"
+                        <div class="page-content infinite-scroll-content-rated-movies ptr-content-rated-movies tab"
                             id="rated">
-                            <div class="list media-list" id="rated-movies-wrapper">
+                            <div class="list media-list" id="rated-movies-wrapper" data-include="placeholder.html">
                                 <ul id="rated-movies">
                                 </ul>
                             </div>
@@ -173,7 +174,7 @@
                         </div>
                         <div class="page-content infinite-scroll-content-download-movies ptr-content-download-movies tab"
                             id="download">
-                            <div class="list media-list" id="download-movies-wrapper">
+                            <div class="list media-list" id="download-movies-wrapper" data-include="placeholder.html">
                                 <ul id="download-movies">
                                 </ul>
                             </div>
@@ -221,7 +222,7 @@
         {{/each}}
     </script>
     <script id="movie-item-favorite" type="text/template">
-            <li>
+        <li>
                 <a href="/moviedetails/?id={{id}}" class="item-link item-content">
                     <div class="item-media">
                         <img class="lazy lazy-fade-in" data-src={{medium_cover_image}} width="80px">
