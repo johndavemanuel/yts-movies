@@ -25,12 +25,22 @@ var mainView = app.views.create('.view-main', {
 });
 
 // GLOBAL VARIABLES
-var baseUrl = 'https://yts.lt/api/v2/';
+const baseUrl = 'https://yts.lt/api/v2/';
 var isSingleSearch = false;
 var isAdvanceSearch = false;
 var favorites = [];
 
-// CUSTOM HELPERS
+// COMPILE TEMPLATES
+var movieItemTemplate = $$('#movie-item').html();
+var compiledMovieItemTemplate = Template7.compile(movieItemTemplate);
+
+var movieItemFavoriteTemplate = $$('#movie-item-favorite').html();
+var compiledMovieItemFavoriteTemplate = Template7.compile(movieItemFavoriteTemplate);
+
+var movieItemSuggestionTemplate = $$('#movie-item-suggestions').html();
+var compiledMovieItemSuggestionTemplate = Template7.compile(movieItemSuggestionTemplate);
+
+// HELPERS
 Template7.registerHelper('checkImage', function (obj) {
     if (obj == "" || obj == undefined) {
         return "img/default.png";
@@ -38,6 +48,26 @@ Template7.registerHelper('checkImage', function (obj) {
         return obj;
     }
 });
+
+Template7.registerHelper('checkContent', function (value, content) {
+    if (value == "" || value == undefined || value == null) {
+        return "No " + content;
+    } else {
+        return value;
+    }
+});
+
+// PARTIALS
+Template7.registerPartial('movie', '<div class="item-media">' +
+    '<img class="lazy lazy-fade-in" data-src={{medium_cover_image}} width="80px">' +
+    '</div>' +
+    '<div class="item-inner">' +
+    '<div class="item-title-row">' +
+    '<div class="item-title">{{title_english}}</div>' +
+    '</div>' +
+    '<div class="item-subtitle">{{year}}</div>' +
+    '<div class="item-text">{{description_full}}</div>' +
+    '</div>');
 
 $$(document).on('page:init', function (e) {
     $$('.ph-item').remove();
@@ -369,14 +399,14 @@ $$(document).on('page:init', '.page[data-name="favorites"]', function (e, page) 
     var getFavoriteParse = JSON.parse(getFavorite);
     if (getFavoriteParse == null || getFavoriteParse.length == 0) {
         $$("#favorite-movies-wrapper").prepend('<p class="text-center">You do not have favorites yet</p>');
-        setTimeout(function(){ $$('.ph-item').remove();}, 1000);
+        setTimeout(function () {
+            $$('.ph-item').remove();
+        }, 1000);
         return false;
     }
     getFavoriteParse.forEach(function (val) {
         ajaxGet(baseUrl + 'movie_details.json?movie_id=' + val + '&with_images=true&with_cast=true', function (data) {
-            var template = $$('#movie-item-favorite').html();
-            var compiledTemplate = Template7.compile(template);
-            var compiledRendered = compiledTemplate(data.data.movie);
+            var compiledRendered = compiledMovieItemFavoriteTemplate(data.data.movie);
             $$('#favorite-movies-wrapper .ph-item').remove();
             $$('#favorite-movies').append(compiledRendered);
             app.lazy.create('#favorite-movies');
@@ -617,9 +647,7 @@ function homeMovies(type) {
     }
 
     ajaxGet(urlType, function (data) {
-        var template = $$('#movie-item').html();
-        var compiledTemplate = Template7.compile(template);
-        var compiledRendered = compiledTemplate(data.data);
+        var compiledRendered = compiledMovieItemTemplate(data.data);
         $$(type + '-movies-wrapper .ph-item').remove();
         $$(type + '-movies').html(compiledRendered);
         app.lazy.create(type + "-movies");
@@ -639,9 +667,7 @@ function qualityMovies(quality) {
     }
 
     ajaxGet(qualityURL, function (data) {
-        var template = $$('#movie-item').html();
-        var compiledTemplate = Template7.compile(template);
-        var compiledRendered = compiledTemplate(data.data);
+        var compiledRendered = compiledMovieItemTemplate(data.data);
         $$(quality + '-movies-wrapper .ph-item').remove();
         $$(quality + '-movies').html(compiledRendered);
         app.lazy.create(quality + "-movies");
@@ -651,9 +677,7 @@ function qualityMovies(quality) {
 // GENRE
 function genreMovies(genre) {
     ajaxGet(baseUrl + 'list_movies.json?genre=' + genre + '', function (data) {
-        var template = $$('#movie-item').html();
-        var compiledTemplate = Template7.compile(template);
-        var compiledRendered = compiledTemplate(data.data);
+        var compiledRendered = compiledMovieItemTemplate(data.data);
         $$("#" + genre + '-movies-wrapper .ph-item').remove();
         $$("#" + genre + '-movies').html(compiledRendered);
         app.lazy.create("#" + genre + "-movies");
@@ -663,9 +687,7 @@ function genreMovies(genre) {
 // MOVIE SUGGESTION
 function movieSuggestions(id) {
     ajaxGet(baseUrl + 'movie_suggestions.json?movie_id=' + id + '', function (data) {
-        var template = $$('#movie-item-suggestions').html();
-        var compiledTemplate = Template7.compile(template);
-        var compiledRendered = compiledTemplate(data.data);
+        var compiledRendered = compiledMovieItemSuggestionTemplate(data.data);
         $$('#movie-suggestions-holder').html(compiledRendered);
         app.lazy.create("#movie-suggestions-holder");
 
@@ -713,10 +735,8 @@ function movieDetails(movieID) {
 function searchSingle(movieNameSearch) {
     ajaxGet(baseUrl + 'list_movies.json?query_term=' + movieNameSearch + '', function (data) {
         $$("#advancedsearch-movies").hide();
-        var template = $$('#movie-item').html();
-        var compiledTemplate = Template7.compile(template);
         if (data.data.movie_count > 0) {
-            var compiledRendered = compiledTemplate(data.data);
+            var compiledRendered = compiledMovieItemTemplate(data.data);
             $$('#simplesearch-movies').html(compiledRendered);
             app.lazy.create("#simplesearch-movies");
         } else {
@@ -729,10 +749,8 @@ function searchSingle(movieNameSearch) {
 function searchAdvanced(movieQualitySearch, movieGenreSearch, movieRatingSearch, movieSortbySearch) {
     ajaxGet(baseUrl + 'list_movies.json?quality=' + movieQualitySearch + '&genre=' + movieGenreSearch + '&minimum_rating=' + movieRatingSearch + '&sort_by=' + movieSortbySearch + '', function (data) {
         $$("#simplesearch-movies").hide();
-        var template = $$('#movie-item').html();
-        var compiledTemplate = Template7.compile(template);
         if (data.data.movie_count > 0) {
-            var compiledRendered = compiledTemplate(data.data);
+            var compiledRendered = compiledMovieItemTemplate(data.data);
             $$('#advancedsearch-movies').html(compiledRendered);
             app.lazy.create("#advancedsearch-movies");
         } else {
@@ -790,9 +808,7 @@ function infiniteScroll(element, counter, flag) {
             return;
         }
         ajaxGet(urlType, function (data) {
-            var template = $$('#movie-item').html();
-            var compiledTemplate = Template7.compile(template);
-            var compiledRendered = compiledTemplate(data.data);
+            var compiledRendered = compiledMovieItemTemplate(data.data);
             app.lazy.create('#' + element + '-movies');
             $$('#' + element + '-movies').append(compiledRendered);
         });

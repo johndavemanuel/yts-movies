@@ -189,16 +189,7 @@
         {{#each movies}}
             <li>
                 <a href="/moviedetails/?id={{id}}" class="item-link item-content">
-                    <div class="item-media">
-                        <img class="lazy lazy-fade-in" data-src={{medium_cover_image}} width="80px">
-                    </div>
-                    <div class="item-inner">
-                        <div class="item-title-row">
-                            <div class="item-title">{{title_english}}</div>
-                        </div>
-                        <div class="item-subtitle">{{year}}</div>
-                        <div class="item-text">{{description_full}}</div>
-                    </div>
+                    {{> "movie"}}
                 </a>
             </li>
         {{/each}}
@@ -206,36 +197,18 @@
     <script id="movie-item-suggestions" type="text/template">
         {{#each movies}}
             <li>
-                <a href="#" data-id={{id}} class="item-link item-content  movie-item">
-                    <div class="item-media">
-                        <img class="lazy lazy-fade-in" data-src={{medium_cover_image}} width="80px">
-                    </div>
-                    <div class="item-inner">
-                        <div class="item-title-row">
-                            <div class="item-title">{{title_english}}</div>
-                        </div>
-                        <div class="item-subtitle">{{year}}</div>
-                        <div class="item-text">{{description_full}}</div>
-                    </div>
+                <a href="#" data-id={{id}} class="item-link item-content movie-item">
+                    {{> "movie"}}
                 </a>
             </li>
         {{/each}}
     </script>
     <script id="movie-item-favorite" type="text/template">
         <li>
-                <a href="/moviedetails/?id={{id}}" class="item-link item-content">
-                    <div class="item-media">
-                        <img class="lazy lazy-fade-in" data-src={{medium_cover_image}} width="80px">
-                    </div>
-                    <div class="item-inner">
-                        <div class="item-title-row">
-                            <div class="item-title">{{title_english}}</div>
-                        </div>
-                        <div class="item-subtitle">{{year}}</div>
-                        <div class="item-text">{{description_full}}</div>
-                    </div>
-                </a>
-            </li>
+            <a href="/moviedetails/?id={{id}}" class="item-link item-content">
+                {{> "movie"}}
+            </a>
+        </li>
     </script>
     <script id="movie-detail" type="text/template">
         <div class="card demo-card-header-pic">
@@ -257,13 +230,13 @@
             {{/each}}
             </div>
             <div class="block-title">Year</div>
-            <p class="block block-strong">{{year}}</p>
+            <p class="block block-strong">{{checkContent year "year"}}</p>
             <div class="block-title">Language</div>
-            <p class="block block-strong">{{language}}</p>
+            <p class="block block-strong">{{checkContent language "Language"}}</p>
             <div class="block-title">MPA Rating</div>
-            <p class="block block-strong">{{mpa_rating}}</p>
+            <p class="block block-strong">{{checkContent mpa_rating "MPA Rating"}}</p>
             <div class="block-title">MDB Rating</div>
-            <p class="block block-strong">{{rating}}</p>
+            <p class="block block-strong">{{checkContent rating "MDB Rating"}}</p>
             <div class="block-title">Genres</div>
             <div class="block block-strong">
             {{#each genres}}
@@ -288,6 +261,8 @@
                         <a class="torrent-download link external" href="{{url}}">DOWNLOAD</a>
                     </div>
                 </div>
+                {{else}}
+                <p>No torrent available</p>
                 {{/each}}
             </div>
         </div>
