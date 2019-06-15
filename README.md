@@ -1,5 +1,5 @@
 # YTS Movies
-Phonegap App for browsing and downloading movies
+Hybrid app for browsing and downloading movies
 
 Browse different types of movie with details and download via torrent 
 
@@ -36,6 +36,6 @@ Browse different types of movie with details and download via torrent
 
 ---
 
-#### Notes
+## Notes
 - Uncomment `cordova.js` script when building.
 - You need a torrent client to download the movie, the app only provides torrent file of the movie.
