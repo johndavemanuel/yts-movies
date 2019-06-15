@@ -31,8 +31,8 @@ Browse different types of movie with details and download via torrent
 - Dark Mode
 - Theme Color
 
-## Android Installer
-[Android](https://github.com/johndavemanuel/yts-movies/tree/master/apk)
+## Installer
+[Android APK](https://github.com/johndavemanuel/yts-movies/tree/master/apk)
 
 ---
 
