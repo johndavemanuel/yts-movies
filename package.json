@@ -17,7 +17,7 @@
         "cordova-ios": "4.5.5",
         "cordova-plugin-admob-free": "0.25.0",
         "cordova-plugin-admobpro": "^2.35.3",
-        "cordova-plugin-email-composer": "^0.9.1",
+        "cordova-plugin-email-composer": "^0.9.2",
         "cordova-plugin-extension": "^1.5.4",
         "cordova-plugin-inappbrowser": "^3.0.0",
         "cordova-plugin-splashscreen": "^5.0.2",
