@@ -71,7 +71,7 @@ Template7.registerPartial('movie', '<div class="item-media">' +
 
 $$(document).on('page:init', function (e) {
     $$('.ph-item').remove();
-    includeHTML();
+    // includeHTML();
 });
 
 $$(document).on('page:reinit', function (e) {
