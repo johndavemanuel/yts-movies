@@ -11,7 +11,7 @@
     "license": "Apache-2.0",
     "dependencies": {
         "cordova-admob-sdk": "0.22.0",
-        "cordova-admobsdk": "^7.35.0",
+        "cordova-admobsdk": "^7.37.0",
         "cordova-android": "7.1.1",
         "cordova-browser": "^5.0.4",
         "cordova-ios": "4.5.5",
