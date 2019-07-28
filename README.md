@@ -1,7 +1,7 @@
 # YTS Movies
 Hybrid app for browsing and downloading movies
 
-Browse different types of movie with details and download via torrent 
+Browse different types of movie with details and download via torrent
 
 <p align="middle" float="left">
 <img src="https://github.com/johndavemanuel/yts-movies/blob/master/screenshots/yts-movies-1.jpg" width="300">
@@ -38,4 +38,5 @@ Browse different types of movie with details and download via torrent
 
 ## Notes
 - Uncomment `cordova.js` script when building.
-- You need a torrent client to download the movie, the app only provides torrent file of the movie.
+- You need a torrent client to download, the app only provides torrent file of the movie.
+- The app show banner and full screen ads on start.
