@@ -10,7 +10,7 @@
     "author": "John Dave Manuel",
     "license": "MIT",
     "dependencies": {
-        "cordova-admob-sdk": "0.22.0",
+        "cordova-admob-sdk": "0.24.1",
         "cordova-admobsdk": "^7.35.0",
         "cordova-android": "7.1.1",
         "cordova-plugin-admob-free": "0.25.0",
