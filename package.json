@@ -14,7 +14,7 @@
         "cordova-admobsdk": "^7.35.0",
         "cordova-android": "7.1.1",
         "cordova-plugin-admob-free": "0.25.0",
-        "cordova-plugin-admobpro": "^2.35.3",
+        "cordova-plugin-admobpro": "^2.37.2",
         "cordova-plugin-extension": "^1.5.4",
         "cordova-plugin-inappbrowser": "^3.0.0",
         "cordova-plugin-splashscreen": "^5.0.2",
