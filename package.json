@@ -1,14 +1,14 @@
 {
-    "name": "helloworld",
-    "displayName": "HelloCordova",
+    "name": "yts-movies",
+    "displayName": "YTS Movies",
     "version": "1.0.0",
-    "description": "A sample Apache Cordova application that responds to the deviceready event.",
+    "description": "Hybrid app for browsing and downloading movies using YTS API",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "author": "Apache Cordova Team",
-    "license": "Apache-2.0",
+    "author": "John Dave Manuel",
+    "license": "MIT",
     "dependencies": {
         "cordova-admob-sdk": "0.22.0",
         "cordova-admobsdk": "^7.35.0",
@@ -40,9 +40,7 @@
             }
         },
         "platforms": [
-            "android",
-            "ios",
-            "browser"
+            "android"
         ]
     }
 }

@@ -4,7 +4,7 @@ routes = [{
   },
   {
     path: '/moviedetails/',
-    url: './pages/moviedetails.html',
+    url: './pages/movie-details.html',
   },
   {
     path: '/favorites/',
@@ -24,7 +24,7 @@ routes = [{
   },
   {
     path: '/howto/',
-    url: './pages/howto.html',
+    url: './pages/how-to.html',
   },
   {
     path: '/quality/',

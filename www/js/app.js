@@ -820,6 +820,12 @@ function infiniteScroll(element, counter, flag) {
 function addToFavorite(id) {
     favorites.push(id);
     localStorage.setItem('favorites', JSON.stringify(favorites));
+    app.notification.create({
+        title: 'YTS Movies',
+        subtitle: 'Added to Favorites',
+        closeButton: true,
+        closeTimeout: 2000
+    }).open();
 }
 
 // REMOVE TO FAVORITE
@@ -829,6 +835,12 @@ function removeToFavorite(id) {
         favorites.splice(index, 1);
     }
     localStorage.setItem('favorites', JSON.stringify(favorites));
+    app.notification.create({
+        title: 'YTS Movies',
+        subtitle: 'Remove to Favorites',
+        closeButton: true,
+        closeTimeout: 2000
+    }).open();
 }
 
 // GLOBAL AJAX GET

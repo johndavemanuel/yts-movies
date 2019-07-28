@@ -267,7 +267,7 @@
             </div>
         </div>
     </script>
-    <!-- <script src="cordova.js"></script> -->
+    <script src="cordova.js"></script>
     <script src="js/framework7.js" type="text/javascript"></script>
     <script src="js/routes.js" type="text/javascript"></script>
     <script src="js/bundle-scrollup.js" type="text/javascript"></script>
@@ -296,7 +296,9 @@
             } else {
                 bgColorThemeStatusBar = "#087f23";
             }
+            StatusBar.overlaysWebView(false);
             StatusBar.backgroundColorByHexString(bgColorThemeStatusBar);
+            StatusBar.styleLightContent();
 
             var admobid = {}
 
@@ -321,9 +323,12 @@
                 AdMob.createBanner({
                     adId: admobid.banner,
                     position: AdMob.AD_POSITION.BOTTOM_CENTER,
-                    autoShow: true,
-                    success: function () {},
-                    error: function () {}
+                    autoShow: true
+                });
+
+                AdMob.prepareInterstitial({
+                    adId: admobid.interstitial,
+                    autoShow: true
                 });
             }
         }
